@@ -1,0 +1,214 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10000"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10000",
+          "balance": 45000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10001"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10001",
+          "balance": 60000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10002"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10002",
+          "balance": 55000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10003"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10003",
+          "balance": 70000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10004"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10004",
+          "balance": 80000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10005"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10005",
+          "balance": 62000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10006"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10006",
+          "balance": 48000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10007"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10007",
+          "balance": 53000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10008"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10008",
+          "balance": 58000
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10009"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10009",
+          "balance": 79000
+        }
+      }
+    }
+  ]
+}

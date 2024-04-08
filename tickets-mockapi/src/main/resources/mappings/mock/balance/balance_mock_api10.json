@@ -1,0 +1,294 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10000"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 5000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10000",
+          "balance": "55000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10001"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 6000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10001",
+          "balance": "66000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10002"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 7000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10002",
+          "balance": "62000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10003"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 8000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10003",
+          "balance": "78000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10004"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 9000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10004",
+          "balance": "89000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10005"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 10000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10005",
+          "balance": "72000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10006"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 11000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10006",
+          "balance": "59000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10007"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 12000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10007",
+          "balance": "61000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10008"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 13000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10008",
+          "balance": "73000"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/balances",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10009"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"transaction_type\": \"CHARGE\", \"amount\": 14000}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10009",
+          "balance": "83000"
+        }
+      }
+    }
+  ]
+}
