@@ -1,0 +1,142 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "urlPath": "/concerts/1001/seats",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "seats": [
+            {
+              "seat_no": "1",
+              "seat_name": "A01",
+              "price": 50000,
+              "status": "BOOKED"
+            },
+            {
+              "seat_no": "2",
+              "seat_name": "A02",
+              "price": 50000,
+              "status": "AVAILABLE"
+            },
+            {
+              "seat_no": "3",
+              "seat_name": "A03",
+              "price": 50000,
+              "status": "BOOKED"
+            },
+            {
+              "seat_no": "4",
+              "seat_name": "A04",
+              "price": 100000,
+              "status": "AVAILABLE"
+            },
+            {
+              "seat_no": "5",
+              "seat_name": "A05",
+              "price": 100000,
+              "status": "PAID"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPath": "/concerts/1002/seats",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "seats": [
+            {
+              "seat_no": "1",
+              "seat_name": "A01",
+              "price": 50000,
+              "status": "AVAILABLE"
+            },
+            {
+              "seat_no": "2",
+              "seat_name": "A02",
+              "price": 50000,
+              "status": "PAID"
+            },
+            {
+              "seat_no": "3",
+              "seat_name": "A03",
+              "price": 50000,
+              "status": "AVAILABLE"
+            },
+            {
+              "seat_no": "4",
+              "seat_name": "A04",
+              "price": 100000,
+              "status": "BOOKED"
+            },
+            {
+              "seat_no": "5",
+              "seat_name": "A05",
+              "price": 100000,
+              "status": "PAID"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPath": "/concerts/1003/seats",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "seats": [
+            {
+              "seat_no": "1",
+              "seat_name": "A01",
+              "price": 50000,
+              "status": "PAID"
+            },
+            {
+              "seat_no": "2",
+              "seat_name": "A02",
+              "price": 50000,
+              "status": "BOOKED"
+            },
+            {
+              "seat_no": "3",
+              "seat_name": "A03",
+              "price": 50000,
+              "status": "PAID"
+            },
+            {
+              "seat_no": "4",
+              "seat_name": "A04",
+              "price": 100000,
+              "status": "AVAILABLE"
+            },
+            {
+              "seat_no": "5",
+              "seat_name": "A05",
+              "price": 100000,
+              "status": "BOOKED"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

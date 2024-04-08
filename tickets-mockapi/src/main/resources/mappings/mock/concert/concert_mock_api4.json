@@ -1,0 +1,115 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "urlPathPattern": "/concerts/schedules",
+        "method": "GET",
+        "queryParameters": {
+          "start_date": {
+            "equalTo": "2024-04-10"
+          },
+          "end_date": {
+            "equalTo": "2024-04-25"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "concerts": [
+            {
+              "id": "1001",
+              "concert_name": "Example Concert",
+              "artist_name": "Singer1",
+              "concert_date": "2024-04-10",
+              "venue": "Concert Hall 1"
+            },
+            {
+              "id": "1002",
+              "concert_name": "Another Concert",
+              "artist_name": "Singer2",
+              "concert_date": "2024-04-12",
+              "venue": "Concert Hall 2"
+            },
+            {
+              "id": "1003",
+              "concert_name": "Special Event",
+              "artist_name": "Singer3",
+              "concert_date": "2024-04-15",
+              "venue": "Special Venue"
+            },
+            {
+              "id": "1004",
+              "concert_name": "Summer Festival",
+              "artist_name": "Band1",
+              "concert_date": "2024-04-20",
+              "venue": "Outdoor Stadium"
+            },
+            {
+              "id": "1005",
+              "concert_name": "Holiday Concert",
+              "artist_name": "Singer4",
+              "concert_date": "2024-04-25",
+              "venue": "Concert Hall 3"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/concerts/schedules",
+        "method": "GET",
+        "queryParameters": {
+          "start_date": {
+            "equalTo": "2024-05-01"
+          },
+          "end_date": {
+            "equalTo": "2024-05-15"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "concerts": [
+            {
+              "id": "1006",
+              "concert_name": "Classic Concert",
+              "artist_name": "Orchestra1",
+              "concert_date": "2024-05-01",
+              "venue": "Symphony Hall"
+            },
+            {
+              "id": "1007",
+              "concert_name": "Rock Concert",
+              "artist_name": "Band2",
+              "concert_date": "2024-05-05",
+              "venue": "Arena"
+            },
+            {
+              "id": "1008",
+              "concert_name": "Jazz Night",
+              "artist_name": "Jazz Band",
+              "concert_date": "2024-05-10",
+              "venue": "Jazz Club"
+            },
+            {
+              "id": "1009",
+              "concert_name": "Pop Concert",
+              "artist_name": "Singer5",
+              "concert_date": "2024-05-15",
+              "venue": "Pop Venue"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
