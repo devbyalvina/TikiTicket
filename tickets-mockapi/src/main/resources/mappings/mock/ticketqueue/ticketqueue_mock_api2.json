@@ -1,0 +1,294 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10000"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"ACTIVE\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10000",
+          "status": "ACTIVE"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10001"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"INACTIVE\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10001",
+          "status": "INACTIVE"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10002"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"WAITING\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10002",
+          "status": "WAITING"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10003"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"ACTIVE\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10003",
+          "status": "ACTIVE"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10004"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"INACTIVE\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10004",
+          "status": "INACTIVE"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10005"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"WAITING\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10005",
+          "status": "WAITING"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10006"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"ACTIVE\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10006",
+          "status": "ACTIVE"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10007"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"INACTIVE\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10007",
+          "status": "INACTIVE"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10008"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"WAITING\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10008",
+          "status": "WAITING"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/ticket-queue/tokens/status",
+        "method": "PATCH",
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10009"
+          }
+        },
+        "bodyPatterns": [
+          {
+            "equalToJson": "{\"status\": \"ACTIVE\"}"
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "user_id": "10009",
+          "status": "ACTIVE"
+        }
+      }
+    }
+  ]
+}
