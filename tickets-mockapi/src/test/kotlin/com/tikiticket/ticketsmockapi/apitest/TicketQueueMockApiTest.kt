@@ -77,7 +77,7 @@ class TicketQueueMockApiTest {
 
         val restTemplate = TestRestTemplate()
         val result: ResponseEntity<Map<String, Any>> = restTemplate.exchange(
-            "$tikitiketUrl/tickets/ticket-queue/positions",
+            "$tikitiketUrl/ticket-queue/positions",
             HttpMethod.GET,
             requestEntity,
             object : ParameterizedTypeReference<Map<String, Any>>() {}

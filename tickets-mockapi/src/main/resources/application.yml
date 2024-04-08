@@ -2,7 +2,7 @@ server:
   port: 8080
 
 tikitiket:
-  url: http://localhost:${wiremock.server.port}
+  url: http://localhost:${wiremock.server.port}/tickets
 wiremock:
   server:
     port: 8089

@@ -2,7 +2,7 @@
   "mappings": [
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -25,7 +25,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -48,7 +48,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -71,7 +71,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -94,7 +94,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -117,7 +117,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -140,7 +140,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -163,7 +163,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -186,7 +186,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
@@ -209,7 +209,7 @@
     },
     {
       "request": {
-        "urlPathPattern": "/tickets/ticket-queue/positions",
+        "urlPathPattern": "/ticket-queue/positions",
         "method": "GET",
         "headers": {
           "User-Id": {
