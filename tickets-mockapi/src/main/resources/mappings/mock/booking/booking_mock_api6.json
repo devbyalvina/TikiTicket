@@ -1,0 +1,354 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "1"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10000"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700001,
+          "booking_status": "BOOKED",
+          "concert_id": 1001,
+          "concert_name": "Example Concert",
+          "concert_date": "2024-04-10",
+          "seat_no": 1,
+          "ticket_price": 50000,
+          "booked_at": "2024-04-07T10:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "2"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10001"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700002,
+          "booking_status": "BOOKED",
+          "concert_id": 1002,
+          "concert_name": "Sample Concert",
+          "concert_date": "2024-04-15",
+          "seat_no": 2,
+          "ticket_price": 60000,
+          "booked_at": "2024-04-07T11:00:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "3"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10002"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700003,
+          "booking_status": "BOOKED",
+          "concert_id": 1003,
+          "concert_name": "Concert Example",
+          "concert_date": "2024-04-20",
+          "seat_no": 3,
+          "ticket_price": 70000,
+          "booked_at": "2024-04-07T11:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "4"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10003"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700004,
+          "booking_status": "BOOKED",
+          "concert_id": 1004,
+          "concert_name": "Test Concert",
+          "concert_date": "2024-04-25",
+          "seat_no": 4,
+          "ticket_price": 80000,
+          "booked_at": "2024-04-07T12:00:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "5"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10004"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700005,
+          "booking_status": "BOOKED",
+          "concert_id": 1005,
+          "concert_name": "Demo Concert",
+          "concert_date": "2024-04-30",
+          "seat_no": 5,
+          "ticket_price": 90000,
+          "booked_at": "2024-04-07T12:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "6"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10005"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700006,
+          "booking_status": "BOOKED",
+          "concert_id": 1006,
+          "concert_name": "Live Concert",
+          "concert_date": "2024-05-05",
+          "seat_no": 6,
+          "ticket_price": 100000,
+          "booked_at": "2024-04-07T13:00:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "7"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10006"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700007,
+          "booking_status": "BOOKED",
+          "concert_id": 1007,
+          "concert_name": "Concert Hall",
+          "concert_date": "2024-05-10",
+          "seat_no": 7,
+          "ticket_price": 110000,
+          "booked_at": "2024-04-07T13:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "8"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10007"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700008,
+          "booking_status": "BOOKED",
+          "concert_id": 1008,
+          "concert_name": "Symphony Concert",
+          "concert_date": "2024-05-15",
+          "seat_no": 8,
+          "ticket_price": 120000,
+          "booked_at": "2024-04-07T14:00:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "9"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10008"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700009,
+          "booking_status": "BOOKED",
+          "concert_id": 1009,
+          "concert_name": "Rock Concert",
+          "concert_date": "2024-05-20",
+          "seat_no": 9,
+          "ticket_price": 130000,
+          "booked_at": "2024-04-07T14:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings",
+        "method": "PATCH",
+        "queryParameters": {
+          "seat_no": {
+            "equalTo": "10"
+          }
+        },
+        "headers": {
+          "Content-Type": {
+            "equalTo": "application/json"
+          },
+          "User-Id": {
+            "equalTo": "10009"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700010,
+          "booking_status": "BOOKED",
+          "concert_id": 1010,
+          "concert_name": "Pop Concert",
+          "concert_date": "2024-05-25",
+          "seat_no": 10,
+          "ticket_price": 140000,
+          "booked_at": "2024-04-07T15:00:00"
+        }
+      }
+    }
+  ]
+}

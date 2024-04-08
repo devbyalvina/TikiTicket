@@ -1,0 +1,279 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700001",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10000"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700001,
+          "booking_status": "BOOKED",
+          "concert_id": 1001,
+          "concert_name": "Example Concert",
+          "concert_date": "2024-04-10",
+          "seat_no": 1,
+          "ticket_price": 50000,
+          "booked_at": "2024-04-07T10:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700002",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10001"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700002,
+          "booking_status": "PAID",
+          "concert_id": 1002,
+          "concert_name": "Another Concert",
+          "concert_date": "2024-04-12",
+          "seat_no": 3,
+          "ticket_price": 60000,
+          "booked_at": "2024-04-07T11:00:00",
+          "paid_at": "2024-04-07T11:01:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700003",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10002"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700003,
+          "booking_status": "BOOKED",
+          "concert_id": 1003,
+          "concert_name": "Special Event",
+          "concert_date": "2024-04-15",
+          "seat_no": 5,
+          "ticket_price": 70000,
+          "booked_at": "2024-04-07T11:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700004",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10003"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700004,
+          "booking_status": "PAID",
+          "concert_id": 1004,
+          "concert_name": "Summer Festival",
+          "concert_date": "2024-04-20",
+          "seat_no": 7,
+          "ticket_price": 80000,
+          "booked_at": "2024-04-07T12:00:00",
+          "paid_at": "2024-04-07T12:01:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700005",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10004"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700005,
+          "booking_status": "BOOKED",
+          "concert_id": 1005,
+          "concert_name": "Holiday Concert",
+          "concert_date": "2024-04-25",
+          "seat_no": 9,
+          "ticket_price": 90000,
+          "booked_at": "2024-04-07T12:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700006",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10005"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700006,
+          "booking_status": "PAID",
+          "concert_id": 1006,
+          "concert_name": "Classic Concert",
+          "concert_date": "2024-04-28",
+          "seat_no": 11,
+          "ticket_price": 100000,
+          "booked_at": "2024-04-07T13:00:00",
+          "paid_at": "2024-04-07T13:01:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700007",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10006"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700007,
+          "booking_status": "BOOKED",
+          "concert_id": 1007,
+          "concert_name": "Rock Concert",
+          "concert_date": "2024-05-01",
+          "seat_no": 13,
+          "ticket_price": 110000,
+          "booked_at": "2024-04-07T13:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700008",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10007"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700008,
+          "booking_status": "PAID",
+          "concert_id": 1008,
+          "concert_name": "Jazz Night",
+          "concert_date": "2024-05-05",
+          "seat_no": 15,
+          "ticket_price": 120000,
+          "booked_at": "2024-04-07T14:00:00",
+          "paid_at": "2024-04-07T14:01:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700009",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10008"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700009,
+          "booking_status": "BOOKED",
+          "concert_id": 1009,
+          "concert_name": "Pop Concert",
+          "concert_date": "2024-05-10",
+          "seat_no": 17,
+          "ticket_price": 130000,
+          "booked_at": "2024-04-07T14:30:00"
+        }
+      }
+    },
+    {
+      "request": {
+        "urlPathPattern": "/bookings/2024040700010",
+        "method": "GET",
+        "headers": {
+          "User-Id": {
+            "equalTo": "10009"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "booking_no": 2024040700010,
+          "booking_status": "PAID",
+          "concert_id": 1010,
+          "concert_name": "Folk Festival",
+          "concert_date": "2024-05-15",
+          "seat_no": 19,
+          "ticket_price": 140000,
+          "booked_at": "2024-04-07T15:00:00",
+          "paid_at": "2024-04-07T15:01:00"
+        }
+      }
+    }
+  ]
+}
