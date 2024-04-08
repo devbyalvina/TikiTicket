@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+tikitiket:
+  url: http://localhost:${wiremock.server.port}
+wiremock:
+  server:
+    port: 8089
