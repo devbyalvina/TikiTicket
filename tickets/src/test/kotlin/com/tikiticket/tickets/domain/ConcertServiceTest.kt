@@ -5,6 +5,8 @@ import com.tikiticket.tickets.concert.domain.ConcertRepository
 import com.tikiticket.tickets.concert.domain.ConcertService
 import com.tikiticket.tickets.concert.domain.exception.ConcertError
 import com.tikiticket.tickets.concert.domain.exception.ConcertException
+import com.tikiticket.tickets.concert.domain.model.ConcertSeat
+import com.tikiticket.tickets.concert.domain.model.seatStatusType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
@@ -26,6 +28,7 @@ class ConcertServiceTest {
 
     /**
      * API.4. 콘서트 스케줄 목록 조회
+     * [Test 4-1] Success
      */
     @Test
     fun `날짜 조건으로 콘서트 스케줄 목록을 조회한다`() {
@@ -73,6 +76,7 @@ class ConcertServiceTest {
 
     /**
      * API.4. 콘서트 스케줄 목록 조회
+     * [Test 4-2] Fail - 콘서트 스케줄 목록 결과가 없는 경우 예외 처리
      */
     @Test
     fun `날짜 조건에 맞는 콘서트가 없으면 예외를 반환한다`() {
@@ -90,4 +94,80 @@ class ConcertServiceTest {
         assertEquals(ConcertError.CONCERT_NOT_FOUND, exception.error)
     }
 
+    /**
+     * API.5. 콘서트 좌석 목록 조회
+     * [Test 5-1] Success
+     */
+    @Test
+    fun `콘서트 ID를 입력 받아 콘서트 좌석 목록을 조회한다`() {
+        // Given
+        val concertId = 1L
+        val concertSeats = listOf(
+            ConcertSeat(concertId, 1, seatStatusType.AVAILABLE, 10000, LocalDateTime.now(), LocalDateTime.now()),
+            ConcertSeat(concertId, 2, seatStatusType.BOOKED, 10000, LocalDateTime.now(), LocalDateTime.now())
+        )
+        val concert = Concert(
+            id = concertId,
+            concertName = "콘서트 1",
+            artistName = "가수 1",
+            concertDate = LocalDateTime.of(2024, 4, 15, 19, 0),
+            venue = "장소 1",
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now(),
+            seats = concertSeats
+        )
+        given(concertRepository.findByIdWithSeats(concertId)).willReturn(concert)
+
+        // When
+        val result = concertService.getConcertWithSeatsById(concertId)
+
+        // Then
+        assertEquals(concert, result)
+    }
+
+    /**
+     * API.5. 콘서트 좌석 목록 조회
+     * [Test 5-2] Fail - 콘서트 결과가 없는 경우 예외 처리
+     */
+    @Test
+    fun `콘서트 ID에 대한 콘서트 결과가 없는 경우 예외를 반환한다`() {
+        // Given
+        val concertId = 1L
+        given(concertRepository.findByIdWithSeats(concertId)).willReturn(null)
+
+        // When, Then
+        assertFailsWith<ConcertException> {
+            concertService.getConcertWithSeatsById(concertId)
+        }.let { exception ->
+            assertEquals(ConcertError.CONCERT_NOT_FOUND, exception.error)
+        }
+    }
+
+    /**
+     * API.5. 콘서트 좌석 목록 조회
+     * [Test 5-3] Fail - 콘서트 좌석 목록 결과가 없는 경우 예외 처리
+     */
+    @Test
+    fun `t콘서트 ID에 대한 콘서트 좌석 목록 결과가 없는 경우 예외를 반환한다`() {
+        // Given
+        val concertId = 1L
+        val concert = Concert(
+            id = concertId,
+            concertName = "콘서트 1",
+            artistName = "가수 1",
+            concertDate = LocalDateTime.of(2024, 4, 15, 19, 0),
+            venue = "장소 1",
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now(),
+            seats = null
+        )
+        given(concertRepository.findByIdWithSeats(concertId)).willReturn(concert)
+
+        // When, Then
+        assertFailsWith<ConcertException> {
+            concertService.getConcertWithSeatsById(concertId)
+        }.let { exception ->
+            assertEquals(ConcertError.CONCERT_SEATS_NOT_FOUND, exception.error)
+        }
+    }
 }
