@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.concert.domain.exception
+package com.tikiticket.tickets.concert.application.exception
 
 class ConcertException: RuntimeException {
     var error: ConcertError
