@@ -1,5 +1,6 @@
 package com.tikiticket.tickets.concert.domain
 
+import com.tikiticket.tickets.concert.domain.model.ConcertSeat
 import java.time.LocalDateTime
 
 data class Concert(
@@ -9,5 +10,6 @@ data class Concert(
     val concertDate: LocalDateTime,
     val venue: String,
     val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val updatedAt: LocalDateTime,
+    val seats: List<ConcertSeat>?
 )

@@ -1,10 +1,10 @@
 package com.tikiticket.tickets.domain
 
 import com.tikiticket.tickets.concert.domain.Concert
+import com.tikiticket.tickets.concert.domain.ConcertRepository
 import com.tikiticket.tickets.concert.domain.ConcertService
 import com.tikiticket.tickets.concert.domain.exception.ConcertError
 import com.tikiticket.tickets.concert.domain.exception.ConcertException
-import com.tikiticket.tickets.concert.domain.repository.ConcertRepository
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
@@ -40,7 +40,8 @@ class ConcertServiceTest {
                 concertDate = LocalDateTime.of(2024, 4, 5, 18, 0),
                 venue = "장소 1",
                 createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now()
+                updatedAt = LocalDateTime.now(),
+                seats = null
             ),
             Concert(
                 id = 2,
@@ -49,7 +50,8 @@ class ConcertServiceTest {
                 concertDate = LocalDateTime.of(2024, 4, 8, 19, 0),
                 venue = "장소 2",
                 createdAt = LocalDateTime.now(),
-                updatedAt = LocalDateTime.now()
+                updatedAt = LocalDateTime.now(),
+                seats = null
             )
         )
         given(concertRepository.findConcertsByDateRange(startDate, endDate)).willReturn(concerts)
@@ -87,4 +89,5 @@ class ConcertServiceTest {
         // Then
         assertEquals(ConcertError.CONCERT_NOT_FOUND, exception.error)
     }
+
 }
