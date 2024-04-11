@@ -1,6 +1,5 @@
-package com.tikiticket.tickets.concert.domain.repository
+package com.tikiticket.tickets.concert.domain
 
-import com.tikiticket.tickets.concert.domain.Concert
 import java.time.LocalDate
 
 interface ConcertRepository {
