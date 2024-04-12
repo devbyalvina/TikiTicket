@@ -19,7 +19,7 @@ class ConcertService (
      *  API.5. 콘서트 좌석 목록 조회
      */
     fun getConcertWithSeatsById(concertId: Long): Concert? {
-        val concert = concertRepository.findByIdWithSeats(concertId)
+        val concert = concertRepository.findConcertWithSeatsById(concertId)
         return concert
     }
 }

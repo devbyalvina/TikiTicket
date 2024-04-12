@@ -11,5 +11,5 @@ interface ConcertRepository {
     /**
      *  API.4. 콘서트 좌석 목록 조회
      */
-    fun findByIdWithSeats(concertId: Long): Concert?
+    fun findConcertWithSeatsById(concertId: Long): Concert?
 }
