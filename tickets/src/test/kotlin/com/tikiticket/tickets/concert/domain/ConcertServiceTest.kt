@@ -52,7 +52,7 @@ class ConcertServiceTest {
         given(concertRepository.findConcertsByDateRange(startDate, endDate)).willReturn(concerts)
 
         // When
-        val result = concertService.getConcertsByDateRange(startDate, endDate)
+        val result = concertService.findConcertsByDateRange(startDate, endDate)
 
         // Then
         assertEquals(2, result?.size)
@@ -91,7 +91,7 @@ class ConcertServiceTest {
         given(concertRepository.findConcertWithSeatsById(concertId)).willReturn(concert)
 
         // When
-        val result = concertService.getConcertWithSeatsById(concertId)
+        val result = concertService.findConcertWithSeatsById(concertId)
 
         // Then
         assertEquals(concert, result)
