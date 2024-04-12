@@ -14,8 +14,8 @@ data class Booking (
     val searNo: Long,
     val ticketPrice: Long,
     val bookedAt: LocalDateTime,
-    val paidAt: LocalDateTime,
-    val expiredAt: LocalDateTime,
+    val paidAt: LocalDateTime?,
+    val expiredAt: LocalDateTime?,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )
