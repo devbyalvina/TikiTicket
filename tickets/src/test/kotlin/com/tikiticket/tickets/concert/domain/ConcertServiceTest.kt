@@ -1,8 +1,5 @@
-package com.tikiticket.tickets.domain
+package com.tikiticket.tickets.concert.domain
 
-import com.tikiticket.tickets.concert.domain.Concert
-import com.tikiticket.tickets.concert.domain.ConcertRepository
-import com.tikiticket.tickets.concert.domain.ConcertService
 import com.tikiticket.tickets.concert.domain.model.ConcertSeat
 import com.tikiticket.tickets.concert.domain.model.seatStatusType
 import org.junit.jupiter.api.Test
@@ -93,7 +90,7 @@ class ConcertServiceTest {
             updatedAt = LocalDateTime.now(),
             seats = concertSeats
         )
-        given(concertRepository.findByIdWithSeats(concertId)).willReturn(concert)
+        given(concertRepository.findConcertWithSeatsById(concertId)).willReturn(concert)
 
         // When
         val result = concertService.getConcertWithSeatsById(concertId)
