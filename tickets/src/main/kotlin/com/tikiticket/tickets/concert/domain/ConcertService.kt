@@ -8,7 +8,7 @@ class ConcertService (
     private val concertRepository: ConcertRepository
 ){
     /**
-     *  API.4. 콘서트 스케줄 목록 조회
+     *  콘서트 스케줄 목록 조회
      */
     fun getConcertsByDateRange(startDate: LocalDate, endDate: LocalDate): List<Concert>? {
         val concerts = concertRepository.findConcertsByDateRange(startDate, endDate)
@@ -16,7 +16,7 @@ class ConcertService (
     }
 
     /**
-     *  API.5. 콘서트 좌석 목록 조회
+     *  콘서트 좌석 목록 조회
      */
     fun getConcertWithSeatsById(concertId: Long): Concert? {
         val concert = concertRepository.findConcertWithSeatsById(concertId)
