@@ -75,8 +75,8 @@ class ConcertServiceTest {
         // Given
         val concertId = 1L
         val concertSeats = listOf(
-            ConcertSeat(concertId, 1, seatStatusType.AVAILABLE, 10000, LocalDateTime.now(), LocalDateTime.now()),
-            ConcertSeat(concertId, 2, seatStatusType.BOOKED, 10000, LocalDateTime.now(), LocalDateTime.now())
+            ConcertSeat(concertId, 1, SeatStatusType.AVAILABLE, 10000, LocalDateTime.now(), LocalDateTime.now()),
+            ConcertSeat(concertId, 2, SeatStatusType.BOOKED, 10000, LocalDateTime.now(), LocalDateTime.now())
         )
         val concert = Concert(
             id = concertId,

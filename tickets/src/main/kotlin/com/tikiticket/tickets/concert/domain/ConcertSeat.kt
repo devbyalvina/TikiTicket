@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 data class ConcertSeat (
     val concertId: Long,
     val seatNo: Long,
-    val seatStatus: seatStatusType,
+    val seatStatus: SeatStatusType,
     val ticketPrice: Long,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
@@ -17,6 +17,6 @@ data class ConcertSeat (
  * - BOOKED : 예약
  * - PAID : 결제완료
  */
-enum class seatStatusType {
+enum class SeatStatusType {
     AVAILABLE, BOOKED, PAID
 }
