@@ -2,6 +2,8 @@ package com.tikiticket.tickets.balance.application
 
 import com.tikiticket.tickets.balance.application.exception.BalanceValidator
 import com.tikiticket.tickets.balance.domain.Balance
+import com.tikiticket.tickets.balance.domain.BalanceHistory
+import com.tikiticket.tickets.balance.domain.BalanceHistoryService
 import com.tikiticket.tickets.balance.domain.BalanceService
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Component
@@ -12,7 +14,8 @@ import java.time.LocalDateTime
  */
 @Component
 class ChangeBalanceUseCase (
-    private val balanceService: BalanceService
+    private val balanceService: BalanceService,
+    private val balanceHistoryService: BalanceHistoryService
 ) {
     @Transactional
     operator fun invoke(command: ChangeBalanceCommand): Balance {
@@ -25,7 +28,13 @@ class ChangeBalanceUseCase (
         BalanceValidator.checkCalculatedAmount(calculatedAmount)
 
         val changedBalance = balance.copy(balanceAmount = calculatedAmount)
-
+        val changedBalanceHistory = BalanceHistory (
+            userId = changedBalance.userId,
+            balanceHistoryId = 0,
+            balanceAmount = changedBalance.balanceAmount,
+            createdAt = changedBalance.updatedAt,
+        )
+        balanceHistoryService.storeBalanceHistory(changedBalanceHistory)
         return balanceService.storeBalance(changedBalance)
     }
 }
