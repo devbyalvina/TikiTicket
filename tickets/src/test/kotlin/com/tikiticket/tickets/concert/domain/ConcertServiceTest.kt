@@ -1,7 +1,5 @@
 package com.tikiticket.tickets.concert.domain
 
-import com.tikiticket.tickets.concert.domain.model.ConcertSeat
-import com.tikiticket.tickets.concert.domain.model.seatStatusType
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given

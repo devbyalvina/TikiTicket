@@ -1,6 +1,5 @@
 package com.tikiticket.tickets.concert.domain
 
-import com.tikiticket.tickets.concert.domain.model.ConcertSeat
 import java.time.LocalDateTime
 
 data class Concert(

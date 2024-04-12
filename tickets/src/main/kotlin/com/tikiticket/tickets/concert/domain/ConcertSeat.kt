@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.concert.domain.model
+package com.tikiticket.tickets.concert.domain
 
 import java.time.LocalDateTime
 
