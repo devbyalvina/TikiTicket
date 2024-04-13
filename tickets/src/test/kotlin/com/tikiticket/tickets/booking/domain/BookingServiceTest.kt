@@ -29,8 +29,6 @@ class BookingServiceTest {
             1234L,
             10000L,
             LocalDateTime.now(),
-            null,
-            null,
             LocalDateTime.now(),
             LocalDateTime.now()
         )
@@ -60,8 +58,6 @@ class BookingServiceTest {
             1234L,
             10000L,
             LocalDateTime.now(),
-            null,
-            null,
             LocalDateTime.now(),
             LocalDateTime.now()
         )
@@ -90,8 +86,6 @@ class BookingServiceTest {
             1234L,
             10000L,
             LocalDateTime.now().minusMinutes(2),
-            LocalDateTime.now(),
-            null,
             LocalDateTime.now().minusMinutes(2),
             LocalDateTime.now()
         )
