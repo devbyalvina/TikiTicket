@@ -1,5 +1,8 @@
 package com.tikiticket.tickets.concert.domain
 
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
@@ -18,10 +21,6 @@ class ConcertServiceTest {
     @Mock
     private lateinit var concertRepository: ConcertRepository
 
-    /**
-     * API.4. 콘서트 스케줄 목록 조회
-     * [Test 4-1] Success
-     */
     @Test
     fun `날짜 조건으로 콘서트 스케줄 목록을 조회한다`() {
         // Given
@@ -66,10 +65,6 @@ class ConcertServiceTest {
         assertEquals("장소 2", result[1].venue)
     }
 
-    /**
-     * API.5. 콘서트 좌석 목록 조회
-     * [Test 5-1] Success
-     */
     @Test
     fun `콘서트 ID를 입력 받아 콘서트 좌석 목록을 조회한다`() {
         // Given
@@ -95,5 +90,104 @@ class ConcertServiceTest {
 
         // Then
         assertEquals(concert, result)
+    }
+
+    @Test
+    fun `콘서트 ID와 좌석번호를 입력 받아 좌석을 조회한다`() {
+        // Given
+        val concertId = 1L
+        val seatNo = 5L
+        val expectedConcertSeat = ConcertSeat(
+            concertId = concertId,
+            seatNo = seatNo,
+            seatStatus = SeatStatusType.AVAILABLE,
+            ticketPrice = 10000L,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        val concertRepository = mockk<ConcertRepository> {
+            every { findConcertSeatByConcertIdAndSeatNo(concertId, seatNo) } returns expectedConcertSeat
+        }
+
+        val concertService = ConcertService(concertRepository)
+
+        // When
+        val actualConcertSeat = concertService.findConcertSeatByConcertIdAndSeatNo(concertId, seatNo)
+
+        // Then
+        assertEquals(expectedConcertSeat, actualConcertSeat)
+    }
+
+    @Test
+    fun `콘서트 좌석을 조회한다`() {
+        // Given
+        val concertId = 1L
+        val expectedConcert = Concert(
+            id = concertId,
+            concertName = "Concert 1",
+            artistName = "Artist 1",
+            concertDate = LocalDateTime.now(),
+            venue = "Venue 1",
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now(),
+            seats = emptyList() // 빈 좌석 목록으로 초기화
+        )
+        val concertRepository = mockk<ConcertRepository> {
+            every { findConcertById(concertId) } returns expectedConcert
+        }
+        val concertService = ConcertService(concertRepository)
+
+        // When
+        val actualConcert = concertService.findConcert(concertId)
+
+        // Then
+        assertEquals(expectedConcert, actualConcert)
+    }
+
+    @Test
+    fun `수정할 콘서트 좌석을 조회한다`() {
+        // Given
+        val concertId = 1L
+        val seatNo = 1L
+        val expectedConcertSeat = ConcertSeat(
+            concertId = concertId,
+            seatNo = seatNo,
+            seatStatus = SeatStatusType.AVAILABLE,
+            ticketPrice = 10000L,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+        val concertRepository = mockk<ConcertRepository> {
+            every { findConcertSeatForUpdate(concertId, seatNo) } returns expectedConcertSeat
+        }
+        val concertService = ConcertService(concertRepository)
+
+        // When
+        val actualConcertSeat = concertService.findConcertSeatForUpdate(concertId, seatNo)
+
+        // Then
+        assertEquals(expectedConcertSeat, actualConcertSeat)
+    }
+
+    @Test
+    fun `콘서트 좌석을 수정한다`() {
+        // Given
+        val concertSeat = ConcertSeat(
+            concertId = 1L,
+            seatNo = 1L,
+            seatStatus = SeatStatusType.BOOKED,
+            ticketPrice = 10000L,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+        val concertRepository = mockk<ConcertRepository>(relaxed = true)
+        val concertService = ConcertService(concertRepository)
+
+        // When
+        concertService.updateConcertSeat(concertSeat)
+
+        // Then
+        verify(exactly = 1) { concertRepository.updateConcertSeat(concertSeat) }
     }
 }

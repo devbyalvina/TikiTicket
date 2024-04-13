@@ -8,18 +8,44 @@ class ConcertService (
     private val concertRepository: ConcertRepository
 ){
     /**
+     * 콘서트 조회
+     */
+    fun findConcert(concertId: Long): Concert? {
+        return concertRepository.findConcertById(concertId)
+    }
+
+    /**
      *  콘서트 스케줄 목록 조회
      */
     fun findConcertsByDateRange(startDate: LocalDate, endDate: LocalDate): List<Concert>? {
-        val concerts = concertRepository.findConcertsByDateRange(startDate, endDate)
-        return concerts
+        return concertRepository.findConcertsByDateRange(startDate, endDate)
     }
 
     /**
      *  콘서트 좌석 목록 조회
      */
     fun findConcertWithSeatsById(concertId: Long): Concert? {
-        val concert = concertRepository.findConcertWithSeatsById(concertId)
-        return concert
+        return concertRepository.findConcertWithSeatsById(concertId)
+    }
+
+    /**
+     *  콘서트 좌석 조회
+     */
+    fun findConcertSeatByConcertIdAndSeatNo(ConcertId: Long, SeatNo: Long): ConcertSeat? {
+        return concertRepository.findConcertSeatByConcertIdAndSeatNo(ConcertId, SeatNo)
+    }
+
+    /**
+     *  콘서트 좌석 조회 For Update
+     */
+    fun findConcertSeatForUpdate(ConcertId: Long, SeatNo: Long): ConcertSeat? {
+        return concertRepository.findConcertSeatForUpdate(ConcertId, SeatNo)
+    }
+
+    /**
+     *  콘서트 좌석 수정
+     */
+    fun updateConcertSeat(concertSeat: ConcertSeat) {
+        return concertRepository.updateConcertSeat(concertSeat)
     }
 }
