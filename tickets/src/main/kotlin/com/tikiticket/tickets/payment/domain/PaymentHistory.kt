@@ -6,7 +6,7 @@ data class PaymentHistory(
     val paymentId: Long,
     val paymentHistoryId: Long,
     val bookingId: Long,
-    val paymentMethod: PaymentMethod,
+    val paymentMethod: PaymentMethodType,
     val payerId: Long,
     val paymentDateTime: LocalDateTime,
     val paymentStatus: PaymentStatus,

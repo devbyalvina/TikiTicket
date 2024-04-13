@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 data class Payment(
     val id: Long,
     val bookingId: Long,
-    val paymentMethod: PaymentMethod,
+    val paymentMethod: PaymentMethodType,
     val payerId: Long,
     val paymentDateTime: LocalDateTime,
     val paymentStatus: PaymentStatus,
@@ -13,7 +13,7 @@ data class Payment(
     val updatedAt: LocalDateTime
 )
 
-enum class PaymentMethod {
+enum class PaymentMethodType {
     CARD, BANK_TRANSFER, BALANCE
 }
 

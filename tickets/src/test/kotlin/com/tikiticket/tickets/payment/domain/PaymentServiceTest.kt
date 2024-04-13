@@ -19,7 +19,7 @@ class PaymentServiceTest {
         val payment = Payment(
             1L,
             123L,
-            PaymentMethod.BALANCE,
+            PaymentMethodType.BALANCE,
             456L,
             LocalDateTime.now(),
             PaymentStatus.FAILED,
@@ -43,7 +43,7 @@ class PaymentServiceTest {
         val payment = Payment(
             paymentId,
             123L,
-            PaymentMethod.BALANCE,
+            PaymentMethodType.BALANCE,
             456L,
             LocalDateTime.now(),
             PaymentStatus.SUCCESS,
