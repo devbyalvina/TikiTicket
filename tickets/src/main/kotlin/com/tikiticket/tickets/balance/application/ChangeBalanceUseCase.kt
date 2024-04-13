@@ -5,8 +5,9 @@ import com.tikiticket.tickets.balance.domain.Balance
 import com.tikiticket.tickets.balance.domain.BalanceHistory
 import com.tikiticket.tickets.balance.domain.BalanceHistoryService
 import com.tikiticket.tickets.balance.domain.BalanceService
-import jakarta.transaction.Transactional
+
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 /**
