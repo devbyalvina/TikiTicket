@@ -21,7 +21,8 @@ class PaymentHistoryServiceTest {
             123L,
             456L,
             PaymentMethodType.BALANCE,
-            789L,
+            10000,
+            "user123",
             LocalDateTime.now(),
             PaymentStatus.SUCCESS,
             LocalDateTime.now()
