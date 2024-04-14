@@ -41,6 +41,7 @@ class MakeBookingUseCase (
         val now = LocalDateTime.now()
         val booking = Booking (
             id = 0,
+            bookerId = "user123",
             bookingStatus = BookingStatusType.BOOKED,
             expiryDateTime = now.plusMinutes(5),
             concertId = concert.id,

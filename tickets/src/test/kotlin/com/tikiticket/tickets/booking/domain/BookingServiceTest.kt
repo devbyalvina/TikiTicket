@@ -19,6 +19,7 @@ class BookingServiceTest {
         // Given
         val booking = Booking(
             1L,
+            bookerId = "user123",
             BookingStatusType.BOOKED,
             LocalDateTime.now().plusMinutes(5),
             123L,
@@ -48,6 +49,7 @@ class BookingServiceTest {
         val bookingId = 1L
         val booking = Booking(
             bookingId,
+            bookerId = "user123",
             BookingStatusType.BOOKED,
             LocalDateTime.now().plusMinutes(5),
             123L,
@@ -75,7 +77,8 @@ class BookingServiceTest {
     fun `예매 내역을 변경한다`() {
         // Given
         val booking = Booking(
-            1L,
+            id = 1L,
+            bookerId = "user123",
             BookingStatusType.PAID,
             LocalDateTime.now().plusMinutes(3),
             123L,

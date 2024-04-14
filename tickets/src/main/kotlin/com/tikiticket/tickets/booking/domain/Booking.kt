@@ -4,6 +4,7 @@ import java.time.LocalDateTime
 
 data class Booking (
     val id: Long,
+    val bookerId: String,
     val bookingStatus: BookingStatusType,
     val expiryDateTime: LocalDateTime,
     val concertId: Long,
