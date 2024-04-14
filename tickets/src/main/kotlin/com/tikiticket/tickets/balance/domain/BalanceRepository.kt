@@ -20,4 +20,8 @@ interface BalanceRepository {
      *  잔고 변경
      */
     fun updateBalance(balance: Balance)
+    /**
+     *  잔고 히스토리 저장
+     */
+    fun saveBalanceHistory(balanceHistory: BalanceHistory): BalanceHistory
 }
