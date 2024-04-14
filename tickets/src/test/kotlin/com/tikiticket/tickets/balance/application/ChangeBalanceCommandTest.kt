@@ -22,24 +22,18 @@ class ChangeBalanceCommandTest {
 
     @Test
     fun `amount가 0이면 INVALID_AMOUNT_PARAMETER exception을 반환한다`() {
-        // Given
-        val command = ChangeBalanceCommand("user123", "CHARGE", 0L)
-
-        // When & Then
+        // Given & When & Then
         val exception = assertThrows(BalanceException::class.java) {
-            command.validate()
+            val command = ChangeBalanceCommand("user123", "CHARGE", 0L)
         }
         assertEquals(BalanceError.INVALID_AMOUNT_PARAMETER, exception.error)
     }
 
     @Test
     fun `amount가 음수면 INVALID_AMOUNT_PARAMETER exception을 반환한다`() {
-        // Given
-        val command = ChangeBalanceCommand("user123", "CHARGE", -100L)
-
-        // When & Then
+        // Given & When & Then
         val exception = assertThrows(BalanceException::class.java) {
-            command.validate()
+            val command = ChangeBalanceCommand("user123", "CHARGE", -100L)
         }
         assertEquals(BalanceError.INVALID_AMOUNT_PARAMETER, exception.error)
     }

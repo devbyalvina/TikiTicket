@@ -10,6 +10,10 @@ data class ChangeBalanceCommand(
     val transactionType: String,
     val amount: Long
 ) {
+    init {
+        validate()
+    }
+
     fun validate() {
         checkPositive()
     }
@@ -18,7 +22,7 @@ data class ChangeBalanceCommand(
      *  amount 양수 여부 체크
      */
     fun checkPositive() {
-        if (amount <= 0) {
+        require (amount > 0) {
             throw BalanceException(BalanceError.INVALID_AMOUNT_PARAMETER)
         }
     }
