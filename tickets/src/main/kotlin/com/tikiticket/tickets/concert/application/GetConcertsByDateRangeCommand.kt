@@ -8,6 +8,10 @@ data class GetConcertsByDateRangeCommand (
     val startDate: LocalDate,
     val endDate: LocalDate
 ) {
+    init {
+        validate()
+    }
+
     fun validate() {
         checkStartDateBeforeEndDate()
     }

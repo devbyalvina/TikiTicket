@@ -14,8 +14,6 @@ class GetConcertsByDateRangeUseCase (
     private val concertService: ConcertService
 ) {
     operator fun invoke(command: GetConcertsByDateRangeCommand): List<Concert> {
-        command.validate()
-
         val concerts = concertService.findConcertsByDateRange(command.startDate, command.endDate)
             ?: throw ConcertException(ConcertError.CONCERT_NOT_FOUND)
 
