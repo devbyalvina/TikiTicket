@@ -1,7 +1,5 @@
 package com.tikiticket.tickets.balance.domain
 
-import com.tikiticket.tickets.payment.application.exception.PaymentError
-import com.tikiticket.tickets.payment.application.exception.PaymentException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -43,20 +41,10 @@ class BalanceService (
      *  잔고 변경
      */
     @Transactional
-    fun changeBalance(userId: String, transactionType: TransactionType, changeAmount: Long, currentDateTime: LocalDateTime): Balance {
-        // 잔고 조회
-        val balance = retrieveBalance(userId)
-            ?: Balance(userId, 0, currentDateTime, currentDateTime)
-
-        // 변경 금액 계산
-        val calculatedAmount = balance.calculateChangedBalance(transactionType, changeAmount)
-        require(calculatedAmount > 0) {
-            throw PaymentException(PaymentError.INSUFFICIENT_BALANCE)
-        }
-
+    fun changeBalance(existingBalance: Balance, transactionType: TransactionType, calculatedAmount: Long, currentDateTime: LocalDateTime): Balance {
         // 잔고 히스토리 저장
         val changedBalanceHistory = BalanceHistory (
-            userId = userId,
+            userId = existingBalance.userId,
             balanceHistoryId = 0,
             balanceAmount = calculatedAmount,
             createdAt = currentDateTime,
@@ -64,7 +52,7 @@ class BalanceService (
         storeBalanceHistory(changedBalanceHistory)
 
         // 잔고 변경 내역 저장
-        val changedBalance = balance.copy(balanceAmount = calculatedAmount, updatedAt = currentDateTime)
+        val changedBalance = existingBalance.copy(balanceAmount = calculatedAmount, updatedAt = currentDateTime)
         modifyBalance(changedBalance)
         return changedBalance
     }

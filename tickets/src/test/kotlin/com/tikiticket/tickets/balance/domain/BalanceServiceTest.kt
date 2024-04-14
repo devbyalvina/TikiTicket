@@ -1,13 +1,11 @@
 package com.tikiticket.tickets.balance.domain
 
-import com.tikiticket.tickets.payment.application.exception.PaymentException
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
@@ -89,21 +87,20 @@ class BalanceServiceTest {
         val changeAmount = 5000L
         val currentDateTime = LocalDateTime.now()
 
-        val balance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
+        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
+
         val balanceRepository = mockk<BalanceRepository>()
-        every { balanceRepository.findBalanceByUserId(userId) } returns balance
         every { balanceRepository.saveBalanceHistory(any()) } returns mockk()
         every { balanceRepository.updateBalance(any()) } just Runs
 
         val balanceService = BalanceService(balanceRepository)
 
         // When
-        val result = balanceService.changeBalance(userId, transactionType, changeAmount, currentDateTime)
+        val result = balanceService.changeBalance(existingBalance, transactionType, initialBalanceAmount + changeAmount, currentDateTime)
 
         // Then
         val expectedCalculatedAmount = initialBalanceAmount + changeAmount
         assertEquals(expectedCalculatedAmount, result.balanceAmount)
-        verify(exactly = 1) { balanceRepository.findBalanceByUserId(userId) }
         verify(exactly = 1) { balanceRepository.updateBalance(result) }
         verify(exactly = 1) { balanceRepository.saveBalanceHistory(any()) }
     }
@@ -117,46 +114,20 @@ class BalanceServiceTest {
         val changeAmount = 2000L
         val currentDateTime = LocalDateTime.now()
 
-        val balance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
+        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
+
         val balanceRepository = mockk<BalanceRepository>()
-        every { balanceRepository.findBalanceByUserId(userId) } returns balance
         every { balanceRepository.saveBalanceHistory(any()) } returns mockk()
         every { balanceRepository.updateBalance(any()) } just Runs
 
         val balanceService = BalanceService(balanceRepository)
 
         // When
-        val result = balanceService.changeBalance(userId, transactionType, changeAmount, currentDateTime)
+        val result = balanceService.changeBalance(existingBalance, transactionType, initialBalanceAmount - changeAmount, currentDateTime)
 
         // Then
-        val expectedCalculatedAmount = initialBalanceAmount - changeAmount
-        assertEquals(expectedCalculatedAmount, result.balanceAmount)
-        verify(exactly = 1) { balanceRepository.findBalanceByUserId(userId) }
-        verify(exactly = 1) { balanceRepository.updateBalance(result) }
+        assertEquals(initialBalanceAmount - changeAmount, result.balanceAmount)
         verify(exactly = 1) { balanceRepository.saveBalanceHistory(any()) }
+        verify(exactly = 1) { balanceRepository.updateBalance(any()) }
     }
-
-    @Test
-    fun `잔액보다 사용 금액이 크면 예외를 발생한다`() {
-        // Given
-        val userId = "user123"
-        val initialBalanceAmount = 1000L
-        val transactionType = TransactionType.PAY
-        val changeAmount = 2000L
-        val currentDateTime = LocalDateTime.now()
-
-        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
-        val balanceRepository = mockk<BalanceRepository>()
-        every { balanceRepository.findBalanceByUserId(userId) } returns existingBalance
-
-        val balanceService = BalanceService(balanceRepository)
-
-        // When & Then
-        assertThrows(PaymentException::class.java) {
-            balanceService.changeBalance(userId, transactionType, changeAmount, currentDateTime)
-        }
-        verify(exactly = 0) { balanceRepository.saveBalance(any()) }
-        verify(exactly = 0) { balanceRepository.saveBalanceHistory(any()) }
-    }
-
 }
