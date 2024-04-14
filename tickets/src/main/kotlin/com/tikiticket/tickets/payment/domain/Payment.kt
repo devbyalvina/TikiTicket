@@ -6,7 +6,7 @@ data class Payment(
     val id: Long,
     val bookingId: Long,
     val paymentMethod: PaymentMethodType,
-    val payerId: Long,
+    val payerId: String,
     val paymentDateTime: LocalDateTime,
     val paymentStatus: PaymentStatus,
     val createdAt: LocalDateTime,
