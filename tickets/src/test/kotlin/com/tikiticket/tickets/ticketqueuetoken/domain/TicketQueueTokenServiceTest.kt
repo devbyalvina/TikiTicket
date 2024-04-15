@@ -10,10 +10,10 @@ import java.time.LocalDateTime
 class TicketQueueTokenServiceTest {
 
     // Mock Repository 생성
-    private val ticketQueueRepository: TicketQueueRepository = mock(TicketQueueRepository::class.java)
+    private val ticketQueueTokenRepository: TicketQueueTokenRepository = mock(TicketQueueTokenRepository::class.java)
 
     // 테스트 대상 서비스
-    private val ticketQueueTokenService = TicketQueueTokenService(ticketQueueRepository)
+    private val ticketQueueTokenService = TicketQueueTokenService(ticketQueueTokenRepository)
 
     @Test
     fun `토큰을 발급한다`() {
@@ -28,7 +28,7 @@ class TicketQueueTokenServiceTest {
         )
 
         // When
-        `when`(ticketQueueRepository.createToken(userId)).thenReturn(token)
+        `when`(ticketQueueTokenRepository.createToken(userId)).thenReturn(token)
 
         val createdToken = ticketQueueTokenService.createToken(userId)
 
@@ -49,7 +49,7 @@ class TicketQueueTokenServiceTest {
         )
 
         // When
-        `when`(ticketQueueRepository.findTokenByUserId(userId)).thenReturn(token)
+        `when`(ticketQueueTokenRepository.findTokenByUserId(userId)).thenReturn(token)
 
         val foundToken = ticketQueueTokenService.findTokenByUserId(userId)
 
@@ -70,7 +70,7 @@ class TicketQueueTokenServiceTest {
         val expectedPosition = 5L
 
         // When
-        `when`(ticketQueueRepository.retrieveQueuePosition(token)).thenReturn(expectedPosition)
+        `when`(ticketQueueTokenRepository.retrieveQueuePosition(token)).thenReturn(expectedPosition)
 
         val retrievedPosition = ticketQueueTokenService.retrieveQueuePosition(token)
 
@@ -94,7 +94,7 @@ class TicketQueueTokenServiceTest {
 
         // Then
         // Then
-        Mockito.verify(ticketQueueRepository, Mockito.times(1)).updateTokenStatus(token)
+        Mockito.verify(ticketQueueTokenRepository, Mockito.times(1)).updateTokenStatus(token)
     }
 
 }

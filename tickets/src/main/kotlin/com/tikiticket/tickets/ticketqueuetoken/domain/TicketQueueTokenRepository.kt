@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.ticketqueuetoken.domain
 
-interface TicketQueueRepository {
+interface TicketQueueTokenRepository {
     /**
      * 토큰 생성
      */
