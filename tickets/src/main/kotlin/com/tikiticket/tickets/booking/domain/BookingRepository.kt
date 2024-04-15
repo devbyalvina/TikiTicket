@@ -12,6 +12,11 @@ interface BookingRepository {
     fun findBookingById(id: Long): Booking?
 
     /**
+     * 예약 내역 조회 For Update
+     */
+    fun findBookingByIdForUpdate(id: Long): Booking?
+
+    /**
      * 예약 내역 변경
      */
     fun updateBooking(booking: Booking)

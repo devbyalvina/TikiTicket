@@ -1,6 +1,13 @@
 package com.tikiticket.tickets.booking.domain
 
+import com.tikiticket.tickets.payment.application.exception.PaymentException
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.mockito.Mockito.mock
@@ -98,5 +105,63 @@ class BookingServiceTest {
 
         // Then
         Mockito.verify(bookingRepository, Mockito.times(1)).updateBooking(booking)
+    }
+
+    @Test
+    fun `예매 상태 변경에 성공한다`() {
+        // Given
+        val bookingId = 1L
+        val currentDateTime = LocalDateTime.now()
+        val bookingStatus = BookingStatusType.PAID
+
+        val bookingRepository = mockk<BookingRepository>()
+        val bookingService = BookingService(bookingRepository)
+
+        val booking = Booking(
+            id = bookingId,
+            bookerId = "user123",
+            bookingStatus = BookingStatusType.BOOKED,
+            expiryDateTime = LocalDateTime.now().plusMinutes(30),
+            concertId = 1L,
+            concertName = "Concert",
+            artistName = "Artist",
+            concertDate = LocalDateTime.now().plusDays(7),
+            venue = "Venue",
+            seatNo = 1L,
+            ticketPrice = 10000L,
+            expiredAt = null,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        every { bookingRepository.findBookingByIdForUpdate(bookingId) } returns booking
+        every { bookingRepository.updateBooking(any()) } just Runs
+
+        // When
+        val result = bookingService.changeBookingStatus(bookingId, bookingStatus, currentDateTime)
+
+        // Then
+        assertEquals(bookingId, result.id)
+        assertEquals(bookingStatus, result.bookingStatus)
+        verify(exactly = 1) { bookingRepository.findBookingByIdForUpdate(bookingId) }
+        verify(exactly = 1) { bookingRepository.updateBooking(any()) }
+    }
+
+    @Test
+    fun `예매 상태 변경 시 예약 내역이 없는 경우 예외를 봔환한다`() {
+        // Given
+        val bookingId = 1L
+        val currentDateTime = LocalDateTime.now()
+        val bookingStatus = BookingStatusType.PAID
+
+        val bookingRepository = mockk<BookingRepository>()
+        val bookingService = BookingService(bookingRepository)
+
+        every { bookingRepository.findBookingByIdForUpdate(bookingId) } returns null
+
+        // When & Then
+        assertThrows(PaymentException::class.java) {
+            bookingService.changeBookingStatus(bookingId, bookingStatus, currentDateTime)
+        }
     }
 }
