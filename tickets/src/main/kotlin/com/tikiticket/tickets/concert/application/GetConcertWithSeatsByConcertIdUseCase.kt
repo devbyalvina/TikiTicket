@@ -2,7 +2,6 @@ package com.tikiticket.tickets.concert.application
 
 import com.tikiticket.tickets.concert.application.exception.ConcertError
 import com.tikiticket.tickets.concert.application.exception.ConcertException
-import com.tikiticket.tickets.concert.application.exception.ConcertValidator
 import com.tikiticket.tickets.concert.domain.Concert
 import com.tikiticket.tickets.concert.domain.ConcertService
 import org.springframework.stereotype.Component

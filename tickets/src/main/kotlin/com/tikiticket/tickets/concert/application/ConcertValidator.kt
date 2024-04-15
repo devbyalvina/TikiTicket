@@ -1,5 +1,7 @@
-package com.tikiticket.tickets.concert.application.exception
+package com.tikiticket.tickets.concert.application
 
+import com.tikiticket.tickets.concert.application.exception.ConcertError
+import com.tikiticket.tickets.concert.application.exception.ConcertException
 import com.tikiticket.tickets.concert.domain.Concert
 
 class ConcertValidator {
@@ -8,7 +10,7 @@ class ConcertValidator {
      */
     companion object {
         fun checkSeatsExist(concert: Concert) {
-            if (concert.seats.isNullOrEmpty()) {
+            require(!concert.seats.isNullOrEmpty()) {
                 throw ConcertException(ConcertError.CONCERT_SEATS_NOT_FOUND)
             }
         }
