@@ -49,9 +49,9 @@ class TicketQueueTokenServiceTest {
         )
 
         // When
-        `when`(ticketQueueTokenRepository.findTokenByUserId(userId)).thenReturn(token)
+        `when`(ticketQueueTokenRepository.retrieveToken(userId)).thenReturn(token)
 
-        val foundToken = ticketQueueTokenService.findTokenByUserId(userId)
+        val foundToken = ticketQueueTokenService.retrieveToken(userId)
 
         // Then
         assertEquals(token, foundToken)
@@ -70,7 +70,7 @@ class TicketQueueTokenServiceTest {
         val expectedPosition = 5L
 
         // When
-        `when`(ticketQueueTokenRepository.retrieveQueuePosition(token)).thenReturn(expectedPosition)
+        `when`(ticketQueueTokenRepository.retrieveTokenQueuePosition(token)).thenReturn(expectedPosition)
 
         val retrievedPosition = ticketQueueTokenService.retrieveQueuePosition(token)
 
@@ -94,7 +94,7 @@ class TicketQueueTokenServiceTest {
 
         // Then
         // Then
-        Mockito.verify(ticketQueueTokenRepository, Mockito.times(1)).updateTokenStatus(token)
+        Mockito.verify(ticketQueueTokenRepository, Mockito.times(1)).modifyTokenStatus(token)
     }
 
 }

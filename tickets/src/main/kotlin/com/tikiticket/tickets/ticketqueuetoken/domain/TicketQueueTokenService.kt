@@ -16,21 +16,21 @@ class TicketQueueTokenService (
     /**
      * 토큰 조회
      */
-    fun findTokenByUserId(userId: String): TicketQueueToken {
-        return ticketQueueTokenRepository.findTokenByUserId(userId)
+    fun retrieveToken(userId: String): TicketQueueToken? {
+        return ticketQueueTokenRepository.retrieveToken(userId)
     }
 
     /**
      * 토큰 순번 조회
      */
     fun retrieveQueuePosition(token: TicketQueueToken): Long {
-        return ticketQueueTokenRepository.retrieveQueuePosition(token)
+        return ticketQueueTokenRepository.retrieveTokenQueuePosition(token)
     }
 
     /**
      * 토큰 상태 변경
      */
     fun modifyTokenStatus(token: TicketQueueToken) {
-        ticketQueueTokenRepository.updateTokenStatus(token)
+        ticketQueueTokenRepository.modifyTokenStatus(token)
     }
 }
