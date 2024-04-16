@@ -14,7 +14,7 @@ class GetConcertWithSeatsByConcertIdUseCase (
     private val concertService: ConcertService
 ){
     operator fun invoke(concertId: Long): Concert {
-        val concert = concertService.findConcertWithSeatsById(concertId)
+        val concert = concertService.findConcertWithSeats(concertId)
             ?: throw ConcertException(ConcertError.CONCERT_NOT_FOUND)
 
         ConcertValidator.checkSeatsExist(concert)

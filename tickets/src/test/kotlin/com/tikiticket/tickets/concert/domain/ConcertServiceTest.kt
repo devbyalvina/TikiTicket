@@ -83,40 +83,14 @@ class ConcertServiceTest {
             updatedAt = LocalDateTime.now(),
             seats = concertSeats
         )
-        given(concertRepository.findConcertWithSeatsById(concertId)).willReturn(concert)
+        given(concertRepository.findConcert(concertId)).willReturn(concert.copy(seats = null))
+        given(concertRepository.findConcertSeats(concertId)).willReturn(concertSeats)
 
         // When
-        val result = concertService.findConcertWithSeatsById(concertId)
+        val result = concertService.findConcertWithSeats(concertId)
 
         // Then
         assertEquals(concert, result)
-    }
-
-    @Test
-    fun `콘서트 ID와 좌석번호를 입력 받아 좌석을 조회한다`() {
-        // Given
-        val concertId = 1L
-        val seatNo = 5L
-        val expectedConcertSeat = ConcertSeat(
-            concertId = concertId,
-            seatNo = seatNo,
-            seatStatus = SeatStatusType.AVAILABLE,
-            ticketPrice = 10000L,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
-        )
-
-        val concertRepository = mockk<ConcertRepository> {
-            every { findConcertSeatByConcertIdAndSeatNo(concertId, seatNo) } returns expectedConcertSeat
-        }
-
-        val concertService = ConcertService(concertRepository)
-
-        // When
-        val actualConcertSeat = concertService.findConcertSeatByConcertIdAndSeatNo(concertId, seatNo)
-
-        // Then
-        assertEquals(expectedConcertSeat, actualConcertSeat)
     }
 
     @Test
@@ -134,7 +108,7 @@ class ConcertServiceTest {
             seats = emptyList() // 빈 좌석 목록으로 초기화
         )
         val concertRepository = mockk<ConcertRepository> {
-            every { findConcertById(concertId) } returns expectedConcert
+            every { findConcert(concertId) } returns expectedConcert
         }
         val concertService = ConcertService(concertRepository)
 

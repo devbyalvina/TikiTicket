@@ -6,7 +6,7 @@ interface ConcertRepository {
     /**
      * 콘서트 조회
      */
-    fun findConcertById(concertId: Long): Concert?
+    fun findConcert(concertId: Long): Concert?
 
     /**
      *  콘서트 스케줄 목록 조회
@@ -16,12 +16,7 @@ interface ConcertRepository {
     /**
      *  콘서트 좌석 목록 조회
      */
-    fun findConcertWithSeatsById(concertId: Long): Concert?
-
-    /**
-     *  콘서트 좌석 조회
-     */
-    fun findConcertSeatByConcertIdAndSeatNo(doncertId: Long, seatNo: Long): ConcertSeat?
+    fun findConcertSeats(concertId: Long): List<ConcertSeat>?
 
     /**
      *  콘서트 좌석 조회 For Update

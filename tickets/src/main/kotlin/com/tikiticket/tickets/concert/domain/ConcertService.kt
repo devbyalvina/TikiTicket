@@ -11,11 +11,11 @@ class ConcertService (
      * 콘서트 조회
      */
     fun findConcert(concertId: Long): Concert? {
-        return concertRepository.findConcertById(concertId)
+        return concertRepository.findConcert(concertId)
     }
 
     /**
-     *  콘서트 스케줄 목록 조회
+     *  콘서트 목록 조회
      */
     fun findConcertsByDateRange(startDate: LocalDate, endDate: LocalDate): List<Concert>? {
         return concertRepository.findConcertsByDateRange(startDate, endDate)
@@ -24,15 +24,11 @@ class ConcertService (
     /**
      *  콘서트 좌석 목록 조회
      */
-    fun findConcertWithSeatsById(concertId: Long): Concert? {
-        return concertRepository.findConcertWithSeatsById(concertId)
-    }
+    fun findConcertWithSeats(concertId: Long): Concert? {
+        val concert = concertRepository.findConcert(concertId)
+        val concertSeats = concertRepository.findConcertSeats(concertId)
 
-    /**
-     *  콘서트 좌석 조회
-     */
-    fun findConcertSeatByConcertIdAndSeatNo(ConcertId: Long, SeatNo: Long): ConcertSeat? {
-        return concertRepository.findConcertSeatByConcertIdAndSeatNo(ConcertId, SeatNo)
+        return concert?.copy(seats = concertSeats?.map{it.copy()})
     }
 
     /**
