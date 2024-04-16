@@ -37,7 +37,6 @@ class BookingServiceTest {
             1234L,
             10000L,
             LocalDateTime.now(),
-            LocalDateTime.now(),
             LocalDateTime.now()
         )
 
@@ -67,7 +66,6 @@ class BookingServiceTest {
             1234L,
             10000L,
             LocalDateTime.now(),
-            LocalDateTime.now(),
             LocalDateTime.now()
         )
 
@@ -95,7 +93,6 @@ class BookingServiceTest {
             "Venue",
             1234L,
             10000L,
-            LocalDateTime.now().minusMinutes(2),
             LocalDateTime.now().minusMinutes(2),
             LocalDateTime.now()
         )
@@ -129,7 +126,6 @@ class BookingServiceTest {
             venue = "Venue",
             seatNo = 1L,
             ticketPrice = 10000L,
-            expiredAt = null,
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now()
         )

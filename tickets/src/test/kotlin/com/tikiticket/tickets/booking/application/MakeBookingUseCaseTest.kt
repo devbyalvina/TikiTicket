@@ -30,7 +30,7 @@ class MakeBookingUseCaseTest {
         }
         val makeBookingUseCase = MakeBookingUseCase(bookingService, concertService)
         val command = MakeBookingCommand(userId, concertId, seatNo)
-        val expectedBooking = Booking(1, bookerId = "user123", BookingStatusType.BOOKED, LocalDateTime.now().plusMinutes(5), concertId, "Concert", "Artist", LocalDateTime.now(), "Venue", seatNo, 10000L, null, LocalDateTime.now(), LocalDateTime.now())
+        val expectedBooking = Booking(1, bookerId = "user123", BookingStatusType.BOOKED, LocalDateTime.now().plusMinutes(5), concertId, "Concert", "Artist", LocalDateTime.now(), "Venue", seatNo, 10000L, LocalDateTime.now(), LocalDateTime.now())
 
         // Mock BookingService.makeBooking() 메서드에 대한 응답 정의
         every { bookingService.makeBooking(any()) } returns expectedBooking

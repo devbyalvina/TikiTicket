@@ -31,7 +31,6 @@ class GetBookingUseCaseTest {
             venue = "Venue",
             seatNo = 1L,
             ticketPrice = 10000L,
-            expiredAt = null,
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now()
         )

@@ -51,7 +51,6 @@ class MakeBookingUseCase (
             venue = concert.venue,
             seatNo = concertSeat.seatNo,
             ticketPrice = concertSeat.ticketPrice,
-            expiredAt = null,
             createdAt = now,
             updatedAt = now,
         )

@@ -14,7 +14,6 @@ data class Booking (
     val venue: String,
     val seatNo: Long,
     val ticketPrice: Long,
-    val expiredAt: LocalDateTime?,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )
