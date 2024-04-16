@@ -40,14 +40,14 @@ class ModifyTokenStatusUseCaseTest {
         val modifiedTokenStatus = TokenStatusType.ACTIVE
 
         every { tokenService.retrieveToken(userId) } returns existingToken
-        every { tokenService.modifyTokenStatus(any()) } just Runs
+        every { tokenService.modifyTokenStatus(modifiedTokenStatus, userId) } just Runs
 
         // When
         val resultToken = modifyTokenStatusUseCase(command)
 
         // Then
         verify(exactly = 1) { tokenService.retrieveToken(userId) }
-        verify(exactly = 1) { tokenService.modifyTokenStatus(any()) }
+        verify(exactly = 1) { tokenService.modifyTokenStatus(modifiedTokenStatus, userId) }
         assertEquals(modifiedTokenStatus, resultToken.tokenStatus)
     }
 
@@ -62,6 +62,6 @@ class ModifyTokenStatusUseCaseTest {
         assertThrows(TicketQueueTokenException::class.java) {
             modifyTokenStatusUseCase(command)
         }
-        verify(exactly = 0) { tokenService.modifyTokenStatus(any()) }
+        verify(exactly = 0) { tokenService.modifyTokenStatus(TokenStatusType.ACTIVE, userId) }
     }
 }

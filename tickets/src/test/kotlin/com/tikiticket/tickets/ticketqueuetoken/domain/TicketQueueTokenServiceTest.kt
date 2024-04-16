@@ -17,23 +17,31 @@ class TicketQueueTokenServiceTest {
 
     @Test
     fun `토큰을 발급한다`() {
-        // Given
-        val userId = "user123"
-        val token = TicketQueueToken(
-            1L,
-            userId,
-            TokenStatusType.WAITING,
-            LocalDateTime.now(),
-            LocalDateTime.now()
+        // Mock 객체가 호출될 때 반환할 예상 토큰 생성
+        val newToken = TicketQueueToken(
+            id = 0,
+            userId = "user123",
+            tokenStatus = TokenStatusType.WAITING,
+            createdAt = null, // 원하는 시간으로 설정해야 함
+            updatedAt = null // 원하는 시간으로 설정해야 함
         )
 
-        // When
-        `when`(ticketQueueTokenRepository.createToken(userId)).thenReturn(token)
+        val expectedToken = TicketQueueToken(
+            id = 1,
+            userId = "user123",
+            tokenStatus = TokenStatusType.WAITING,
+            createdAt = null, // 원하는 시간으로 설정해야 함
+            updatedAt = null // 원하는 시간으로 설정해야 함
+        )
 
-        val createdToken = ticketQueueTokenService.createToken(userId)
+        // Mock Repository의 createToken 메서드가 호출될 때 반환할 값 설정
+        `when`(ticketQueueTokenRepository.createToken(newToken)).thenReturn(expectedToken)
 
-        // Then
-        assertEquals(token, createdToken)
+        // createToken 메서드 호출
+        val resultToken = ticketQueueTokenService.createToken("user123")
+
+        // createToken 메서드의 반환값이 예상값과 일치하는지 확인
+        assertEquals(expectedToken, resultToken)
     }
 
     @Test
@@ -70,9 +78,9 @@ class TicketQueueTokenServiceTest {
         val expectedPosition = 5L
 
         // When
-        `when`(ticketQueueTokenRepository.retrieveTokenQueuePosition(token)).thenReturn(expectedPosition)
+        `when`(ticketQueueTokenRepository.findTokenQueuePosition(token.tokenStatus, token.createdAt!!)).thenReturn(expectedPosition)
 
-        val retrievedPosition = ticketQueueTokenService.retrieveQueuePosition(token)
+        val retrievedPosition = ticketQueueTokenService.retrieveQueuePosition(token.tokenStatus, token.createdAt!!)
 
         // Then
         assertEquals(expectedPosition, retrievedPosition)
@@ -90,11 +98,9 @@ class TicketQueueTokenServiceTest {
         )
 
         // When
-        ticketQueueTokenService.modifyTokenStatus(token)
+        ticketQueueTokenService.modifyTokenStatus(token.tokenStatus, token.userId)
 
         // Then
-        // Then
-        Mockito.verify(ticketQueueTokenRepository, Mockito.times(1)).modifyTokenStatus(token)
+        Mockito.verify(ticketQueueTokenRepository, Mockito.times(1)).modifyTokenStatus(token.tokenStatus, token.userId)
     }
-
 }

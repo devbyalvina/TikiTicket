@@ -6,8 +6,8 @@ data class TicketQueueToken(
     val id: Long,
     val userId: String,
     val tokenStatus: TokenStatusType,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val createdAt: LocalDateTime?,
+    val updatedAt: LocalDateTime?
 )
 
 /**

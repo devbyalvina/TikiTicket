@@ -35,7 +35,17 @@ class TicketQueueTokenEntity (
         id = this.tokenId,
         userId = this.userId,
         tokenStatus = this.tokenStatus,
-        createdAt = this.createdAt!!,
-        updatedAt = this.updatedAt!!
+        createdAt = this.createdAt,
+        updatedAt = this.updatedAt
     )
+
+    companion object {
+        fun of(ticketQueueToken: TicketQueueToken): TicketQueueTokenEntity {
+            return TicketQueueTokenEntity (
+                tokenId = ticketQueueToken.id,
+                userId = ticketQueueToken.userId,
+                tokenStatus = ticketQueueToken.tokenStatus,
+            )
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.tikiticket.tickets.ticketqueuetoken.domain
 
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class TicketQueueTokenService (
@@ -10,7 +11,14 @@ class TicketQueueTokenService (
      * 토큰 생성
      */
     fun createToken(userId: String): TicketQueueToken {
-        return ticketQueueTokenRepository.createToken(userId)
+        val ticketQueueToken = TicketQueueToken (
+            id = 0,
+            userId = userId,
+            tokenStatus = TokenStatusType.WAITING,
+            null,
+            null
+        )
+        return ticketQueueTokenRepository.createToken(ticketQueueToken)
     }
 
     /**
@@ -21,16 +29,16 @@ class TicketQueueTokenService (
     }
 
     /**
-     * 토큰 순번 조회
+     * 토큰 상태 변경
      */
-    fun retrieveQueuePosition(token: TicketQueueToken): Long {
-        return ticketQueueTokenRepository.retrieveTokenQueuePosition(token)
+    fun modifyTokenStatus(tokenStatus: TokenStatusType, userId: String) {
+        ticketQueueTokenRepository.modifyTokenStatus(tokenStatus, userId)
     }
 
     /**
-     * 토큰 상태 변경
+     * 토큰 순번 조회
      */
-    fun modifyTokenStatus(token: TicketQueueToken) {
-        ticketQueueTokenRepository.modifyTokenStatus(token)
+    fun retrieveQueuePosition(tokenStatus: TokenStatusType, tokenCreatedAt: LocalDateTime): Long {
+        return ticketQueueTokenRepository.findTokenQueuePosition(tokenStatus, tokenCreatedAt)
     }
 }
