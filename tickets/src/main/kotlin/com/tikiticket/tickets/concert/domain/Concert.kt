@@ -8,7 +8,7 @@ data class Concert(
     val artistName: String,
     val concertDate: LocalDateTime,
     val venue: String,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    val createdAt: LocalDateTime?,
+    val updatedAt: LocalDateTime?,
     val seats: List<ConcertSeat>?
 )

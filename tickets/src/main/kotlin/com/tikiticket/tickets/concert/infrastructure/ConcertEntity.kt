@@ -15,7 +15,7 @@ import java.time.LocalDateTime
 class ConcertEntity (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val concertId: Long,
 
     @NotNull
     val concertName: String,
@@ -29,16 +29,41 @@ class ConcertEntity (
     @NotNull
     val venue: String,
 ): BaseEntity() {
-    fun toDomain(seats: List<ConcertSeatEntity>?): Concert {
+    fun toDomain(): Concert {
         return Concert(
-            id = this.id ?: 0,
+            id = this.concertId,
             concertName = this.concertName,
             artistName = this.artistName,
             concertDate = this.concertDate,
             venue = this.venue,
-            createdAt = this.createdAt!!,
-            updatedAt = this.updatedAt!!,
+            createdAt = this.createdAt,
+            updatedAt = this.updatedAt,
+            seats = null
+        )
+    }
+
+    fun toDomain(seats: List<ConcertSeatEntity>?): Concert {
+        return Concert(
+            id = this.concertId,
+            concertName = this.concertName,
+            artistName = this.artistName,
+            concertDate = this.concertDate,
+            venue = this.venue,
+            createdAt = this.createdAt,
+            updatedAt = this.updatedAt,
             seats = seats?.map { it.toDomain() }
         )
+    }
+
+    companion object {
+        fun of(concert: Concert): ConcertEntity {
+            return ConcertEntity (
+                concertId = concert.id,
+                concertName = concert.concertName,
+                artistName = concert.artistName,
+                concertDate = concert.concertDate,
+                venue = concert.venue,
+            )
+        }
     }
 }
