@@ -42,4 +42,25 @@ class TicketQueueTokenService (
     fun retrieveQueuePosition(tokenStatus: TokenStatusType, tokenCreatedAt: LocalDateTime): Long {
         return ticketQueueTokenRepository.findTokenQueuePosition(tokenStatus, tokenCreatedAt)
     }
+
+    /**
+     * 상태별 토큰 갯수 조회
+     */
+    fun countTokensWithStatus(tokenStatus: TokenStatusType, expiryDateTime: LocalDateTime): Long {
+        return ticketQueueTokenRepository.countTokensWithStatus(tokenStatus, expiryDateTime)
+    }
+
+    /**
+     * N개 토큰 상태 변경
+     */
+    fun changeTokenStatuses(previousStatus: TokenStatusType, targetStatus: TokenStatusType, tokenCount: Int) {
+        ticketQueueTokenRepository.changeTokenStatuses(previousStatus, targetStatus,tokenCount)
+    }
+
+    /**
+     * 유효기간이 만료된 토큰 상태 변경
+     */
+    fun modifyExpiredTokenStatus(tokenStatus: TokenStatusType, expiryDateTime: LocalDateTime) {
+        ticketQueueTokenRepository.modifyExpiredTokenStatus(tokenStatus, expiryDateTime)
+    }
 }
