@@ -9,11 +9,11 @@ import org.springframework.transaction.annotation.Transactional
  *  API.2 대기열 토큰 상태 변경
  */
 @Component
-class ModifyTokenStatusUseCase (
+class ModifyUserTokenStatusUseCase (
     private val ticketQueueTokenService: TicketQueueTokenService
 ){
     @Transactional
-    operator fun invoke(command: ModifyTokenStatusCommand): TicketQueueToken {
+    operator fun invoke(command: ModifyUserTokenStatusCommand): TicketQueueToken {
         val existingToken =  ticketQueueTokenService.retrieveToken(command.userId)
             ?: throw TicketQueueTokenException(TicketQueueTokenError.TOKEN_NOT_FOUND)
         val changedTokenStatus = command.getTokenStatusTypeFromString()

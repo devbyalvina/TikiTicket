@@ -14,15 +14,15 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
-class ModifyTokenStatusUseCaseTest {
+class ModifyUserTokenStatusUseCaseTest {
 
     private lateinit var tokenService: TicketQueueTokenService
-    private lateinit var modifyTokenStatusUseCase: ModifyTokenStatusUseCase
+    private lateinit var modifyUserTokenStatusUseCase: ModifyUserTokenStatusUseCase
 
     @BeforeEach
     fun setUp() {
         tokenService = mockk()
-        modifyTokenStatusUseCase = ModifyTokenStatusUseCase(tokenService)
+        modifyUserTokenStatusUseCase = ModifyUserTokenStatusUseCase(tokenService)
     }
 
     @Test
@@ -38,14 +38,14 @@ class ModifyTokenStatusUseCaseTest {
             createdAt = now,
             updatedAt = now
         )
-        val command = ModifyTokenStatusCommand(userId, "ACTIVE")
+        val command = ModifyUserTokenStatusCommand(userId, "ACTIVE")
         val modifiedTokenStatus = TokenStatusType.ACTIVE
 
         every { tokenService.retrieveToken(userId) } returns existingToken
         every { tokenService.modifyTokenStatus(modifiedTokenStatus, userId) } just Runs
 
         // When
-        val resultToken = modifyTokenStatusUseCase(command)
+        val resultToken = modifyUserTokenStatusUseCase(command)
 
         // Then
         verify(exactly = 1) { tokenService.retrieveToken(userId) }
@@ -57,12 +57,12 @@ class ModifyTokenStatusUseCaseTest {
     fun `토큰이 없으면 예외를 반환한다`() {
         // Given
         val userId = "user123"
-        val command = ModifyTokenStatusCommand(userId, "ACTIVE")
+        val command = ModifyUserTokenStatusCommand(userId, "ACTIVE")
         every { tokenService.retrieveToken(userId) } returns null
 
         // When, Then
         assertThrows(TicketQueueTokenException::class.java) {
-            modifyTokenStatusUseCase(command)
+            modifyUserTokenStatusUseCase(command)
         }
         verify(exactly = 0) { tokenService.modifyTokenStatus(TokenStatusType.ACTIVE, userId) }
     }
