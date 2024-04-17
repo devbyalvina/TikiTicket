@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
+import java.time.LocalDateTime
 
 
 @Entity
@@ -29,12 +30,15 @@ class TicketQueueTokenEntity (
     @NotNull
     val tokenStatus: TokenStatusType,
 
+    @NotNull
+    val expiryDateTime: LocalDateTime
 ) : BaseEntity() {
 
     fun toDomain() = TicketQueueToken (
         id = this.tokenId,
         userId = this.userId,
         tokenStatus = this.tokenStatus,
+        expiryDateTime = this.expiryDateTime,
         createdAt = this.createdAt,
         updatedAt = this.updatedAt
     )
@@ -45,6 +49,7 @@ class TicketQueueTokenEntity (
                 tokenId = ticketQueueToken.id,
                 userId = ticketQueueToken.userId,
                 tokenStatus = ticketQueueToken.tokenStatus,
+                expiryDateTime = ticketQueueToken.expiryDateTime,
             )
         }
     }

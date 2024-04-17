@@ -26,13 +26,13 @@ class CreateTokenUseCaseTest {
         // Given
         val userId = "user123"
         val currentTime = LocalDateTime.now()
-        val token = TicketQueueToken(1L, userId, TokenStatusType.ACTIVE, currentTime, currentTime)
+        val token = TicketQueueToken(1L, userId, TokenStatusType.ACTIVE, currentTime.plusMinutes(5), currentTime, currentTime)
 
         every { ticketQueueTokenService.retrieveToken(userId) } returns null
-        every { ticketQueueTokenService.createToken(userId) } returns token
+        every { ticketQueueTokenService.createToken(userId, currentTime) } returns token
 
         // When
-        val result = createTokenUseCase(userId)
+        val result = createTokenUseCase(userId, currentTime)
 
         // Then
         assertEquals(token, result)
@@ -42,13 +42,14 @@ class CreateTokenUseCaseTest {
     fun `이미 토큰을 발급받은 유저이면 에러를 발생시킨다`() {
         // Given
         val userId = "user123"
-        val existingToken = TicketQueueToken(1L, userId, TokenStatusType.ACTIVE, LocalDateTime.now(), LocalDateTime.now())
+        val now = LocalDateTime.now()
+        val existingToken = TicketQueueToken(1L, userId, TokenStatusType.ACTIVE, now.plusMinutes(5), now, now)
 
         every { ticketQueueTokenService.retrieveToken(userId) } returns existingToken
 
         // When & Then
         assertThrows(TicketQueueTokenException::class.java) {
-            createTokenUseCase(userId)
+            createTokenUseCase(userId, now)
         }
     }
 }

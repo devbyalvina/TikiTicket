@@ -26,12 +26,14 @@ class GetTokenUseCaseTest {
     fun `get token queue position - token found`() {
         // Given
         val userId = "user123"
+        var currentTime = LocalDateTime.now()
         val existingToken = TicketQueueToken(
             id = 1L,
             userId = userId,
             tokenStatus = TokenStatusType.WAITING,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            expiryDateTime = currentTime.plusMinutes(5),
+            createdAt = currentTime,
+            updatedAt = currentTime
         )
         every { tokenService.retrieveToken(userId) } returns existingToken
 

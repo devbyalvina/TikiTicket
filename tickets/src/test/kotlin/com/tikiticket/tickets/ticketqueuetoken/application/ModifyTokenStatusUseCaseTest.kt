@@ -29,12 +29,14 @@ class ModifyTokenStatusUseCaseTest {
     fun `토큰 상태를 변경한다`() {
         // Given
         val userId = "user123"
+        val now = LocalDateTime.now()
         val existingToken = TicketQueueToken(
             id = 1L,
             userId = userId,
             tokenStatus = TokenStatusType.WAITING,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            expiryDateTime = now.plusMinutes(5),
+            createdAt = now,
+            updatedAt = now
         )
         val command = ModifyTokenStatusCommand(userId, "ACTIVE")
         val modifiedTokenStatus = TokenStatusType.ACTIVE

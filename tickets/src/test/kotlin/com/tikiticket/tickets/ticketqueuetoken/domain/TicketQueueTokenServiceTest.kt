@@ -17,28 +17,32 @@ class TicketQueueTokenServiceTest {
 
     @Test
     fun `토큰을 발급한다`() {
+        val expiryDateTime = LocalDateTime.now().plusMinutes(5)
+
         // Mock 객체가 호출될 때 반환할 예상 토큰 생성
         val newToken = TicketQueueToken(
             id = 0,
             userId = "user123",
             tokenStatus = TokenStatusType.WAITING,
-            createdAt = null, // 원하는 시간으로 설정해야 함
-            updatedAt = null // 원하는 시간으로 설정해야 함
+            expiryDateTime = expiryDateTime,
+            createdAt = null,
+            updatedAt = null
         )
 
         val expectedToken = TicketQueueToken(
             id = 1,
             userId = "user123",
             tokenStatus = TokenStatusType.WAITING,
-            createdAt = null, // 원하는 시간으로 설정해야 함
-            updatedAt = null // 원하는 시간으로 설정해야 함
+            expiryDateTime = expiryDateTime,
+            createdAt = null,
+            updatedAt = null
         )
 
         // Mock Repository의 createToken 메서드가 호출될 때 반환할 값 설정
         `when`(ticketQueueTokenRepository.createToken(newToken)).thenReturn(expectedToken)
 
         // createToken 메서드 호출
-        val resultToken = ticketQueueTokenService.createToken("user123")
+        val resultToken = ticketQueueTokenService.createToken("user123", expiryDateTime)
 
         // createToken 메서드의 반환값이 예상값과 일치하는지 확인
         assertEquals(expectedToken, resultToken)
@@ -48,10 +52,13 @@ class TicketQueueTokenServiceTest {
     fun `UserId로 토큰을 조회한다`() {
         // Given
         val userId = "user123"
+        val expiryDateTime = LocalDateTime.now().plusMinutes(5)
+
         val token = TicketQueueToken(
             1L,
             userId,
             TokenStatusType.WAITING,
+            expiryDateTime,
             LocalDateTime.now(),
             LocalDateTime.now()
         )
@@ -68,10 +75,13 @@ class TicketQueueTokenServiceTest {
     @Test
     fun `토큰의 대기열 순번을 확인한다`() {
         // Given
+        val expiryDateTime = LocalDateTime.now().plusMinutes(5)
+
         val token = TicketQueueToken(
             1L,
             "user123",
             TokenStatusType.WAITING,
+            expiryDateTime,
             LocalDateTime.now(),
             LocalDateTime.now()
         )
@@ -89,10 +99,13 @@ class TicketQueueTokenServiceTest {
     @Test
     fun `토큰의 상태를 변경한다`() {
         // Given
+        val expiryDateTime = LocalDateTime.now().plusMinutes(5)
+
         val token = TicketQueueToken(
             1L,
             "user123",
             TokenStatusType.WAITING,
+            expiryDateTime,
             LocalDateTime.now(),
             LocalDateTime.now()
         )

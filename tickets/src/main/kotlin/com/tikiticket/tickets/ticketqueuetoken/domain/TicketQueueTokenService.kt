@@ -8,13 +8,14 @@ class TicketQueueTokenService (
     private val ticketQueueTokenRepository: TicketQueueTokenRepository
 ) {
     /**
-     * 토큰 생성
+     * 유저 토큰 생성
      */
-    fun createToken(userId: String): TicketQueueToken {
+    fun createToken(userId: String, expiryDateTime: LocalDateTime): TicketQueueToken {
         val ticketQueueToken = TicketQueueToken (
             id = 0,
             userId = userId,
             tokenStatus = TokenStatusType.WAITING,
+            expiryDateTime = expiryDateTime,
             null,
             null
         )
@@ -22,21 +23,21 @@ class TicketQueueTokenService (
     }
 
     /**
-     * 토큰 조회
+     * 유저 토큰 조회
      */
     fun retrieveToken(userId: String): TicketQueueToken? {
         return ticketQueueTokenRepository.retrieveToken(userId)
     }
 
     /**
-     * 토큰 상태 변경
+     * 유저 토큰 상태 변경
      */
     fun modifyTokenStatus(tokenStatus: TokenStatusType, userId: String) {
         ticketQueueTokenRepository.modifyTokenStatus(tokenStatus, userId)
     }
 
     /**
-     * 토큰 순번 조회
+     * 유저 토큰 순번 조회
      */
     fun retrieveQueuePosition(tokenStatus: TokenStatusType, tokenCreatedAt: LocalDateTime): Long {
         return ticketQueueTokenRepository.findTokenQueuePosition(tokenStatus, tokenCreatedAt)
