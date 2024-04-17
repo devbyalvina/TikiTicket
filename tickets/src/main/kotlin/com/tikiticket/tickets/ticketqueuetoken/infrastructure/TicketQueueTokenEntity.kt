@@ -28,7 +28,7 @@ class TicketQueueTokenEntity (
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    val tokenStatus: TokenStatusType,
+    var tokenStatus: TokenStatusType,
 
     @NotNull
     val expiryDateTime: LocalDateTime
