@@ -2,10 +2,9 @@ package com.tikiticket.tickets.ticketqueuetoken.application
 
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueToken
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueTokenService
+import org.springframework.stereotype.Component
 
-/**
- *  API.3 대기열 토큰 조회
- */
+@Component
 class GetTokenUseCase (
     private val ticketQueueTokenService: TicketQueueTokenService
 ){
