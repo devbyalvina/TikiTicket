@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
  *  API.5 콘서트 좌석 목록 조회
  */
 @Component
-class GetConcertWithSeatsByConcertIdUseCase (
+class GetConcertWithSeatsUseCase (
     private val concertService: ConcertService
 ){
     operator fun invoke(concertId: Long): Concert {

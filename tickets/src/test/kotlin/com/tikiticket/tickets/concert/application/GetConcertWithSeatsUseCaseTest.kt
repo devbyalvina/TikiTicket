@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-class GetConcertWithSeatsByConcertIdUseCaseTest {
+class GetConcertWithSeatsUseCaseTest {
 
     @Test
     fun `콘서트가 없으면 ConcertException을 반환한다`() {
@@ -19,7 +19,7 @@ class GetConcertWithSeatsByConcertIdUseCaseTest {
         val concertService = mockk<ConcertService> {
             every { findConcertWithSeats(concertId) } returns null
         }
-        val useCase = GetConcertWithSeatsByConcertIdUseCase(concertService)
+        val useCase = GetConcertWithSeatsUseCase(concertService)
 
         // When & Then
         val exception = assertThrows<ConcertException> { useCase(concertId) }
@@ -36,7 +36,7 @@ class GetConcertWithSeatsByConcertIdUseCaseTest {
         val concertService = mockk<ConcertService> {
             every { findConcertWithSeats(concertId) } returns concert
         }
-        val useCase = GetConcertWithSeatsByConcertIdUseCase(concertService)
+        val useCase = GetConcertWithSeatsUseCase(concertService)
 
         // When & Then
         assertThrows<ConcertException> { useCase(concertId) }
@@ -52,7 +52,7 @@ class GetConcertWithSeatsByConcertIdUseCaseTest {
         val concertService = mockk<ConcertService> {
             every { findConcertWithSeats(concertId) } returns concert
         }
-        val useCase = GetConcertWithSeatsByConcertIdUseCase(concertService)
+        val useCase = GetConcertWithSeatsUseCase(concertService)
 
         // When
         val result = useCase(concertId)
