@@ -1,5 +1,7 @@
 package com.tikiticket.tickets.ticketqueuetoken.domain
 
+import io.mockk.every
+import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
@@ -115,5 +117,51 @@ class TicketQueueTokenServiceTest {
 
         // Then
         Mockito.verify(ticketQueueTokenRepository, Mockito.times(1)).modifyTokenStatus(token.tokenStatus, token.userId)
+    }
+
+    @Test
+    fun `특정 상태를 갖고 있는 토큰의 갯수를 조회한다`() {
+        // Given
+        val tokenStatus = TokenStatusType.WAITING
+        val expiryDateTime = LocalDateTime.now()
+
+        val expectedTokenCount = 5L
+        // Stubbing repository method
+        `when`(ticketQueueTokenRepository.countTokensWithStatus(tokenStatus, expiryDateTime)).thenReturn(expectedTokenCount)
+
+        // When
+        val result = ticketQueueTokenService.countTokensWithStatus(tokenStatus, expiryDateTime)
+
+        // Then
+        assertEquals(expectedTokenCount, result)
+    }
+
+    @Test
+    fun `특정 상태를 타겟 상태로 입력받은 갯수만큼 변경시킨다`() {
+        // Given
+        val previousStatus = TokenStatusType.WAITING
+        val targetStatus = TokenStatusType.ACTIVE
+        val tokenCount = 3
+
+        // When
+        ticketQueueTokenService.changeTokenStatuses(previousStatus, targetStatus, tokenCount)
+
+        // Then
+        // Verify that repository method is called with correct parameters
+        Mockito.verify(ticketQueueTokenRepository, Mockito.times(1)).changeTokenStatuses(previousStatus, targetStatus, tokenCount)
+    }
+
+    @Test
+    fun `유효기간이 만료된 토큰의 상태를 변경시킨다`() {
+        // Given
+        val tokenStatus = TokenStatusType.WAITING
+        val expiryDateTime = LocalDateTime.now()
+
+        // When
+        ticketQueueTokenService.modifyExpiredTokenStatus(tokenStatus, expiryDateTime)
+
+        // Then
+        // Verify that repository method is called with correct parameters
+        Mockito.verify(ticketQueueTokenRepository, Mockito.times(1)).modifyExpiredTokenStatus(tokenStatus, expiryDateTime)
     }
 }
