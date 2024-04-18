@@ -16,8 +16,7 @@ class ModifyUserTokenStatusUseCase (
     operator fun invoke(command: ModifyUserTokenStatusCommand): TicketQueueToken {
         val existingToken =  ticketQueueTokenService.retrieveToken(command.userId)
             ?: throw TicketQueueTokenException(TicketQueueTokenError.TOKEN_NOT_FOUND)
-        val changedTokenStatus = command.getTokenStatusTypeFromString()
-        ticketQueueTokenService.modifyTokenStatus(changedTokenStatus, command.userId)
-        return existingToken.copy(tokenStatus = changedTokenStatus)
+        ticketQueueTokenService.modifyTokenStatus(command.tokenStatus, command.userId)
+        return existingToken.copy(tokenStatus = command.tokenStatus)
     }
 }

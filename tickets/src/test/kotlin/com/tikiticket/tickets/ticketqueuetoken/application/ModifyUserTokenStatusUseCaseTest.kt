@@ -38,7 +38,7 @@ class ModifyUserTokenStatusUseCaseTest {
             createdAt = now,
             updatedAt = now
         )
-        val command = ModifyUserTokenStatusCommand(userId, "ACTIVE")
+        val command = ModifyUserTokenStatusCommand(userId, TokenStatusType.ACTIVE)
         val modifiedTokenStatus = TokenStatusType.ACTIVE
 
         every { tokenService.retrieveToken(userId) } returns existingToken
@@ -57,7 +57,7 @@ class ModifyUserTokenStatusUseCaseTest {
     fun `토큰이 없으면 예외를 반환한다`() {
         // Given
         val userId = "user123"
-        val command = ModifyUserTokenStatusCommand(userId, "ACTIVE")
+        val command = ModifyUserTokenStatusCommand(userId, TokenStatusType.ACTIVE)
         every { tokenService.retrieveToken(userId) } returns null
 
         // When, Then

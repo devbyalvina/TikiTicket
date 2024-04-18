@@ -1,5 +1,7 @@
 package com.tikiticket.tickets.ticketqueuetoken.domain
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonValue
 import java.time.LocalDateTime
 
 data class TicketQueueToken(
@@ -18,5 +20,18 @@ data class TicketQueueToken(
  * - INACTIVE : 비활성
  */
 enum class TokenStatusType {
-    WAITING, ACTIVE, INACTIVE
+    WAITING, ACTIVE, INACTIVE;
+
+    @JsonValue
+    fun toJson(): String {
+        return this.name
+    }
+
+    companion object {
+        @JsonCreator
+        @JvmStatic
+        fun fromJson(jsonValue: String): TokenStatusType {
+            return valueOf(jsonValue)
+        }
+    }
 }
