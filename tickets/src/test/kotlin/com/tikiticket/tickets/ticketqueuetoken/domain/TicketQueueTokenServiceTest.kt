@@ -90,9 +90,10 @@ class TicketQueueTokenServiceTest {
         val expectedPosition = 5L
 
         // When
+        `when`(ticketQueueTokenRepository.retrieveToken(token.userId)).thenReturn(token)
         `when`(ticketQueueTokenRepository.findTokenQueuePosition(token.tokenStatus, token.createdAt!!)).thenReturn(expectedPosition)
 
-        val retrievedPosition = ticketQueueTokenService.retrieveQueuePosition(token.tokenStatus, token.createdAt!!)
+        val retrievedPosition = ticketQueueTokenService.retrieveQueuePosition("user123")
 
         // Then
         assertEquals(expectedPosition, retrievedPosition)

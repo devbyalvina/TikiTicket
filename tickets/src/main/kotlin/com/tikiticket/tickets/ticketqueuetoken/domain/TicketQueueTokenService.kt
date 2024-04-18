@@ -39,8 +39,9 @@ class TicketQueueTokenService (
     /**
      * 유저 토큰 순번 조회
      */
-    fun retrieveQueuePosition(tokenStatus: TokenStatusType, tokenCreatedAt: LocalDateTime): Long {
-        return ticketQueueTokenRepository.findTokenQueuePosition(tokenStatus, tokenCreatedAt)
+    fun retrieveQueuePosition(userId: String): Long {
+        val userToken = ticketQueueTokenRepository.retrieveToken(userId)
+        return ticketQueueTokenRepository.findTokenQueuePosition(userToken!!.tokenStatus, userToken.createdAt!!)
     }
 
     /**
