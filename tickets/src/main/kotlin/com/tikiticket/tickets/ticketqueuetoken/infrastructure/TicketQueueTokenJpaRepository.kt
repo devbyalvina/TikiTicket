@@ -35,7 +35,7 @@ interface TicketQueueTokenJpaRepository: JpaRepository<TicketQueueTokenEntity, L
     /**
      * 상태 조건으로 토큰 N개 조회
      */
-    @Query("select t FROM TicketQueueTokenEntity t WHERE t.status = :status order by t.createdAt")
+    @Query("select t FROM TicketQueueTokenEntity t WHERE t.tokenStatus = :tokenStatus order by t.createdAt")
     fun findTokensByStatusOrderedByCreationDate(tokenStatus: TokenStatusType, pageable: Pageable): List<TicketQueueTokenEntity>
 
     /**

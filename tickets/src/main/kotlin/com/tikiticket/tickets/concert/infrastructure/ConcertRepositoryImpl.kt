@@ -4,8 +4,10 @@ import com.tikiticket.tickets.concert.domain.Concert
 import com.tikiticket.tickets.concert.domain.ConcertRepository
 import com.tikiticket.tickets.concert.domain.ConcertSeat
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Repository
 import java.time.LocalDate
 
+@Repository
 class ConcertRepositoryImpl (
     private val concertJpaRepository: ConcertJpaRepository,
     private val concertSeatJpaRepository: ConcertSeatJpaRepository
