@@ -1,0 +1,22 @@
+name: ktlint-bot
+on: [pull_request]
+
+jobs:
+  ktlint:
+    name: Check Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: ktlint
+        uses: ScaCap/action-ktlint@master
+        with:
+          github_token: $
+          reporter: github-pr-review  # github-pr-check,  github-pr-review 두 가지 방식이 존재
+          android: true
+          fail_on_error: true
+          level: warning
