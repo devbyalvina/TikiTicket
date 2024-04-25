@@ -1,5 +1,5 @@
 # github repository Actions 페이지에 나타낼 이름
-name: CI/CD
+name: Push CD
 
 # event trigger
 on:
