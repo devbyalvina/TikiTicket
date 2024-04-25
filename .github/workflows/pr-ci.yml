@@ -17,7 +17,7 @@ jobs:
         uses: ScaCap/action-ktlint@master
         with:
           github_token: $
-          reporter: github-pr-review  # github-pr-check,  github-pr-review 두 가지 방식이 존재
+          reporter: github-pr-check  # github-pr-check,  github-pr-review 두 가지 방식이 존재
           android: true
           fail_on_error: true
           level: warning
