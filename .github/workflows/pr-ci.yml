@@ -1,4 +1,4 @@
-name: ktlint-bot
+name: PR CI
 on: [pull_request]
 
 jobs:
