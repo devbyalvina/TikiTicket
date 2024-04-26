@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.payment.infrastructure
 
-import com.tikiticket.tickets.`app-core`.infrastructure.BaseEntity
+import com.tikiticket.tickets.app_core.infrastructure.BaseEntity
 import com.tikiticket.tickets.payment.domain.Payment
 import com.tikiticket.tickets.payment.domain.PaymentMethodType
 import com.tikiticket.tickets.payment.domain.PaymentStatus

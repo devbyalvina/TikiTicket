@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.concert.infrastructure
 
-import com.tikiticket.tickets.`app-core`.infrastructure.BaseEntity
+import com.tikiticket.tickets.app_core.infrastructure.BaseEntity
 import com.tikiticket.tickets.concert.domain.Concert
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
