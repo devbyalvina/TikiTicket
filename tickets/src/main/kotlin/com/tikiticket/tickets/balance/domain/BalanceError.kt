@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.balance.application.exception
+package com.tikiticket.tickets.balance.domain
 
 import com.tikiticket.tickets.appcore.application.exception.CustomError
 

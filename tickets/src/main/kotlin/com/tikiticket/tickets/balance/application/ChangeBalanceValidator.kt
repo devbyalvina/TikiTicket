@@ -1,7 +1,8 @@
 package com.tikiticket.tickets.balance.application
 
-import com.tikiticket.tickets.balance.application.exception.BalanceError
-import com.tikiticket.tickets.balance.application.exception.BalanceException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.balance.domain.BalanceError
 
 class ChangeBalanceValidator {
     /**
@@ -10,7 +11,7 @@ class ChangeBalanceValidator {
     companion object {
         fun checkCalculatedAmount(calculatedAmount: Long) {
             require(calculatedAmount > 0) {
-                throw BalanceException(BalanceError.INSUFFICIENT_BALANCE)
+                throw CustomException(LogLevel.INFO, BalanceError.INSUFFICIENT_BALANCE)
             }
         }
     }

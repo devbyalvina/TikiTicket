@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.balance.application
 
-import com.tikiticket.tickets.balance.application.exception.BalanceException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.balance.domain.Balance
 import com.tikiticket.tickets.balance.domain.BalanceService
 import io.mockk.every
@@ -78,7 +78,7 @@ class ChangeBalanceUseCaseTest {
         val command = ChangeBalanceCommand(userId, "PAY", changeAmount)
 
         // When & Then
-        assertThrows(BalanceException::class.java) {
+        assertThrows(CustomException::class.java) {
             changeBalanceUseCase(command)
         }
     }

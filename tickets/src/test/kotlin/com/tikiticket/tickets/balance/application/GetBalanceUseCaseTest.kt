@@ -1,8 +1,8 @@
 package com.tikiticket.tickets.balance.application
 
-import com.tikiticket.tickets.balance.application.exception.BalanceError
-import com.tikiticket.tickets.balance.application.exception.BalanceException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.balance.domain.Balance
+import com.tikiticket.tickets.balance.domain.BalanceError
 import com.tikiticket.tickets.balance.domain.BalanceService
 import io.mockk.every
 import io.mockk.mockk
@@ -29,7 +29,7 @@ class GetBalanceUseCaseTest {
     }
 
     @Test
-    fun `잔고가 존재하지 않으면 BalanceException가 발생한다`() {
+    fun `잔고가 존재하지 않으면 CustomException이 발생한다`() {
         // Given
         val userId = "user456"
         val balanceService = mockk<BalanceService> {
@@ -38,9 +38,9 @@ class GetBalanceUseCaseTest {
         val useCase = GetBalanceUseCase(balanceService)
 
         // When & Then
-        val exception = org.junit.jupiter.api.assertThrows<BalanceException> {
+        val exception = org.junit.jupiter.api.assertThrows<CustomException> {
             useCase(userId)
         }
-        assertEquals(BalanceError.BALANCE_NOT_FOUND, exception.error)
+        assertEquals(BalanceError.BALANCE_NOT_FOUND, exception.customError)
     }
 }

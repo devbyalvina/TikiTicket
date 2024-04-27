@@ -1,7 +1,8 @@
 package com.tikiticket.tickets.balance.application
 
-import com.tikiticket.tickets.balance.application.exception.BalanceError
-import com.tikiticket.tickets.balance.application.exception.BalanceException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.balance.domain.BalanceError
 import com.tikiticket.tickets.balance.domain.TransactionType
 import java.util.*
 
@@ -23,7 +24,7 @@ data class ChangeBalanceCommand(
      */
     fun checkPositive() {
         require (amount > 0) {
-            throw BalanceException(BalanceError.INVALID_AMOUNT_PARAMETER)
+            throw CustomException(LogLevel.WARN, BalanceError.INVALID_AMOUNT_PARAMETER)
         }
     }
 
@@ -34,7 +35,7 @@ data class ChangeBalanceCommand(
         return kotlin.runCatching {
             TransactionType.valueOf(transactionType.uppercase(Locale.getDefault()))
         }.getOrElse {
-            throw BalanceException(BalanceError.WRONG_TRANSACTION_TYPE)
+            throw CustomException(LogLevel.WARN, BalanceError.WRONG_TRANSACTION_TYPE)
         }
     }
 }
