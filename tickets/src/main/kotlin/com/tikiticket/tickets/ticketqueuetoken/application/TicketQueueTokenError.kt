@@ -1,8 +1,10 @@
 package com.tikiticket.tickets.ticketqueuetoken.application
 
+import com.tikiticket.tickets.appcore.application.exception.CustomError
+
 enum class TicketQueueTokenError (
-    val message: String,
-) {
+    override val message: String,
+): CustomError {
     /**
      *  TOKEN_ALREADY_ISSUED
      *  - API.1 대기열 토큰 발급
@@ -17,5 +19,7 @@ enum class TicketQueueTokenError (
      *  WRONG_TOKEN_STATUS
      *  - API.2 대기열 토큰 상태 변경
      */
-    WRONG_TOKEN_STATUS("Requested token status cannot be used.")
+    WRONG_TOKEN_STATUS("Requested token status cannot be used.");
+
+    override val errorCode: String = name
 }

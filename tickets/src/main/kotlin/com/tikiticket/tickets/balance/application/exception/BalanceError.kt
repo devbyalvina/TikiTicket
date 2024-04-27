@@ -1,8 +1,10 @@
 package com.tikiticket.tickets.balance.application.exception
 
+import com.tikiticket.tickets.appcore.application.exception.CustomError
+
 enum class BalanceError (
-    val message: String,
-) {
+    override val message: String,
+): CustomError {
     /**
      *  BALANCE_NOT_FOUND
      *  - API.9 잔고 조회
@@ -23,5 +25,7 @@ enum class BalanceError (
      *  INSUFFICIENT_BALANCE
      *  - API.10 잔고 변경
      */
-    INSUFFICIENT_BALANCE("The user does not have enough balance to complete the transaction.")
+    INSUFFICIENT_BALANCE("The user does not have enough balance to complete the transaction.");
+
+    override val errorCode: String = name
 }

@@ -1,8 +1,10 @@
 package com.tikiticket.tickets.concert.application.exception
 
+import com.tikiticket.tickets.appcore.application.exception.CustomError
+
 enum class ConcertError (
-    val message: String,
-) {
+    override val message: String,
+): CustomError {
     /**
      *  INVALID_DATE_RANGE_PARAMETER
      *  - API.4 콘서트 스케줄 목록 조회
@@ -18,5 +20,7 @@ enum class ConcertError (
      *  CONCERT_SEATS_NOT_FOUND
      *  - API.5 콘서트 좌석 목록 조회
      */
-    CONCERT_SEATS_NOT_FOUND("Seats for the specified concert were not found.")
+    CONCERT_SEATS_NOT_FOUND("Seats for the specified concert were not found.");
+
+    override val errorCode: String = name
 }

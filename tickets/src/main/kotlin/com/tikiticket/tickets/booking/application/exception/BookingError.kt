@@ -1,8 +1,10 @@
 package com.tikiticket.tickets.booking.application.exception
 
+import com.tikiticket.tickets.appcore.application.exception.CustomError
+
 enum class BookingError (
-    val message: String,
-) {
+    override val message: String,
+): CustomError {
     /**
      *  CONCERT_NOT_FOUND
      *  - API.6 예매
@@ -22,5 +24,7 @@ enum class BookingError (
      *  BOOKING_NOT_FOUND
      *  - API.7 예매 내역 조회
      */
-    BOOKING_NOT_FOUND("The specified booking was not found."),
+    BOOKING_NOT_FOUND("The specified booking was not found.");
+
+    override val errorCode: String = name
 }
