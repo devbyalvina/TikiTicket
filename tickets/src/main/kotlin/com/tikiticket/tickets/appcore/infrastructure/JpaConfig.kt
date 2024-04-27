@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.app_core.infrastructure
+package com.tikiticket.tickets.appcore.infrastructure
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing

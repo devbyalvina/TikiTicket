@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.ticketqueuetoken.infrastructure
 
-import com.tikiticket.tickets.app_core.infrastructure.BaseEntity
+import com.tikiticket.tickets.appcore.infrastructure.BaseEntity
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueToken
 import com.tikiticket.tickets.ticketqueuetoken.domain.TokenStatusType
 import jakarta.persistence.Column

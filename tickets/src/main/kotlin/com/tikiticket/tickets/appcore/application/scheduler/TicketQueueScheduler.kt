@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.app_core.boot_scheduler
+package com.tikiticket.tickets.appcore.application.scheduler
 
 import com.tikiticket.tickets.ticketqueuetoken.application.ActivateTokensUseCase
 import com.tikiticket.tickets.ticketqueuetoken.application.InactivateTokensUseCase

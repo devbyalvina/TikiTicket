@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.balance.infrastructure
 
-import com.tikiticket.tickets.app_core.infrastructure.BaseEntity
+import com.tikiticket.tickets.appcore.infrastructure.BaseEntity
 import com.tikiticket.tickets.balance.domain.Balance
 import jakarta.persistence.Entity
 import jakarta.persistence.Id

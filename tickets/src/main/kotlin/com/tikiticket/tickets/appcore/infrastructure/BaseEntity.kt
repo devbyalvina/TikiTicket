@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.app_core.infrastructure
+package com.tikiticket.tickets.appcore.infrastructure
 
 import jakarta.persistence.Column
 import jakarta.persistence.EntityListeners

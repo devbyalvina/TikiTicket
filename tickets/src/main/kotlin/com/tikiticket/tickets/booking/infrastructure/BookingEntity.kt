@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.booking.infrastructure
 
-import com.tikiticket.tickets.app_core.infrastructure.BaseEntity
+import com.tikiticket.tickets.appcore.infrastructure.BaseEntity
 import com.tikiticket.tickets.booking.domain.Booking
 import com.tikiticket.tickets.booking.domain.BookingStatusType
 import jakarta.persistence.Entity
