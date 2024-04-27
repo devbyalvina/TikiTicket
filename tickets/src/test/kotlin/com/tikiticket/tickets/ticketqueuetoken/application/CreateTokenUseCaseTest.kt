@@ -1,5 +1,6 @@
 package com.tikiticket.tickets.ticketqueuetoken.application
 
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueToken
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueTokenService
 import com.tikiticket.tickets.ticketqueuetoken.domain.TokenStatusType
@@ -48,7 +49,7 @@ class CreateTokenUseCaseTest {
         every { ticketQueueTokenService.retrieveToken(userId) } returns existingToken
 
         // When & Then
-        assertThrows(TicketQueueTokenException::class.java) {
+        assertThrows(CustomException::class.java) {
             createTokenUseCase(userId, now)
         }
     }

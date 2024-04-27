@@ -1,6 +1,8 @@
 package com.tikiticket.tickets.ticketqueuetoken.application
 
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueToken
+import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueTokenError
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueTokenService
 import com.tikiticket.tickets.ticketqueuetoken.domain.TokenStatusType
 import io.mockk.every
@@ -52,12 +54,12 @@ class GetTokenUseCaseTest {
         every { tokenService.retrieveToken(userId) } returns null
 
         // When
-        val exception = assertThrows(TicketQueueTokenException::class.java) {
+        val exception = assertThrows(CustomException::class.java) {
             getTokenUseCase(userId)
         }
 
         // Then
-        assertEquals(TicketQueueTokenError.TOKEN_NOT_FOUND, exception.error)
+        assertEquals(TicketQueueTokenError.TOKEN_NOT_FOUND, exception.customError)
         verify(exactly = 1) { tokenService.retrieveToken(userId) }
     }
 

@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.ticketqueuetoken.application
+package com.tikiticket.tickets.ticketqueuetoken.domain
 
 import com.tikiticket.tickets.appcore.application.exception.CustomError
 

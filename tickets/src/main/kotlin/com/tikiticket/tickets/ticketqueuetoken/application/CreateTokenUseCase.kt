@@ -1,6 +1,9 @@
 package com.tikiticket.tickets.ticketqueuetoken.application
 
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueToken
+import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueTokenError
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueTokenService
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
@@ -14,7 +17,7 @@ class CreateTokenUseCase (
 ) {
     operator fun invoke(userId: String, expiryDateTime: LocalDateTime): TicketQueueToken {
         require (ticketQueueTokenService.retrieveToken(userId) == null) {
-            throw TicketQueueTokenException(TicketQueueTokenError.TOKEN_ALREADY_ISSUED)
+            throw CustomException(LogLevel.INFO, TicketQueueTokenError.TOKEN_ALREADY_ISSUED)
         }
 
         return ticketQueueTokenService.createToken(userId, expiryDateTime)
