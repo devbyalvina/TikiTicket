@@ -1,7 +1,8 @@
 package com.tikiticket.tickets.booking.domain
 
-import com.tikiticket.tickets.payment.application.exception.PaymentError
-import com.tikiticket.tickets.payment.application.exception.PaymentException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.payment.domain.PaymentError
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -45,7 +46,7 @@ class BookingService (
     fun changeBookingStatus(bookingId: Long, bookingStatus: BookingStatusType, currentDateTime: LocalDateTime): Booking {
         // 예매 내역 조회 For Update
         val booking = findBookingForUpdate(bookingId)
-            ?: throw PaymentException(PaymentError.BOOKING_NOT_FOUND)
+            ?: throw CustomException(LogLevel.INFO, PaymentError.BOOKING_NOT_FOUND)
 
         // 예매 상태 결제로 변경
         val paidBooking = booking.copy(

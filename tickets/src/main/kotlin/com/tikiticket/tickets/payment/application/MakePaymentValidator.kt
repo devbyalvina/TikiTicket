@@ -1,7 +1,8 @@
 package com.tikiticket.tickets.payment.application
 
-import com.tikiticket.tickets.payment.application.exception.PaymentError
-import com.tikiticket.tickets.payment.application.exception.PaymentException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.payment.domain.PaymentError
 
 class MakePaymentValidator {
     /**
@@ -10,7 +11,7 @@ class MakePaymentValidator {
     companion object {
         fun checkCalculatedAmount(calculatedAmount: Long) {
             require(calculatedAmount > 0) {
-                throw PaymentException(PaymentError.INSUFFICIENT_BALANCE)
+                throw CustomException(LogLevel.INFO, PaymentError.INSUFFICIENT_BALANCE)
             }
         }
     }

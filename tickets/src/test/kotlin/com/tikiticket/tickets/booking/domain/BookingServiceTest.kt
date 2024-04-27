@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.booking.domain
 
-import com.tikiticket.tickets.payment.application.exception.PaymentException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -156,7 +156,7 @@ class BookingServiceTest {
         every { bookingRepository.findBookingByIdForUpdate(bookingId) } returns null
 
         // When & Then
-        assertThrows(PaymentException::class.java) {
+        assertThrows(CustomException::class.java) {
             bookingService.changeBookingStatus(bookingId, bookingStatus, currentDateTime)
         }
     }

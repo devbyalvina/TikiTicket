@@ -1,7 +1,8 @@
 package com.tikiticket.tickets.payment.application
 
-import com.tikiticket.tickets.payment.application.exception.PaymentError
-import com.tikiticket.tickets.payment.application.exception.PaymentException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.payment.domain.PaymentError
 import com.tikiticket.tickets.payment.domain.PaymentMethodType
 import java.util.*
 
@@ -17,7 +18,7 @@ data class MakePaymentCommand (
         return kotlin.runCatching {
             PaymentMethodType.valueOf(paymentMethod.uppercase(Locale.getDefault()))
         }.getOrElse {
-            throw PaymentException(PaymentError.WRONG_PAYMENT_METHOD)
+            throw CustomException(LogLevel.WARN, PaymentError.WRONG_PAYMENT_METHOD)
         }
     }
 }
