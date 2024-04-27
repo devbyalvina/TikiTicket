@@ -1,8 +1,9 @@
 package com.tikiticket.tickets.concert.application
 
-import com.tikiticket.tickets.concert.application.exception.ConcertError
-import com.tikiticket.tickets.concert.application.exception.ConcertException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
 import com.tikiticket.tickets.concert.domain.Concert
+import com.tikiticket.tickets.concert.domain.ConcertError
 
 class ConcertValidator {
     /**
@@ -11,7 +12,7 @@ class ConcertValidator {
     companion object {
         fun checkSeatsExist(concert: Concert) {
             require(!concert.seats.isNullOrEmpty()) {
-                throw ConcertException(ConcertError.CONCERT_SEATS_NOT_FOUND)
+                throw CustomException(LogLevel.WARN, ConcertError.CONCERT_SEATS_NOT_FOUND)
             }
         }
     }

@@ -1,8 +1,8 @@
 package com.tikiticket.tickets.concert.application
 
-import com.tikiticket.tickets.concert.application.exception.ConcertError
-import com.tikiticket.tickets.concert.application.exception.ConcertException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.concert.domain.Concert
+import com.tikiticket.tickets.concert.domain.ConcertError
 import com.tikiticket.tickets.concert.domain.ConcertService
 import io.mockk.every
 import io.mockk.mockk
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.assertThrows
 class GetConcertWithSeatsUseCaseTest {
 
     @Test
-    fun `콘서트가 없으면 ConcertException을 반환한다`() {
+    fun `콘서트가 없으면 CustomException을 반환한다`() {
         // Given
         val concertId = 1L
         val concertService = mockk<ConcertService> {
@@ -22,12 +22,12 @@ class GetConcertWithSeatsUseCaseTest {
         val useCase = GetConcertWithSeatsUseCase(concertService)
 
         // When & Then
-        val exception = assertThrows<ConcertException> { useCase(concertId) }
-        assertEquals(ConcertError.CONCERT_NOT_FOUND, exception.error)
+        val exception = assertThrows<CustomException> { useCase(concertId) }
+        assertEquals(ConcertError.CONCERT_NOT_FOUND, exception.customError)
     }
 
     @Test
-    fun `콘서트 좌석 목록이 없으면 ConcertException을 반환한다`() {
+    fun `콘서트 좌석 목록이 없으면 CustomException을 반환한다`() {
         // Given
         val concertId = 1L
         val concert = mockk<Concert> {
@@ -39,7 +39,8 @@ class GetConcertWithSeatsUseCaseTest {
         val useCase = GetConcertWithSeatsUseCase(concertService)
 
         // When & Then
-        assertThrows<ConcertException> { useCase(concertId) }
+        val exception = assertThrows<CustomException> { useCase(concertId) }
+        assertEquals(ConcertError.CONCERT_SEATS_NOT_FOUND, exception.customError)
     }
 
     @Test

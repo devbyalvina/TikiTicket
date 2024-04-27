@@ -1,7 +1,7 @@
 package com.tikiticket.tickets.concert.application
 
-import com.tikiticket.tickets.concert.application.exception.ConcertError
-import com.tikiticket.tickets.concert.application.exception.ConcertException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.concert.domain.ConcertError
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
@@ -38,12 +38,11 @@ class GetConcertsByDateRangeCommandTest {
         // Given
         val startDate = LocalDate.of(2024, 1, 2)
         val endDate = LocalDate.of(2024, 1, 1)
-        val command = GetConcertsByDateRangeCommand(startDate, endDate)
 
-        // When & Then: ConcertException 예외가 발생해야 함
-        val exception = assertThrows(ConcertException::class.java) {
-            command.validate()
+        // When & Then: CustomException 예외가 발생해야 함
+        val exception = assertThrows(CustomException::class.java) {
+            val command = GetConcertsByDateRangeCommand(startDate, endDate)
         }
-        assertEquals(ConcertError.INVALID_DATE_RANGE_PARAMETER, exception.error)
+        assertEquals(ConcertError.INVALID_DATE_RANGE_PARAMETER, exception.customError)
     }
 }

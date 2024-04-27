@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.concert.application
 
-import com.tikiticket.tickets.concert.application.exception.ConcertException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.concert.domain.Concert
 import io.mockk.every
 import io.mockk.mockk
@@ -16,7 +16,7 @@ class ConcertValidatorTest {
         }
 
         // When & Then
-        assertThrows<ConcertException> {
+        assertThrows<CustomException> {
             ConcertValidator.checkSeatsExist(concert)
         }
     }
@@ -29,7 +29,7 @@ class ConcertValidatorTest {
         }
 
         // When & Then
-        assertThrows<ConcertException> {
+        assertThrows<CustomException> {
             ConcertValidator.checkSeatsExist(concert)
         }
     }

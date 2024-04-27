@@ -1,8 +1,8 @@
 package com.tikiticket.tickets.concert.application
 
-import com.tikiticket.tickets.concert.application.exception.ConcertError
-import com.tikiticket.tickets.concert.application.exception.ConcertException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.concert.domain.Concert
+import com.tikiticket.tickets.concert.domain.ConcertError
 import com.tikiticket.tickets.concert.domain.ConcertService
 import io.mockk.every
 import io.mockk.mockk
@@ -47,10 +47,10 @@ class GetConcertsByDateRangeUseCaseTest {
 
         val useCase = GetConcertsByDateRangeUseCase(concertService)
 
-        // When & Then: ConcertException 예외가 발생해야 함
-        val exception = assertThrows(ConcertException::class.java) {
+        // When & Then: CustomException 예외가 발생해야 함
+        val exception = assertThrows(CustomException::class.java) {
             useCase(command)
         }
-        assertEquals(ConcertError.CONCERT_NOT_FOUND, exception.error)
+        assertEquals(ConcertError.CONCERT_NOT_FOUND, exception.customError)
     }
 }

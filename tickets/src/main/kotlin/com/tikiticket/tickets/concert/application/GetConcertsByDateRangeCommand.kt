@@ -1,7 +1,8 @@
 package com.tikiticket.tickets.concert.application
 
-import com.tikiticket.tickets.concert.application.exception.ConcertError
-import com.tikiticket.tickets.concert.application.exception.ConcertException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.concert.domain.ConcertError
 import java.time.LocalDate
 
 data class GetConcertsByDateRangeCommand (
@@ -21,7 +22,7 @@ data class GetConcertsByDateRangeCommand (
      */
     fun checkStartDateBeforeEndDate() {
         if (startDate > endDate) {
-            throw ConcertException(ConcertError.INVALID_DATE_RANGE_PARAMETER)
+            throw CustomException(LogLevel.WARN, ConcertError.INVALID_DATE_RANGE_PARAMETER)
         }
     }
 }
