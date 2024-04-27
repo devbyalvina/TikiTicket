@@ -1,8 +1,8 @@
 package com.tikiticket.tickets.booking.application
 
-import com.tikiticket.tickets.booking.application.exception.BookingError
-import com.tikiticket.tickets.booking.application.exception.BookingException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.booking.domain.Booking
+import com.tikiticket.tickets.booking.domain.BookingError
 import com.tikiticket.tickets.booking.domain.BookingService
 import com.tikiticket.tickets.booking.domain.BookingStatusType
 import io.mockk.every
@@ -54,8 +54,8 @@ class GetBookingUseCaseTest {
         every { bookingService.findBooking(bookingId) } returns null
 
         // When & Then
-        assertThrows<BookingException> { getBookingUseCase(bookingId) }.also {
-            assertEquals(BookingError.BOOKING_NOT_FOUND, it.error)
+        assertThrows<CustomException> { getBookingUseCase(bookingId) }.also {
+            assertEquals(BookingError.BOOKING_NOT_FOUND, it.customError)
         }
     }
 }

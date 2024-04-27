@@ -1,8 +1,9 @@
 package com.tikiticket.tickets.booking.application
 
-import com.tikiticket.tickets.booking.application.exception.BookingError
-import com.tikiticket.tickets.booking.application.exception.BookingException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
 import com.tikiticket.tickets.booking.domain.Booking
+import com.tikiticket.tickets.booking.domain.BookingError
 import com.tikiticket.tickets.booking.domain.BookingService
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -17,7 +18,7 @@ class GetBookingUseCase (
     @Transactional
     operator fun invoke(bookingId: Long): Booking {
         val booking = bookingService.findBooking(bookingId)
-            ?: throw BookingException(BookingError.BOOKING_NOT_FOUND)
+            ?: throw CustomException(LogLevel.INFO, BookingError.BOOKING_NOT_FOUND)
 
         return booking
     }

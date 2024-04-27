@@ -1,8 +1,9 @@
 package com.tikiticket.tickets.booking.application
 
-import com.tikiticket.tickets.booking.application.exception.BookingError
-import com.tikiticket.tickets.booking.application.exception.BookingException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.application.log.LogLevel
 import com.tikiticket.tickets.booking.domain.Booking
+import com.tikiticket.tickets.booking.domain.BookingError
 import com.tikiticket.tickets.booking.domain.BookingService
 import com.tikiticket.tickets.booking.domain.BookingStatusType
 import com.tikiticket.tickets.concert.domain.ConcertService
@@ -23,15 +24,15 @@ class MakeBookingUseCase (
     operator fun invoke(command: MakeBookingCommand): Booking {
         // 콘서트 정보 조회
         val concert = concertService.findConcert(command.concertId)
-            ?: throw BookingException(BookingError.CONCERT_NOT_FOUND)
+            ?: throw CustomException(LogLevel.INFO, BookingError.CONCERT_NOT_FOUND)
 
         // 좌석 정보 조회 for update
         val concertSeat = concertService.findConcertSeatForUpdate(command.concertId, command.seatNo)
-            ?: throw BookingException(BookingError.CONCERT_SEAT_NOT_FOUND)
+            ?: throw CustomException(LogLevel.INFO, BookingError.CONCERT_SEAT_NOT_FOUND)
 
         // 좌석상태체크
         if (concertSeat.seatStatus != SeatStatusType.AVAILABLE) {
-            throw BookingException(BookingError.SEAT_NOT_AVAILABLE)
+            throw CustomException(LogLevel.INFO, BookingError.SEAT_NOT_AVAILABLE)
         }
 
         // 좌석 정보 업데이트

@@ -1,8 +1,8 @@
 package com.tikiticket.tickets.booking.application
 
-import com.tikiticket.tickets.booking.application.exception.BookingError
-import com.tikiticket.tickets.booking.application.exception.BookingException
+import com.tikiticket.tickets.appcore.application.exception.CustomException
 import com.tikiticket.tickets.booking.domain.Booking
+import com.tikiticket.tickets.booking.domain.BookingError
 import com.tikiticket.tickets.booking.domain.BookingService
 import com.tikiticket.tickets.booking.domain.BookingStatusType
 import com.tikiticket.tickets.concert.domain.Concert
@@ -60,10 +60,10 @@ class MakeBookingUseCaseTest {
         val command = MakeBookingCommand(userId, concertId, seatNo)
 
         // When & Then
-        val exception = org.junit.jupiter.api.assertThrows<BookingException> {
+        val exception = org.junit.jupiter.api.assertThrows<CustomException> {
             makeBookingUseCase(command)
         }
-        assert(exception.error == BookingError.CONCERT_NOT_FOUND)
+        assert(exception.customError == BookingError.CONCERT_NOT_FOUND)
         verify(exactly = 1) { concertService.findConcert(concertId) }
         verify(exactly = 0) { concertService.findConcertSeatForUpdate(any(), any()) }
         verify(exactly = 0) { concertService.updateConcertSeat(any()) }
@@ -85,10 +85,10 @@ class MakeBookingUseCaseTest {
         val command = MakeBookingCommand(userId, concertId, seatNo)
 
         // When & Then
-        val exception = org.junit.jupiter.api.assertThrows<BookingException> {
+        val exception = org.junit.jupiter.api.assertThrows<CustomException> {
             makeBookingUseCase(command)
         }
-        assert(exception.error == BookingError.CONCERT_SEAT_NOT_FOUND)
+        assert(exception.customError == BookingError.CONCERT_SEAT_NOT_FOUND)
         verify(exactly = 1) { concertService.findConcert(concertId) }
         verify(exactly = 1) { concertService.findConcertSeatForUpdate(concertId, seatNo) }
         verify(exactly = 0) { concertService.updateConcertSeat(any()) }
@@ -112,10 +112,10 @@ class MakeBookingUseCaseTest {
         val command = MakeBookingCommand(userId, concertId, seatNo)
 
         // When & Then
-        val exception = org.junit.jupiter.api.assertThrows<BookingException> {
+        val exception = org.junit.jupiter.api.assertThrows<CustomException> {
             makeBookingUseCase(command)
         }
-        assert(exception.error == BookingError.SEAT_NOT_AVAILABLE)
+        assert(exception.customError == BookingError.SEAT_NOT_AVAILABLE)
         verify(exactly = 1) { concertService.findConcert(concertId) }
         verify(exactly = 1) { concertService.findConcertSeatForUpdate(concertId, seatNo) }
         verify(exactly = 0) { concertService.updateConcertSeat(any()) }
