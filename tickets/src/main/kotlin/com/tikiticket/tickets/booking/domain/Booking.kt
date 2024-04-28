@@ -12,6 +12,7 @@ data class Booking (
     val artistName: String,
     val concertDate: LocalDateTime,
     val venue: String,
+    val seatId: Long,
     val seatNo: Long,
     val ticketPrice: Long,
     val createdAt: LocalDateTime,

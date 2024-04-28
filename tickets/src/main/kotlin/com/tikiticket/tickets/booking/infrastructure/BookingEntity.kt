@@ -46,6 +46,9 @@ class BookingEntity (
     val venue: String,
 
     @NotNull
+    val seatId: Long,
+
+    @NotNull
     val seatNo: Long,
 
     @NotNull
@@ -62,6 +65,7 @@ class BookingEntity (
             artistName = this.artistName,
             concertDate = this.concertDate,
             venue = this.venue,
+            seatId = this.seatId,
             seatNo = this.seatNo,
             ticketPrice = this.ticketPrice,
             createdAt = this.createdAt!!,

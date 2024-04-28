@@ -29,6 +29,7 @@ class GetBookingUseCaseTest {
             artistName = "Artist",
             concertDate = LocalDateTime.now(),
             venue = "Venue",
+            seatId = 1L,
             seatNo = 1L,
             ticketPrice = 10000L,
             createdAt = LocalDateTime.now(),
