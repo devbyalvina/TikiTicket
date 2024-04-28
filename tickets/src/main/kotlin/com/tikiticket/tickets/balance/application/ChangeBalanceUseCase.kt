@@ -17,14 +17,9 @@ class ChangeBalanceUseCase (
     operator fun invoke(command: ChangeBalanceCommand): Balance {
         val currentDateTime = LocalDateTime.now()
         val transactionType = command.getTransactionTypeFromString()
-        // 잔고 조회
-        val existingBalance = balanceService.retrieveBalance(command.userId) ?: Balance(command.userId, 0, currentDateTime, currentDateTime)
-        // 변경 금액 계산
-        val calculatedAmount = existingBalance.calculateChangedBalance(transactionType, command.amount)
-        // 변경 금액 검증
-        ChangeBalanceValidator.checkCalculatedAmount(calculatedAmount)
+
         // 잔고 변경
-        val changedBalance = balanceService.changeBalance(existingBalance, transactionType, calculatedAmount, currentDateTime)
+        val changedBalance = balanceService.changeBalance(command.userId, command.amount, transactionType, currentDateTime)
 
         return changedBalance
     }
