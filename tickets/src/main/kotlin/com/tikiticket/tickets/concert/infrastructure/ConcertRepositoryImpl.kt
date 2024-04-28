@@ -27,7 +27,7 @@ class ConcertRepositoryImpl (
         TODO("Not yet implemented")
     }
 
-    override fun findConcertSeatForUpdate(concertId: Long, seatNo: Long): ConcertSeat? {
+    override fun findConcertSeatForUpdate(concertSeatId: Long, concertId: Long): ConcertSeat? {
         TODO("Not yet implemented")
     }
 

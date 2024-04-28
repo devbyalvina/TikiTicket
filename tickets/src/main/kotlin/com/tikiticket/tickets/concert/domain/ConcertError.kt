@@ -20,7 +20,17 @@ enum class ConcertError (
      *  CONCERT_SEATS_NOT_FOUND
      *  - API.5 콘서트 좌석 목록 조회
      */
-    CONCERT_SEATS_NOT_FOUND("Seats for the specified concert were not found.");
+    CONCERT_SEATS_NOT_FOUND("Seats for the specified concert were not found."),
+    /**
+     *  CONCERT_SEAT_NOT_FOUND
+     *  - API.6 예매
+     */
+    CONCERT_SEAT_NOT_FOUND("The specified seat was not found."),
+    /**
+     *  SEAT_NOT_AVAILABLE
+     *  - API.6 예매
+     */
+    SEAT_NOT_AVAILABLE("The selected seat can not be booked.");
 
     override val errorCode: String = name
 }

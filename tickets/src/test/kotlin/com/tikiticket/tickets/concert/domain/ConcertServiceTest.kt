@@ -1,9 +1,11 @@
 package com.tikiticket.tickets.concert.domain
 
+import com.tikiticket.tickets.appcore.domain.exception.CustomException
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.BDDMockito.given
 import org.mockito.InjectMocks
@@ -166,5 +168,79 @@ class ConcertServiceTest {
 
         // Then
         verify(exactly = 1) { concertRepository.updateConcertSeat(concertSeat) }
+    }
+
+    @Test
+    fun `콘서트 좌석 상태를 변경한다`() {
+        // Given
+        val concertSeatId = 1L
+        val concertId = 1L
+        val concertSeat = ConcertSeat(
+            id = concertSeatId,
+            concertId = concertId,
+            seatNo = 1L,
+            seatStatus = SeatStatusType.AVAILABLE,
+            ticketPrice = 100L,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        val concertRepository = mockk<ConcertRepository>()
+        every { concertRepository.findConcertSeatForUpdate(concertSeatId, concertId) } returns concertSeat
+        every { concertRepository.updateConcertSeat(any()) } returns Unit
+
+        val concertService = ConcertService(concertRepository)
+
+        // When
+        concertService.changeConcertSeatStatus(concertSeatId, concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
+
+        // Then
+        verify(exactly = 1) { concertRepository.findConcertSeatForUpdate(concertSeatId, concertId) }
+        verify(exactly = 1) { concertRepository.updateConcertSeat(any()) }
+    }
+
+    @Test
+    fun `콘서트 좌석 상태를 변경 시 콘서트 좌석이 존재하지 않으면 에러를 반환한다`() {
+        // Given
+        val concertSeatId = 1L
+        val concertId = 1L
+
+        val concertRepository = mockk<ConcertRepository>()
+        every { concertRepository.findConcertSeatForUpdate(concertSeatId, concertId) } returns null
+
+        val concertService = ConcertService(concertRepository)
+
+        // When, Then
+        val exception = assertThrows<CustomException> {
+            concertService.changeConcertSeatStatus(concertSeatId, concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
+        }
+        assert(exception.customError == ConcertError.CONCERT_SEAT_NOT_FOUND)
+    }
+
+    @Test
+    fun `변경하려는 콘서트 좌석 상태가 AVAILABLE이 아니면 예외를 반환한다`() {
+        // Given
+        val concertId = 1L
+        val concertSeatId = 1L
+        val concertSeat = ConcertSeat(
+            id = concertSeatId,
+            concertId = concertId,
+            seatNo = 1L,
+            seatStatus = SeatStatusType.BOOKED,
+            ticketPrice = 100L,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        val concertRepository = mockk<ConcertRepository>()
+        every { concertRepository.findConcertSeatForUpdate(concertSeatId, concertId) } returns concertSeat
+
+        val concertService = ConcertService(concertRepository)
+
+        // When, Then
+        val exception = assertThrows<CustomException> {
+            concertService.changeConcertSeatStatus(concertSeatId, concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
+        }
+        assert(exception.customError == ConcertError.SEAT_NOT_AVAILABLE)
     }
 }
