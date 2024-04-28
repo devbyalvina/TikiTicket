@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.balance.application
 
-import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.domain.exception.CustomException
 import com.tikiticket.tickets.balance.domain.BalanceError
 import com.tikiticket.tickets.balance.domain.TransactionType
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow

@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.booking.domain
 
-import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.domain.exception.CustomException
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just

@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.appcore.api
 
-import com.tikiticket.tickets.appcore.application.exception.CustomError
+import com.tikiticket.tickets.appcore.domain.exception.CustomError
 
 data class ApiResponse<T>(
 var code: String,

@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.balance.application
 
-import com.tikiticket.tickets.appcore.application.exception.CustomException
+import com.tikiticket.tickets.appcore.domain.exception.CustomException
 import com.tikiticket.tickets.balance.domain.Balance
 import com.tikiticket.tickets.balance.domain.BalanceService
 import io.mockk.every

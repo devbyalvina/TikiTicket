@@ -1,7 +1,7 @@
 package com.tikiticket.tickets.booking.application
 
-import com.tikiticket.tickets.appcore.application.exception.CustomException
-import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.appcore.domain.exception.CustomException
+import com.tikiticket.tickets.appcore.domain.log.LogLevel
 import com.tikiticket.tickets.booking.domain.Booking
 import com.tikiticket.tickets.booking.domain.BookingError
 import com.tikiticket.tickets.booking.domain.BookingService

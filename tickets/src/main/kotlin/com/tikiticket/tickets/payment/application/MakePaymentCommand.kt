@@ -1,7 +1,7 @@
 package com.tikiticket.tickets.payment.application
 
-import com.tikiticket.tickets.appcore.application.exception.CustomException
-import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.appcore.domain.exception.CustomException
+import com.tikiticket.tickets.appcore.domain.log.LogLevel
 import com.tikiticket.tickets.payment.domain.PaymentError
 import com.tikiticket.tickets.payment.domain.PaymentMethodType
 import java.util.*

@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.appcore.application.log
+package com.tikiticket.tickets.appcore.domain.log
 
 enum class LogLevel {
     /**

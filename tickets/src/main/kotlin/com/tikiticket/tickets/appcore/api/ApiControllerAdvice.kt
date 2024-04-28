@@ -1,7 +1,7 @@
 package com.tikiticket.tickets.appcore.api
 
-import com.tikiticket.tickets.appcore.application.exception.CustomException
-import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.appcore.domain.exception.CustomException
+import com.tikiticket.tickets.appcore.domain.log.LogLevel
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus

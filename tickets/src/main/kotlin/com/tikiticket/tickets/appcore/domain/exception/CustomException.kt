@@ -1,6 +1,6 @@
-package com.tikiticket.tickets.appcore.application.exception
+package com.tikiticket.tickets.appcore.domain.exception
 
-import com.tikiticket.tickets.appcore.application.log.LogLevel
+import com.tikiticket.tickets.appcore.domain.log.LogLevel
 
 class CustomException: RuntimeException {
     var logLevel: LogLevel

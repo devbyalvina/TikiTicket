@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.concert.domain
 
-import com.tikiticket.tickets.appcore.application.exception.CustomError
+import com.tikiticket.tickets.appcore.domain.exception.CustomError
 
 enum class ConcertError (
     override val message: String,

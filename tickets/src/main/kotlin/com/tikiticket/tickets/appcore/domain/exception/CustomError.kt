@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.appcore.application.exception
+package com.tikiticket.tickets.appcore.domain.exception
 
 interface CustomError {
     val errorCode: String

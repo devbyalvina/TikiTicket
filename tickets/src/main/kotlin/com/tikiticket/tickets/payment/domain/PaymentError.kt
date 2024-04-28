@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.payment.domain
 
-import com.tikiticket.tickets.appcore.application.exception.CustomError
+import com.tikiticket.tickets.appcore.domain.exception.CustomError
 
 enum class PaymentError(
     override val message: String,

@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.ticketqueuetoken.domain
 
-import com.tikiticket.tickets.appcore.application.exception.CustomError
+import com.tikiticket.tickets.appcore.domain.exception.CustomError
 
 enum class TicketQueueTokenError (
     override val message: String,
