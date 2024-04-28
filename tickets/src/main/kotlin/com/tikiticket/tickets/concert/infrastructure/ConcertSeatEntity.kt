@@ -3,18 +3,27 @@ package com.tikiticket.tickets.concert.infrastructure
 import com.tikiticket.tickets.appcore.infrastructure.BaseEntity
 import com.tikiticket.tickets.concert.domain.ConcertSeat
 import com.tikiticket.tickets.concert.domain.SeatStatusType
-import jakarta.persistence.EmbeddedId
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 
 @Entity
 @Table(name = "concert_seat")
 class ConcertSeatEntity(
-    @EmbeddedId
-    val concertSeatEntityPk: ConcertSeatEntityPk,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val concertSeatId: Long,
+
+    @NotNull
+    val concertId: Long,
+
+    @NotNull
+    val seatNo: Long,
 
     @Enumerated(EnumType.STRING)
     @NotNull
@@ -25,8 +34,9 @@ class ConcertSeatEntity(
 ): BaseEntity() {
     fun toDomain(): ConcertSeat {
         return ConcertSeat(
-            concertId = this.concertSeatEntityPk.concertId,
-            seatNo = this.concertSeatEntityPk.seatNo,
+            id = this.concertSeatId,
+            concertId = this.concertId,
+            seatNo = this.seatNo,
             seatStatus = this.seatStatus,
             ticketPrice = this.ticketPrice,
             createdAt = this.createdAt!!,

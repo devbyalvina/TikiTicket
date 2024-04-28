@@ -3,6 +3,7 @@ package com.tikiticket.tickets.concert.domain
 import java.time.LocalDateTime
 
 data class ConcertSeat (
+    val id: Long,
     val concertId: Long,
     val seatNo: Long,
     val seatStatus: SeatStatusType,

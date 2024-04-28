@@ -70,8 +70,8 @@ class ConcertServiceTest {
         // Given
         val concertId = 1L
         val concertSeats = listOf(
-            ConcertSeat(concertId, 1, SeatStatusType.AVAILABLE, 10000, LocalDateTime.now(), LocalDateTime.now()),
-            ConcertSeat(concertId, 2, SeatStatusType.BOOKED, 10000, LocalDateTime.now(), LocalDateTime.now())
+            ConcertSeat(1, concertId, 1, SeatStatusType.AVAILABLE, 10000, LocalDateTime.now(), LocalDateTime.now()),
+            ConcertSeat(2, concertId, 2, SeatStatusType.BOOKED, 10000, LocalDateTime.now(), LocalDateTime.now())
         )
         val concert = Concert(
             id = concertId,
@@ -122,9 +122,11 @@ class ConcertServiceTest {
     @Test
     fun `수정할 콘서트 좌석을 조회한다`() {
         // Given
+        val id = 1L
         val concertId = 1L
         val seatNo = 1L
         val expectedConcertSeat = ConcertSeat(
+            id = id,
             concertId = concertId,
             seatNo = seatNo,
             seatStatus = SeatStatusType.AVAILABLE,
@@ -148,6 +150,7 @@ class ConcertServiceTest {
     fun `콘서트 좌석을 수정한다`() {
         // Given
         val concertSeat = ConcertSeat(
+            id = 1L,
             concertId = 1L,
             seatNo = 1L,
             seatStatus = SeatStatusType.BOOKED,

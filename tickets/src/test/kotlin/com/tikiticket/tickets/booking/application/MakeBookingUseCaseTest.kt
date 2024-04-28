@@ -20,12 +20,13 @@ class MakeBookingUseCaseTest {
     fun `예매에 성공한다`() {
         // Given
         val userId = "user01"
+        val seatId = 1L
         val concertId = 1L
         val seatNo = 1L
         val bookingService = mockk<BookingService>()
         val concertService = mockk<ConcertService> {
             every { findConcert(any()) } returns Concert(concertId, "Concert", "Artist", LocalDateTime.now(), "Venue", LocalDateTime.now(), LocalDateTime.now(), emptyList())
-            every { findConcertSeatForUpdate(any(), any()) } returns ConcertSeat(concertId, seatNo, SeatStatusType.AVAILABLE, 10000L, LocalDateTime.now(), LocalDateTime.now())
+            every { findConcertSeatForUpdate(any(), any()) } returns ConcertSeat(seatId, concertId, seatNo, SeatStatusType.AVAILABLE, 10000L, LocalDateTime.now(), LocalDateTime.now())
             every { updateConcertSeat(any()) } returns Unit
         }
         val makeBookingUseCase = MakeBookingUseCase(bookingService, concertService)
@@ -99,14 +100,15 @@ class MakeBookingUseCaseTest {
     fun `좌석이 이미 예매된 경우 예외를 반환한다`() {
         // Given
         val userId = "user01"
+        val seatId = 1L
         val concertId = 1L
         val seatNo = 1L
         val bookingService = mockk<BookingService>()
         val concertService = mockk<ConcertService> {
             every { findConcert(any()) } returns Concert(concertId, "Concert", "Artist", LocalDateTime.now(), "Venue", LocalDateTime.now(), LocalDateTime.now(), listOf(
-                ConcertSeat(concertId, seatNo, SeatStatusType.BOOKED, 10000L, LocalDateTime.now(), LocalDateTime.now())
+                ConcertSeat(seatId, concertId, seatNo, SeatStatusType.BOOKED, 10000L, LocalDateTime.now(), LocalDateTime.now())
             ))
-            every { findConcertSeatForUpdate(any(), any()) } returns ConcertSeat(concertId, seatNo, SeatStatusType.BOOKED, 10000L, LocalDateTime.now(), LocalDateTime.now())
+            every { findConcertSeatForUpdate(any(), any()) } returns ConcertSeat(seatId, concertId, seatNo, SeatStatusType.BOOKED, 10000L, LocalDateTime.now(), LocalDateTime.now())
         }
         val makeBookingUseCase = MakeBookingUseCase(bookingService, concertService)
         val command = MakeBookingCommand(userId, concertId, seatNo)
