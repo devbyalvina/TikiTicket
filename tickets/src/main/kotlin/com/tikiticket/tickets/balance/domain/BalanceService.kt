@@ -17,24 +17,18 @@ class BalanceService (
     }
 
     /**
+     *  잔고 조회 For Update
+     */
+    fun retrieveBalanceForUpdate(userId: String): Balance? {
+        val balance = balanceRepository.findBalanceByUserIdForUpdate(userId)
+        return balance
+    }
+
+    /**
      *  잔고 저장
      */
     fun storeBalance(balance: Balance): Balance {
         return balanceRepository.saveBalance(balance);
-    }
-
-    /**
-     *  잔고 변경
-     */
-    fun modifyBalance(balance: Balance) {
-        balanceRepository.updateBalance(balance)
-    }
-
-    /**
-     *  잔고 이력 저장
-     */
-    fun storeBalanceHistory(balanceHistory: BalanceHistory) {
-        balanceRepository.saveBalanceHistory(balanceHistory);
     }
 
     /**
@@ -49,11 +43,40 @@ class BalanceService (
             balanceAmount = calculatedAmount,
             createdAt = currentDateTime,
         )
-        storeBalanceHistory(changedBalanceHistory)
+        balanceRepository.saveBalanceHistory(changedBalanceHistory)
 
         // 잔고 변경 내역 저장
         val changedBalance = existingBalance.copy(balanceAmount = calculatedAmount, updatedAt = currentDateTime)
-        modifyBalance(changedBalance)
+        balanceRepository.updateBalance(changedBalance)
+        return changedBalance
+    }
+
+    /**
+     *  잔고 변경
+     */
+    @Transactional
+    fun changeBalance(userId: String, amount: Long, transactionType: TransactionType, currentDateTime: LocalDateTime): Balance {
+        // 잔고 조회
+        val existingBalance = retrieveBalanceForUpdate(userId) ?: Balance(userId, 0, currentDateTime, currentDateTime)
+
+        // 변경 금액 계산
+        val calculatedAmount = existingBalance.calculateChangedBalance(transactionType, amount)
+
+        // 변경 금액 검증
+        BalanceValidator.checkCalculatedAmount(calculatedAmount)
+
+        // 잔고 히스토리 저장
+        val changedBalanceHistory = BalanceHistory (
+            userId = existingBalance.userId,
+            balanceHistoryId = 0,
+            balanceAmount = calculatedAmount,
+            createdAt = currentDateTime,
+        )
+        balanceRepository.saveBalanceHistory(changedBalanceHistory)
+
+        // 잔고 변경 내역 저장
+        val changedBalance = existingBalance.copy(balanceAmount = calculatedAmount, updatedAt = currentDateTime)
+        balanceRepository.updateBalance(changedBalance)
         return changedBalance
     }
 }

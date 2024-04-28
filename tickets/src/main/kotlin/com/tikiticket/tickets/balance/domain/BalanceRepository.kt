@@ -9,7 +9,7 @@ interface BalanceRepository {
     /**
      *  변경을 위한 잔고 조회
      */
-    fun fetchBalanceForUpdate(userId: String): Balance?
+    fun findBalanceByUserIdForUpdate(userId: String): Balance?
 
     /**
      *  잔고 저장

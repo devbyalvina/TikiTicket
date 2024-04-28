@@ -11,7 +11,7 @@ class BalanceRepositoryImpl: BalanceRepository {
         TODO("Not yet implemented")
     }
 
-    override fun fetchBalanceForUpdate(userId: String): Balance? {
+    override fun findBalanceByUserIdForUpdate(userId: String): Balance? {
         TODO("Not yet implemented")
     }
 

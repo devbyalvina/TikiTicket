@@ -1,5 +1,6 @@
 package com.tikiticket.tickets.balance.domain
 
+import com.tikiticket.tickets.appcore.domain.exception.CustomException
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
@@ -7,7 +8,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.time.LocalDateTime
@@ -35,6 +36,21 @@ class BalanceServiceTest {
     }
 
     @Test
+    fun `유저ID로 수정을 위해 잔고를 조회한다`() {
+        // Given
+        val userId = "user123"
+        val expectedBalance = Balance(userId, 1000L, LocalDateTime.now(), LocalDateTime.now())
+
+        // When
+        `when`(balanceRepository.findBalanceByUserIdForUpdate(userId)).thenReturn(expectedBalance)
+
+        val retrievedBalance = balanceService.retrieveBalanceForUpdate(userId)
+
+        // Then
+        assertEquals(expectedBalance, retrievedBalance)
+    }
+
+    @Test
     fun `잔고를 저장한다`() {
         // Given
         val balance = Balance("user123", 1000L, LocalDateTime.now(), LocalDateTime.now())
@@ -48,34 +64,6 @@ class BalanceServiceTest {
         // 저장된 balance가 기대한대로 저장되었는지 확인
         val savedBalance = balanceRepository.saveBalance(balance)
         assertEquals(balance, savedBalance)
-    }
-
-    @Test
-    fun `잔고를 변경한다`() {
-        // Given
-        val balance = Balance("user123", 1000L, LocalDateTime.now(), LocalDateTime.now())
-
-        // When
-        balanceService.modifyBalance(balance)
-
-        // Then
-        Mockito.verify(balanceRepository, Mockito.times(1)).updateBalance(balance)
-    }
-
-    @Test
-    fun `잔고 이력을 저장한다`() {
-        // Given
-        val balanceHistory = BalanceHistory("user123", 1L, 1000L, LocalDateTime.now())
-
-        // When
-        `when`(balanceRepository.saveBalanceHistory(balanceHistory)).thenReturn(balanceHistory)
-
-        balanceService.storeBalanceHistory(balanceHistory)
-
-        // Then
-        // 저장된 balanceHistory가 기대한대로 저장되었는지 확인
-        val savedBalanceHistory = balanceRepository.saveBalanceHistory(balanceHistory)
-        assertEquals(balanceHistory, savedBalanceHistory)
     }
 
     @Test
@@ -129,5 +117,49 @@ class BalanceServiceTest {
         assertEquals(initialBalanceAmount - changeAmount, result.balanceAmount)
         verify(exactly = 1) { balanceRepository.saveBalanceHistory(any()) }
         verify(exactly = 1) { balanceRepository.updateBalance(any()) }
+    }
+
+    @Test
+    fun `계산된 잔고를 업데이트한다`() {
+        // Given
+        val userId = "user123"
+        val amount = 100L
+        val transactionType = TransactionType.CHARGE
+        val currentDateTime = LocalDateTime.now()
+
+        val balanceRepository = mockk<BalanceRepository>()
+        val balance = Balance(userId, 500L, currentDateTime, currentDateTime)
+        every { balanceRepository.findBalanceByUserIdForUpdate(userId) } returns balance
+        every { balanceRepository.saveBalanceHistory(any()) } returns mockk()
+        every { balanceRepository.updateBalance(any()) } just Runs
+
+        val balanceService = BalanceService(balanceRepository)
+
+        // When
+        val changedBalance = balanceService.changeBalance(userId, amount, transactionType, currentDateTime)
+
+        // Then
+        verify(exactly = 1) { balanceRepository.findBalanceByUserIdForUpdate(userId) }
+        verify(exactly = 1) { balanceRepository.saveBalanceHistory(any()) }
+        verify(exactly = 1) { balanceRepository.updateBalance(any()) }
+
+        assertEquals(600L, changedBalance.balanceAmount)
+    }
+
+    @Test
+    fun `계산된 잔고가 양수가 아니면 잔고 업데이트에 실패한다`() {
+        // Given
+        val userId = "user123"
+        val amount = -100L
+        val transactionType = TransactionType.CHARGE
+        val currentDateTime = LocalDateTime.now()
+
+        val balanceRepository = mockk<BalanceRepository>()
+        every { balanceRepository.findBalanceByUserIdForUpdate(userId) } returns null
+
+        val balanceService = BalanceService(balanceRepository)
+
+        // When, Then
+        assertThrows<CustomException> { balanceService.changeBalance(userId, amount, transactionType, currentDateTime) }
     }
 }

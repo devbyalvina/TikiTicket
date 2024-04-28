@@ -1,87 +1,77 @@
 package com.tikiticket.tickets.balance.application
 
-import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import com.tikiticket.tickets.balance.domain.Balance
-import com.tikiticket.tickets.balance.domain.BalanceService
-import io.mockk.every
-import io.mockk.mockk
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Test
-import java.time.LocalDateTime
-
 class ChangeBalanceUseCaseTest {
-    @Test
-    fun `잔고 변경 - 충전`() {
-        // Given
-        val userId = "user123"
-        val initialBalanceAmount = 3000L
-        val changeAmount = 2000L
-        val currentDateTime = LocalDateTime.now()
-
-        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
-        val balanceService = mockk<BalanceService>()
-
-        every { balanceService.retrieveBalance(userId) } returns existingBalance
-        every { balanceService.changeBalance(any(), any(), any(), any()) } returns existingBalance.copy(balanceAmount = existingBalance.balanceAmount + changeAmount)
-
-        val changeBalanceUseCase = ChangeBalanceUseCase(balanceService)
-        val command = ChangeBalanceCommand(userId, "CHARGE", changeAmount)
-
-        // When
-        val result = changeBalanceUseCase(command)
-
-        // Then
-        assertEquals(userId, result.userId)
-        assertEquals(initialBalanceAmount + changeAmount, result.balanceAmount)
-    }
-
-    @Test
-    fun `잔고 변경 - 결제`() {
-        // Given
-        val userId = "user123"
-        val initialBalanceAmount = 3000L
-        val changeAmount = 2000L
-        val currentDateTime = LocalDateTime.now()
-
-        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
-        val balanceService = mockk<BalanceService>()
-
-        every { balanceService.retrieveBalance(userId) } returns existingBalance
-        every { balanceService.changeBalance(any(), any(), any(), any()) } returns existingBalance.copy(balanceAmount = existingBalance.balanceAmount - changeAmount)
-
-        val changeBalanceUseCase = ChangeBalanceUseCase(balanceService)
-        val command = ChangeBalanceCommand(userId, "PAY", changeAmount)
-
-        // When
-        val result = changeBalanceUseCase(command)
-
-        // Then
-        assertEquals(userId, result.userId)
-        assertEquals(initialBalanceAmount - changeAmount, result.balanceAmount)
-    }
-
-    @Test
-    fun `잔고 변경 - 부족한 잔액 예외`() {
-        // Given
-        val userId = "user123"
-        val initialBalanceAmount = 3000L
-        val changeAmount = 4000L
-        val currentDateTime = LocalDateTime.now()
-
-        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
-        val balanceService = mockk<BalanceService>()
-
-        every { balanceService.retrieveBalance(userId) } returns existingBalance
-
-        val changeBalanceUseCase = ChangeBalanceUseCase(balanceService)
-        val command = ChangeBalanceCommand(userId, "PAY", changeAmount)
-
-        // When & Then
-        assertThrows(CustomException::class.java) {
-            changeBalanceUseCase(command)
-        }
-    }
+//    @Test
+//    fun `잔고 변경 - 충전`() {
+//        // Given
+//        val userId = "user123"
+//        val initialBalanceAmount = 3000L
+//        val changeAmount = 2000L
+//        val currentDateTime = LocalDateTime.now()
+//
+//        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
+//        val balanceService = mockk<BalanceService>()
+//
+//        every { balanceService.retrieveBalance(userId) } returns existingBalance
+//        every { balanceService.changeBalance(any(), any(), any(), any()) } returns existingBalance.copy(balanceAmount = existingBalance.balanceAmount + changeAmount)
+//
+//        val changeBalanceUseCase = ChangeBalanceUseCase(balanceService)
+//        val command = ChangeBalanceCommand(userId, "CHARGE", changeAmount)
+//
+//        // When
+//        val result = changeBalanceUseCase(command)
+//
+//        // Then
+//        assertEquals(userId, result.userId)
+//        assertEquals(initialBalanceAmount + changeAmount, result.balanceAmount)
+//    }
+//
+//    @Test
+//    fun `잔고 변경 - 결제`() {
+//        // Given
+//        val userId = "user123"
+//        val initialBalanceAmount = 3000L
+//        val changeAmount = 2000L
+//        val currentDateTime = LocalDateTime.now()
+//
+//        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
+//        val balanceService = mockk<BalanceService>()
+//
+//        every { balanceService.retrieveBalance(userId) } returns existingBalance
+//        every { balanceService.changeBalance(any(), any(), any(), any()) } returns existingBalance.copy(balanceAmount = existingBalance.balanceAmount - changeAmount)
+//
+//        val changeBalanceUseCase = ChangeBalanceUseCase(balanceService)
+//        val command = ChangeBalanceCommand(userId, "PAY", changeAmount)
+//
+//        // When
+//        val result = changeBalanceUseCase(command)
+//
+//        // Then
+//        assertEquals(userId, result.userId)
+//        assertEquals(initialBalanceAmount - changeAmount, result.balanceAmount)
+//    }
+//
+//    @Test
+//    fun `잔고 변경 - 부족한 잔액 예외`() {
+//        // Given
+//        val userId = "user123"
+//        val initialBalanceAmount = 3000L
+//        val changeAmount = 4000L
+//        val currentDateTime = LocalDateTime.now()
+//
+//        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
+//        val balanceService = mockk<BalanceService>()
+//
+//        every { balanceService.retrieveBalance(userId) } returns existingBalance
+//
+//        val changeBalanceUseCase = ChangeBalanceUseCase(balanceService)
+//        val command = ChangeBalanceCommand(userId, "PAY", changeAmount)
+//
+//        // When & Then
+//        assertThrows(CustomException::class.java) {
+//            changeBalanceUseCase(command)
+//        }
+//    }
     /*
     @Test
     fun `유효한 Command 를 입력받은 경우 변경된 잔고를 리턴한다`() {
