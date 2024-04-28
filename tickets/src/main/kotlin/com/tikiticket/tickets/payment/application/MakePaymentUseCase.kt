@@ -1,6 +1,5 @@
 package com.tikiticket.tickets.payment.application
 
-import com.tikiticket.tickets.balance.domain.Balance
 import com.tikiticket.tickets.balance.domain.BalanceService
 import com.tikiticket.tickets.balance.domain.TransactionType
 import com.tikiticket.tickets.booking.domain.BookingService
@@ -26,14 +25,8 @@ class MakePaymentUseCase (
         // 예매 상태 변경
         val paidBooking = bookingService.changeBookingStatus(makePaymentCommand.bookingId, BookingStatusType.PAID ,currentDateTime)
 
-        // 잔고 조회
-        val existingBalance = balanceService.retrieveBalance(makePaymentCommand.payerId) ?: Balance(makePaymentCommand.payerId, 0, currentDateTime, currentDateTime)
-        // 변경 금액 계산
-        val calculatedAmount = existingBalance.calculateChangedBalance(TransactionType.PAY, paidBooking.ticketPrice)
-        // 변경 금액 검증
-        MakePaymentValidator.checkCalculatedAmount(calculatedAmount)
         // 잔고 변경
-        val changedBalance = balanceService.changeBalance(existingBalance, TransactionType.PAY, calculatedAmount, currentDateTime)
+        val changedBalance = balanceService.changeBalance(makePaymentCommand.payerId, paidBooking.ticketPrice, TransactionType.PAY, currentDateTime)
 
         // 결제
         val paymentMethod = makePaymentCommand.getPaymentMethodTypeFromString()

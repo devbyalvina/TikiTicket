@@ -23,49 +23,7 @@ class PaymentService (
     }
 
     /**
-     *  결제 이력 저장
-     */
-    fun storePaymentHistory(paymentHistory: PaymentHistory): PaymentHistory {
-        return paymentRepository.savePaymentHistory(paymentHistory);
-    }
-
-    /**
-     *  결제 결제 이력 저장
-     */
-    /*
-    @Transactional
-    fun makePayment(bookingId: Long, paymentMethod: PaymentMethodType, payerId: String, paymentAmount: Long, currentDateTime: LocalDateTime): Payment {
-        // 결제 내역 저장
-        val payment = Payment (
-            id = 0,
-            bookingId = bookingId,
-            paymentMethod = paymentMethod,
-            paymentAmount = paymentAmount,
-            payerId = payerId,
-            paymentDateTime = currentDateTime,
-            paymentStatus = PaymentStatus.SUCCESS,
-            createdAt = currentDateTime,
-            updatedAt = currentDateTime
-        )
-        val storedPayment = storePayment(payment)
-
-        // 결제 히스토리 저장
-        val paymentHistory = PaymentHistory (
-            paymentId = storedPayment.id,
-            paymentHistoryId = 0,
-            bookingId = storedPayment.bookingId,
-            paymentMethod = storedPayment.paymentMethod,
-            paymentAmount = paymentAmount,
-            payerId = storedPayment.payerId,
-            paymentDateTime = storedPayment.paymentDateTime,
-            paymentStatus = storedPayment.paymentStatus,
-            createdAt = storedPayment.createdAt
-        )
-        storePaymentHistory(paymentHistory)
-
-        return storedPayment
-    }
-
+     * 결제
      */
     @Transactional
     fun makePayment(bookingId: Long, paymentMethod: PaymentMethodType, payerId: String, paymentAmount: Long, currentDateTime: LocalDateTime): Payment {
