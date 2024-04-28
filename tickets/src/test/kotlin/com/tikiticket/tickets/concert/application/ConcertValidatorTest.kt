@@ -2,6 +2,7 @@ package com.tikiticket.tickets.concert.application
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
 import com.tikiticket.tickets.concert.domain.Concert
+import com.tikiticket.tickets.concert.domain.ConcertValidator
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Test

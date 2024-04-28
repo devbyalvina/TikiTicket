@@ -5,6 +5,7 @@ import com.tikiticket.tickets.appcore.domain.log.LogLevel
 import com.tikiticket.tickets.concert.domain.Concert
 import com.tikiticket.tickets.concert.domain.ConcertError
 import com.tikiticket.tickets.concert.domain.ConcertService
+import com.tikiticket.tickets.concert.domain.ConcertValidator
 import org.springframework.stereotype.Component
 
 /**

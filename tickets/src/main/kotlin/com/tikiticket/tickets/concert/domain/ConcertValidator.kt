@@ -1,9 +1,7 @@
-package com.tikiticket.tickets.concert.application
+package com.tikiticket.tickets.concert.domain
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
 import com.tikiticket.tickets.appcore.domain.log.LogLevel
-import com.tikiticket.tickets.concert.domain.Concert
-import com.tikiticket.tickets.concert.domain.ConcertError
 
 class ConcertValidator {
     /**
