@@ -1,7 +1,7 @@
 package com.tikiticket.tickets.ticketqueuetoken.application
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import com.tikiticket.tickets.appcore.domain.log.LogLevel
+import org.springframework.boot.logging.LogLevel
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueToken
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueTokenError
 import com.tikiticket.tickets.ticketqueuetoken.domain.TicketQueueTokenService

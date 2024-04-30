@@ -1,13 +1,13 @@
 package com.tikiticket.tickets.booking.application
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import com.tikiticket.tickets.appcore.domain.log.LogLevel
 import com.tikiticket.tickets.booking.domain.Booking
 import com.tikiticket.tickets.booking.domain.BookingError
 import com.tikiticket.tickets.booking.domain.BookingService
 import com.tikiticket.tickets.booking.domain.BookingStatusType
 import com.tikiticket.tickets.concert.domain.ConcertService
 import com.tikiticket.tickets.concert.domain.SeatStatusType
+import org.springframework.boot.logging.LogLevel
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime

@@ -1,7 +1,7 @@
 package com.tikiticket.tickets.balance.domain
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import com.tikiticket.tickets.appcore.domain.log.LogLevel
+import org.springframework.boot.logging.LogLevel
 
 class BalanceValidator {
     /**

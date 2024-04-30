@@ -1,7 +1,7 @@
 package com.tikiticket.tickets.concert.domain
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import com.tikiticket.tickets.appcore.domain.log.LogLevel
+import org.springframework.boot.logging.LogLevel
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate

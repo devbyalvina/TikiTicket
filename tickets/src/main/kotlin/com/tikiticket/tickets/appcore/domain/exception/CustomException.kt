@@ -1,6 +1,6 @@
 package com.tikiticket.tickets.appcore.domain.exception
 
-import com.tikiticket.tickets.appcore.domain.log.LogLevel
+import org.springframework.boot.logging.LogLevel
 
 class CustomException: RuntimeException {
     var logLevel: LogLevel

@@ -1,7 +1,7 @@
 package com.tikiticket.tickets.balance.application
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import com.tikiticket.tickets.appcore.domain.log.LogLevel
+import org.springframework.boot.logging.LogLevel
 import com.tikiticket.tickets.balance.domain.Balance
 import com.tikiticket.tickets.balance.domain.BalanceError
 import com.tikiticket.tickets.balance.domain.BalanceService
