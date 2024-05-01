@@ -1,5 +1,7 @@
 package com.tikiticket.tickets.concert.domain
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonValue
 import java.time.LocalDateTime
 
 data class ConcertSeat (
@@ -19,5 +21,18 @@ data class ConcertSeat (
  * - PAID : 결제완료
  */
 enum class SeatStatusType {
-    AVAILABLE, BOOKED, PAID
+    AVAILABLE, BOOKED, PAID;
+
+    @JsonValue
+    fun toJson(): String {
+        return this.name
+    }
+
+    companion object {
+        @JsonCreator
+        @JvmStatic
+        fun fromJson(jsonValue: String): SeatStatusType {
+            return valueOf(jsonValue)
+        }
+    }
 }
