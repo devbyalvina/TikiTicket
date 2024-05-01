@@ -9,7 +9,7 @@ import com.tikiticket.tickets.booking.domain.BookingStatusType
 import com.tikiticket.tickets.payment.domain.Payment
 import com.tikiticket.tickets.payment.domain.PaymentMethodType
 import com.tikiticket.tickets.payment.domain.PaymentService
-import com.tikiticket.tickets.payment.domain.PaymentStatus
+import com.tikiticket.tickets.payment.domain.PaymentStatusType
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -58,7 +58,7 @@ class MakePaymentUseCaseTest {
             paymentAmount = paidBooking.ticketPrice,
             payerId = payerId,
             paymentDateTime = currentDateTime,
-            paymentStatus = PaymentStatus.SUCCESS,
+            paymentStatus = PaymentStatusType.SUCCESS,
             createdAt = currentDateTime,
             updatedAt = currentDateTime
         )

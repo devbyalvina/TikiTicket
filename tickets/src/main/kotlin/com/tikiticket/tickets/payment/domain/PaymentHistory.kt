@@ -10,7 +10,7 @@ data class PaymentHistory(
     val paymentAmount: Long,
     val payerId: String,
     val paymentDateTime: LocalDateTime,
-    val paymentStatus: PaymentStatus,
+    val paymentStatus: PaymentStatusType,
     val createdAt: LocalDateTime,
 )
 

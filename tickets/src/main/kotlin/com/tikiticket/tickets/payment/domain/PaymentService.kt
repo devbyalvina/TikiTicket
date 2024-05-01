@@ -35,7 +35,7 @@ class PaymentService (
             paymentAmount = paymentAmount,
             payerId = payerId,
             paymentDateTime = currentDateTime,
-            paymentStatus = PaymentStatus.SUCCESS,
+            paymentStatus = PaymentStatusType.SUCCESS,
             createdAt = currentDateTime,
             updatedAt = currentDateTime
         )

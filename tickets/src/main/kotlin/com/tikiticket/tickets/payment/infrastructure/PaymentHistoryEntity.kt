@@ -3,7 +3,7 @@ package com.tikiticket.tickets.payment.infrastructure
 import com.tikiticket.tickets.appcore.infrastructure.BaseEntity
 import com.tikiticket.tickets.payment.domain.PaymentHistory
 import com.tikiticket.tickets.payment.domain.PaymentMethodType
-import com.tikiticket.tickets.payment.domain.PaymentStatus
+import com.tikiticket.tickets.payment.domain.PaymentStatusType
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -42,7 +42,7 @@ class PaymentHistoryEntity (
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    val paymentStatus: PaymentStatus,
+    val paymentStatus: PaymentStatusType,
 ): BaseEntity() {
     fun PaymentHistoryEntity.toDomain(): PaymentHistory {
         return PaymentHistory(

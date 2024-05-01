@@ -9,15 +9,7 @@ data class Payment(
     val paymentAmount: Long,
     val payerId: String,
     val paymentDateTime: LocalDateTime,
-    val paymentStatus: PaymentStatus,
+    val paymentStatus: PaymentStatusType,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime
 )
-
-enum class PaymentMethodType {
-    CARD, BANK_TRANSFER, BALANCE
-}
-
-enum class PaymentStatus {
-    PENDING, SUCCESS, FAILED
-}

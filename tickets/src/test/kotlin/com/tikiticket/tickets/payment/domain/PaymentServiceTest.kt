@@ -26,7 +26,7 @@ class PaymentServiceTest {
             10000,
             "user123",
             LocalDateTime.now(),
-            PaymentStatus.FAILED,
+            PaymentStatusType.FAIL,
             LocalDateTime.now(),
             LocalDateTime.now()
         )
@@ -51,7 +51,7 @@ class PaymentServiceTest {
             10000,
             "user123",
             LocalDateTime.now(),
-            PaymentStatus.SUCCESS,
+            PaymentStatusType.SUCCESS,
             LocalDateTime.now(),
             LocalDateTime.now()
         )
@@ -84,7 +84,7 @@ class PaymentServiceTest {
             paymentAmount = paymentAmount,
             payerId = payerId,
             paymentDateTime = currentDateTime,
-            paymentStatus = PaymentStatus.SUCCESS,
+            paymentStatus = PaymentStatusType.SUCCESS,
             createdAt = currentDateTime,
             updatedAt = currentDateTime
         )
@@ -98,7 +98,7 @@ class PaymentServiceTest {
             paymentAmount = paymentAmount,
             payerId = payerId,
             paymentDateTime = currentDateTime,
-            paymentStatus = PaymentStatus.SUCCESS,
+            paymentStatus = PaymentStatusType.SUCCESS,
             createdAt = currentDateTime
         )
         every { paymentRepository.savePaymentHistory(any()) } returns paymentHistory
