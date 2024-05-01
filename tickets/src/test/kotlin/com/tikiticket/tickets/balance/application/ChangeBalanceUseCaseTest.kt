@@ -15,7 +15,7 @@ class ChangeBalanceUseCaseTest {
     fun `잔고 충전에 성공한다`() {
         // Given
         val userId = "user123"
-        val transactionType = "CHARGE"
+        val transactionType = TransactionType.CHARGE
         val amount = 100L
         val command = ChangeBalanceCommand(userId, transactionType, amount)
 
@@ -41,7 +41,7 @@ class ChangeBalanceUseCaseTest {
         val userId = "user123"
         val transactionType = "PAY"
         val amount = 100L
-        val command = ChangeBalanceCommand(userId, transactionType, amount)
+        val command = ChangeBalanceCommand(userId, TransactionType.PAY, amount)
 
         val balanceService = mockk<BalanceService>()
         val currentDateTime = LocalDateTime.now()
