@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
@@ -105,5 +106,23 @@ class TicketQueueTokenControllerTest {
             .andExpect(status().isOk)
             .andExpect(jsonPath("$.userId").value("testUser2"))
             .andExpect(jsonPath("$.tokenStatus").value("ACTIVE"))
+    }
+
+    /**
+     *  API.3 대기열 순번 조회
+     */
+    @Test
+    fun `대기열 순번 조회에 성공한다`() {
+        given(getUserTokenPositionUseCase(any()))
+            .willReturn(5L)
+
+        mockMvc.perform(
+            get("/ticket-queue-tokens/positions")
+                .header("User-Id", "testUser3")
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+            .andDo(print())
+            .andExpect(status().isOk)
+            .andExpect(jsonPath("$").value("5"))
     }
 }

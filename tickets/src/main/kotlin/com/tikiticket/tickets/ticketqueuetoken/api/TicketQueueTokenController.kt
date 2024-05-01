@@ -5,6 +5,7 @@ import com.tikiticket.tickets.ticketqueuetoken.application.GetUserTokenPositionU
 import com.tikiticket.tickets.ticketqueuetoken.application.ModifyUserTokenStatusCommand
 import com.tikiticket.tickets.ticketqueuetoken.application.ModifyUserTokenStatusUseCase
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -44,6 +45,17 @@ class TicketQueueTokenController (
         val command = ModifyUserTokenStatusCommand(userId, requestBody.tokenStatus)
         val modifiedToken = modifyUserTokenStatusUseCase(command)
         val response = ModifyUserTokenStatusResponse.of(modifiedToken)
+        return ResponseEntity.ok(response)
+    }
+
+    /**
+     *  API.3 대기열 순번 조회
+     */
+    @GetMapping("/positions")
+    fun getUserTokenPosition (
+        @RequestHeader("User-Id") userId: String,
+    ): ResponseEntity<Long> {
+        val response = getUserTokenPositionUseCase(userId)
         return ResponseEntity.ok(response)
     }
 }
