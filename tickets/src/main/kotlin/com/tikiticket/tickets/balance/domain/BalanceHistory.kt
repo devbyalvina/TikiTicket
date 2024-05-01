@@ -8,12 +8,3 @@ data class BalanceHistory(
     val balanceAmount: Long,
     val createdAt: LocalDateTime,
 )
-
-/**
- * 거래 유형
- * - CHARGE : 충전
- * - PAY : 결제
- */
-enum class TransactionType {
-    CHARGE, PAY
-}
