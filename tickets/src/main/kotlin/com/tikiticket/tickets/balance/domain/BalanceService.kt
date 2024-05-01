@@ -40,6 +40,7 @@ class BalanceService (
         val changedBalanceHistory = BalanceHistory (
             userId = existingBalance.userId,
             balanceHistoryId = 0,
+            transactionType = transactionType,
             balanceAmount = calculatedAmount,
             createdAt = currentDateTime,
         )
@@ -69,6 +70,7 @@ class BalanceService (
         val changedBalanceHistory = BalanceHistory (
             userId = existingBalance.userId,
             balanceHistoryId = 0,
+            transactionType = transactionType,
             balanceAmount = calculatedAmount,
             createdAt = currentDateTime,
         )
