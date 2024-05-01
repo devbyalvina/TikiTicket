@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.ticketqueuetoken.api
+package com.tikiticket.tickets.ticketqueuetoken.api.dto
 
 import com.tikiticket.tickets.ticketqueuetoken.domain.TokenStatusType
 
