@@ -1,16 +1,21 @@
 package com.tikiticket.tickets.balance.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.tikiticket.tickets.balance.api.dto.ChangeBalanceRequest
 import com.tikiticket.tickets.balance.application.ChangeBalanceUseCase
 import com.tikiticket.tickets.balance.application.GetBalanceUseCase
 import com.tikiticket.tickets.balance.domain.Balance
+import com.tikiticket.tickets.balance.domain.TransactionType
 import org.junit.jupiter.api.Test
+import org.mockito.kotlin.any
 import org.mockito.kotlin.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.time.LocalDateTime
@@ -30,7 +35,7 @@ class BalanceControllerTest {
     lateinit var changeBalanceUseCase: ChangeBalanceUseCase
 
     /**
-     *   API.9 잔고조회
+     *   API.9 잔고 조회
      */
     @Test
     fun `잔고조회를 성공한다`() {
@@ -57,5 +62,39 @@ class BalanceControllerTest {
             .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value("testUser1"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.balanceAmount").value("50000"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.updatedAt").value("2024-05-02T06:30:00"))
+    }
+
+    /**
+     *   API.10 잔고 변경
+     */
+    @Test
+    fun `잔고변경을 성공한다`() {
+        val userId = "testUser2"
+        val createdTime = LocalDateTime.of(2024, 5, 2, 6, 0, 0)
+        val currentTime = LocalDateTime.of(2024, 5, 2, 7, 50, 0)
+
+        val balance = Balance (
+            userId,
+            70000L,
+            createdTime,
+            currentTime
+        )
+
+        given(changeBalanceUseCase(any()))
+            .willReturn(balance)
+
+        val request = ChangeBalanceRequest(TransactionType.CHARGE, 20000L)
+
+        mockMvc.perform(
+            post("/balances")
+                .header("User-Id", userId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request))
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("$.userId").value("testUser2"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.balanceAmount").value("70000"))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.updatedAt").value("2024-05-02T07:50:00"))
     }
 }
