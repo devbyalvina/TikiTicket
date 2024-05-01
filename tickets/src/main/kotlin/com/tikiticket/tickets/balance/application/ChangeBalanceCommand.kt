@@ -1,14 +1,13 @@
 package com.tikiticket.tickets.balance.application
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import org.springframework.boot.logging.LogLevel
 import com.tikiticket.tickets.balance.domain.BalanceError
 import com.tikiticket.tickets.balance.domain.TransactionType
-import java.util.*
+import org.springframework.boot.logging.LogLevel
 
 data class ChangeBalanceCommand(
     val userId: String,
-    val transactionType: String,
+    val transactionType: TransactionType,
     val amount: Long
 ) {
     init {
@@ -25,17 +24,6 @@ data class ChangeBalanceCommand(
     fun checkPositive() {
         require (amount > 0) {
             throw CustomException(LogLevel.WARN, BalanceError.INVALID_AMOUNT_PARAMETER)
-        }
-    }
-
-    /**
-     *  TransactionType Enum으로 변환
-     */
-    fun getTransactionTypeFromString(): TransactionType {
-        return kotlin.runCatching {
-            TransactionType.valueOf(transactionType.uppercase(Locale.getDefault()))
-        }.getOrElse {
-            throw CustomException(LogLevel.WARN, BalanceError.WRONG_TRANSACTION_TYPE)
         }
     }
 }
