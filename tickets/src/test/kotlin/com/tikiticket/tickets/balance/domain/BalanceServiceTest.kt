@@ -67,59 +67,6 @@ class BalanceServiceTest {
     }
 
     @Test
-    fun `잔고를 충전한다`() {
-        // Given
-        val userId = "user123"
-        val initialBalanceAmount = 3000L
-        val transactionType = TransactionType.CHARGE
-        val changeAmount = 5000L
-        val currentDateTime = LocalDateTime.now()
-
-        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
-
-        val balanceRepository = mockk<BalanceRepository>()
-        every { balanceRepository.saveBalanceHistory(any()) } returns mockk()
-        every { balanceRepository.updateBalance(any()) } just Runs
-
-        val balanceService = BalanceService(balanceRepository)
-
-        // When
-        val result = balanceService.changeBalance(existingBalance, transactionType, initialBalanceAmount + changeAmount, currentDateTime)
-
-        // Then
-        val expectedCalculatedAmount = initialBalanceAmount + changeAmount
-        assertEquals(expectedCalculatedAmount, result.balanceAmount)
-        verify(exactly = 1) { balanceRepository.updateBalance(result) }
-        verify(exactly = 1) { balanceRepository.saveBalanceHistory(any()) }
-    }
-
-    @Test
-    fun `잔고를 사용한다`() {
-        // Given
-        val userId = "user123"
-        val initialBalanceAmount = 3000L
-        val transactionType = TransactionType.PAY
-        val changeAmount = 2000L
-        val currentDateTime = LocalDateTime.now()
-
-        val existingBalance = Balance(userId, initialBalanceAmount, currentDateTime, currentDateTime)
-
-        val balanceRepository = mockk<BalanceRepository>()
-        every { balanceRepository.saveBalanceHistory(any()) } returns mockk()
-        every { balanceRepository.updateBalance(any()) } just Runs
-
-        val balanceService = BalanceService(balanceRepository)
-
-        // When
-        val result = balanceService.changeBalance(existingBalance, transactionType, initialBalanceAmount - changeAmount, currentDateTime)
-
-        // Then
-        assertEquals(initialBalanceAmount - changeAmount, result.balanceAmount)
-        verify(exactly = 1) { balanceRepository.saveBalanceHistory(any()) }
-        verify(exactly = 1) { balanceRepository.updateBalance(any()) }
-    }
-
-    @Test
     fun `계산된 잔고를 업데이트한다`() {
         // Given
         val userId = "user123"

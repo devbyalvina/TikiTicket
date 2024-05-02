@@ -35,27 +35,6 @@ class BalanceService (
      *  잔고 변경
      */
     @Transactional
-    fun changeBalance(existingBalance: Balance, transactionType: TransactionType, calculatedAmount: Long, currentDateTime: LocalDateTime): Balance {
-        // 잔고 히스토리 저장
-        val changedBalanceHistory = BalanceHistory (
-            userId = existingBalance.userId,
-            balanceHistoryId = 0,
-            transactionType = transactionType,
-            balanceAmount = calculatedAmount,
-            createdAt = currentDateTime,
-        )
-        balanceRepository.saveBalanceHistory(changedBalanceHistory)
-
-        // 잔고 변경 내역 저장
-        val changedBalance = existingBalance.copy(balanceAmount = calculatedAmount, updatedAt = currentDateTime)
-        balanceRepository.updateBalance(changedBalance)
-        return changedBalance
-    }
-
-    /**
-     *  잔고 변경
-     */
-    @Transactional
     fun changeBalance(userId: String, amount: Long, transactionType: TransactionType, currentDateTime: LocalDateTime): Balance {
         // 잔고 조회
         val existingBalance = retrieveBalanceForUpdate(userId) ?: Balance(userId, 0, currentDateTime, currentDateTime)
