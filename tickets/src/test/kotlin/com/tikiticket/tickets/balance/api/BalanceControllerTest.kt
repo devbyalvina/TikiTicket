@@ -15,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.time.LocalDateTime
@@ -86,7 +86,7 @@ class BalanceControllerTest {
         val request = ChangeBalanceRequest(TransactionType.CHARGE, 20000L)
 
         mockMvc.perform(
-            post("/balances")
+            patch("/balances")
                 .header("User-Id", userId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
