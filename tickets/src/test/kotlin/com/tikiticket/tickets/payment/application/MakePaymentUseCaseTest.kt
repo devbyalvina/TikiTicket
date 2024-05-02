@@ -6,12 +6,15 @@ import com.tikiticket.tickets.balance.domain.TransactionType
 import com.tikiticket.tickets.booking.domain.Booking
 import com.tikiticket.tickets.booking.domain.BookingService
 import com.tikiticket.tickets.booking.domain.BookingStatusType
+import com.tikiticket.tickets.concert.domain.ConcertService
 import com.tikiticket.tickets.payment.domain.Payment
 import com.tikiticket.tickets.payment.domain.PaymentMethodType
 import com.tikiticket.tickets.payment.domain.PaymentService
 import com.tikiticket.tickets.payment.domain.PaymentStatusType
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
+import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -27,6 +30,7 @@ class MakePaymentUseCaseTest {
         val currentDateTime = LocalDateTime.now()
         val makePaymentCommand = MakePaymentCommand(bookingId, paymentMethod, payerId)
 
+        // bookingService mocking
         val bookingService = mockk<BookingService>()
         val paidBooking = Booking(
             id = bookingId,
@@ -46,10 +50,16 @@ class MakePaymentUseCaseTest {
         )
         every { bookingService.changeBookingStatus(bookingId, BookingStatusType.PAID, any()) } returns paidBooking
 
+        // concertService mocking
+        val concertService = mockk<ConcertService>()
+        every { concertService.changeConcertSeatStatus(paidBooking.seatId, paidBooking.concertId, any(), any()) } just runs
+
+        // balanceService mocking
         val balanceService = mockk<BalanceService>()
         val changedBalance = Balance(payerId, 400L, currentDateTime, currentDateTime)
         every { balanceService.changeBalance(payerId, paidBooking.ticketPrice, TransactionType.PAY, any()) } returns changedBalance
 
+        // paymentService mocking
         val paymentService = mockk<PaymentService>()
         val storedPayment = Payment(
             id = 1L,
@@ -64,13 +74,14 @@ class MakePaymentUseCaseTest {
         )
         every { paymentService.makePayment(bookingId, PaymentMethodType.BALANCE, payerId, paidBooking.ticketPrice, any()) } returns storedPayment
 
-        val makePaymentUseCase = MakePaymentUseCase(bookingService, balanceService, paymentService)
+        val makePaymentUseCase = MakePaymentUseCase(bookingService, concertService, balanceService, paymentService)
 
         // When
         val result = makePaymentUseCase(makePaymentCommand)
 
         // Then
         verify(exactly = 1) { bookingService.changeBookingStatus(bookingId, BookingStatusType.PAID, any()) }
+        verify(exactly = 1) { concertService.changeConcertSeatStatus(paidBooking.seatId, paidBooking.concertId, any(), any()) }
         verify(exactly = 1) { balanceService.changeBalance(payerId, paidBooking.ticketPrice, TransactionType.PAY, any()) }
         verify(exactly = 1) { paymentService.makePayment(bookingId, PaymentMethodType.BALANCE, payerId, paidBooking.ticketPrice, any()) }
 
