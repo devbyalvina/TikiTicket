@@ -35,8 +35,7 @@ class MakePaymentUseCase (
         val changedBalance = balanceService.changeBalance(makePaymentCommand.payerId, paidBooking.ticketPrice, TransactionType.PAY, currentDateTime)
 
         // 결제
-        val paymentMethod = makePaymentCommand.getPaymentMethodTypeFromString()
-        val storedPayment = paymentService.makePayment(makePaymentCommand.bookingId, paymentMethod, makePaymentCommand.payerId, paidBooking.ticketPrice, currentDateTime)
+        val storedPayment = paymentService.makePayment(makePaymentCommand.bookingId, makePaymentCommand.paymentMethod, makePaymentCommand.payerId, paidBooking.ticketPrice, currentDateTime)
         return storedPayment
     }
 }

@@ -26,7 +26,7 @@ class MakePaymentUseCaseTest {
         // Given
         val bookingId = 123L
         val payerId = "user123"
-        val paymentMethod = "BALANCE"
+        val paymentMethod = PaymentMethodType.BALANCE
         val currentDateTime = LocalDateTime.now()
         val makePaymentCommand = MakePaymentCommand(bookingId, paymentMethod, payerId)
 
