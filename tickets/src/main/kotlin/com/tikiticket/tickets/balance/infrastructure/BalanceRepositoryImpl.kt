@@ -7,23 +7,24 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class BalanceRepositoryImpl: BalanceRepository {
-    override fun findBalanceByUserId(userId: String): Balance? {
+    override fun findBalance(userId: String): Balance? {
         TODO("Not yet implemented")
     }
 
-    override fun findBalanceByUserIdForUpdate(userId: String): Balance? {
+    override fun findBalanceForUpdate(userId: String): Balance? {
         TODO("Not yet implemented")
     }
 
-    override fun saveBalance(balance: Balance): Balance {
+    override fun storeBalance(balance: Balance): Balance {
         TODO("Not yet implemented")
     }
 
-    override fun updateBalance(balance: Balance) {
+    override fun changeBalance(balance: Balance) {
         TODO("Not yet implemented")
     }
 
-    override fun saveBalanceHistory(balanceHistory: BalanceHistory): BalanceHistory {
+    override fun storeBalanceHistory(balanceHistory: BalanceHistory): BalanceHistory {
         TODO("Not yet implemented")
     }
+
 }

@@ -12,15 +12,7 @@ class BalanceService (
      *  잔고 조회
      */
     fun retrieveBalance(userId: String): Balance? {
-        val balance = balanceRepository.findBalanceByUserId(userId)
-        return balance
-    }
-
-    /**
-     *  잔고 조회 For Update
-     */
-    fun retrieveBalanceForUpdate(userId: String): Balance? {
-        val balance = balanceRepository.findBalanceByUserIdForUpdate(userId)
+        val balance = balanceRepository.findBalance(userId)
         return balance
     }
 
@@ -28,7 +20,7 @@ class BalanceService (
      *  잔고 저장
      */
     fun storeBalance(balance: Balance): Balance {
-        return balanceRepository.saveBalance(balance);
+        return balanceRepository.storeBalance(balance);
     }
 
     /**
@@ -37,7 +29,7 @@ class BalanceService (
     @Transactional
     fun changeBalance(userId: String, amount: Long, transactionType: TransactionType, currentDateTime: LocalDateTime): Balance {
         // 잔고 조회
-        val existingBalance = retrieveBalanceForUpdate(userId) ?: Balance(userId, 0, currentDateTime, currentDateTime)
+        val existingBalance = balanceRepository.findBalanceForUpdate(userId) ?: Balance(userId, 0, currentDateTime, currentDateTime)
 
         // 변경 금액 계산
         val calculatedAmount = existingBalance.calculateChangedBalance(transactionType, amount)
@@ -53,11 +45,11 @@ class BalanceService (
             balanceAmount = calculatedAmount,
             createdAt = currentDateTime,
         )
-        balanceRepository.saveBalanceHistory(changedBalanceHistory)
+        balanceRepository.storeBalanceHistory(changedBalanceHistory)
 
         // 잔고 변경 내역 저장
         val changedBalance = existingBalance.copy(balanceAmount = calculatedAmount, updatedAt = currentDateTime)
-        balanceRepository.updateBalance(changedBalance)
+        balanceRepository.changeBalance(changedBalance)
         return changedBalance
     }
 }

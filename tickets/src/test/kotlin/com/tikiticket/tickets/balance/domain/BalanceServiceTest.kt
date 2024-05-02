@@ -27,24 +27,9 @@ class BalanceServiceTest {
         val expectedBalance = Balance(userId, 1000L, LocalDateTime.now(), LocalDateTime.now())
 
         // When
-        `when`(balanceRepository.findBalanceByUserId(userId)).thenReturn(expectedBalance)
+        `when`(balanceRepository.findBalance(userId)).thenReturn(expectedBalance)
 
         val retrievedBalance = balanceService.retrieveBalance(userId)
-
-        // Then
-        assertEquals(expectedBalance, retrievedBalance)
-    }
-
-    @Test
-    fun `유저ID로 수정을 위해 잔고를 조회한다`() {
-        // Given
-        val userId = "user123"
-        val expectedBalance = Balance(userId, 1000L, LocalDateTime.now(), LocalDateTime.now())
-
-        // When
-        `when`(balanceRepository.findBalanceByUserIdForUpdate(userId)).thenReturn(expectedBalance)
-
-        val retrievedBalance = balanceService.retrieveBalanceForUpdate(userId)
 
         // Then
         assertEquals(expectedBalance, retrievedBalance)
@@ -56,13 +41,13 @@ class BalanceServiceTest {
         val balance = Balance("user123", 1000L, LocalDateTime.now(), LocalDateTime.now())
 
         // When
-        `when`(balanceRepository.saveBalance(balance)).thenReturn(balance)
+        `when`(balanceRepository.storeBalance(balance)).thenReturn(balance)
 
         balanceService.storeBalance(balance)
 
         // Then
         // 저장된 balance가 기대한대로 저장되었는지 확인
-        val savedBalance = balanceRepository.saveBalance(balance)
+        val savedBalance = balanceRepository.storeBalance(balance)
         assertEquals(balance, savedBalance)
     }
 
@@ -76,9 +61,9 @@ class BalanceServiceTest {
 
         val balanceRepository = mockk<BalanceRepository>()
         val balance = Balance(userId, 500L, currentDateTime, currentDateTime)
-        every { balanceRepository.findBalanceByUserIdForUpdate(userId) } returns balance
-        every { balanceRepository.saveBalanceHistory(any()) } returns mockk()
-        every { balanceRepository.updateBalance(any()) } just Runs
+        every { balanceRepository.findBalanceForUpdate(userId) } returns balance
+        every { balanceRepository.storeBalanceHistory(any()) } returns mockk()
+        every { balanceRepository.changeBalance(any()) } just Runs
 
         val balanceService = BalanceService(balanceRepository)
 
@@ -86,9 +71,9 @@ class BalanceServiceTest {
         val changedBalance = balanceService.changeBalance(userId, amount, transactionType, currentDateTime)
 
         // Then
-        verify(exactly = 1) { balanceRepository.findBalanceByUserIdForUpdate(userId) }
-        verify(exactly = 1) { balanceRepository.saveBalanceHistory(any()) }
-        verify(exactly = 1) { balanceRepository.updateBalance(any()) }
+        verify(exactly = 1) { balanceRepository.findBalanceForUpdate(userId) }
+        verify(exactly = 1) { balanceRepository.storeBalanceHistory(any()) }
+        verify(exactly = 1) { balanceRepository.changeBalance(any()) }
 
         assertEquals(600L, changedBalance.balanceAmount)
     }
@@ -102,7 +87,7 @@ class BalanceServiceTest {
         val currentDateTime = LocalDateTime.now()
 
         val balanceRepository = mockk<BalanceRepository>()
-        every { balanceRepository.findBalanceByUserIdForUpdate(userId) } returns null
+        every { balanceRepository.findBalanceForUpdate(userId) } returns null
 
         val balanceService = BalanceService(balanceRepository)
 
