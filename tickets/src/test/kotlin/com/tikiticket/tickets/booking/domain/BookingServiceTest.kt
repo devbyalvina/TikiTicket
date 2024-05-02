@@ -9,7 +9,6 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.time.LocalDateTime
@@ -81,33 +80,6 @@ class BookingServiceTest {
     }
 
     @Test
-    fun `예매 내역을 변경한다`() {
-        // Given
-        val booking = Booking(
-            id = 1L,
-            bookerId = "user123",
-            BookingStatusType.PAID,
-            LocalDateTime.now().plusMinutes(3),
-            123L,
-            "Concert",
-            "Artist",
-            LocalDateTime.now(),
-            "Venue",
-            1L,
-            1234L,
-            10000L,
-            LocalDateTime.now().minusMinutes(2),
-            LocalDateTime.now()
-        )
-
-        // When
-        bookingService.modifyBooking(booking)
-
-        // Then
-        Mockito.verify(bookingRepository, Mockito.times(1)).updateBooking(booking)
-    }
-
-    @Test
     fun `예매 상태 변경에 성공한다`() {
         // Given
         val bookingId = 1L
@@ -135,7 +107,7 @@ class BookingServiceTest {
         )
 
         every { bookingRepository.findBookingByIdForUpdate(bookingId) } returns booking
-        every { bookingRepository.updateBooking(any()) } just Runs
+        every { bookingRepository.changeBooking(any()) } just Runs
 
         // When
         val result = bookingService.changeBookingStatus(bookingId, bookingStatus, currentDateTime)
@@ -144,7 +116,7 @@ class BookingServiceTest {
         assertEquals(bookingId, result.id)
         assertEquals(bookingStatus, result.bookingStatus)
         verify(exactly = 1) { bookingRepository.findBookingByIdForUpdate(bookingId) }
-        verify(exactly = 1) { bookingRepository.updateBooking(any()) }
+        verify(exactly = 1) { bookingRepository.changeBooking(any()) }
     }
 
     @Test

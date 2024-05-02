@@ -18,7 +18,7 @@ class BookingRepositoryImpl: BookingRepository {
         TODO("Not yet implemented")
     }
 
-    override fun updateBooking(booking: Booking) {
+    override fun changeBooking(booking: Booking) {
         TODO("Not yet implemented")
     }
 }

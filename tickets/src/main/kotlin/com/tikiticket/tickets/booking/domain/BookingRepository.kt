@@ -19,5 +19,5 @@ interface BookingRepository {
     /**
      * 예약 내역 변경
      */
-    fun updateBooking(booking: Booking)
+    fun changeBooking(booking: Booking)
 }

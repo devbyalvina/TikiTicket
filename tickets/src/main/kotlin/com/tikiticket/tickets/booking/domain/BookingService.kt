@@ -1,8 +1,8 @@
 package com.tikiticket.tickets.booking.domain
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import org.springframework.boot.logging.LogLevel
 import com.tikiticket.tickets.payment.domain.PaymentError
+import org.springframework.boot.logging.LogLevel
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -33,13 +33,6 @@ class BookingService (
     }
 
     /**
-     * 예약 내역 변경
-     */
-    fun modifyBooking(booking: Booking) {
-        bookingRepository.updateBooking(booking)
-    }
-
-    /**
      *  예매 상태 변경
      */
     @Transactional
@@ -53,7 +46,7 @@ class BookingService (
             bookingStatus = bookingStatus,
             updatedAt = currentDateTime
         )
-        modifyBooking(paidBooking)
+        bookingRepository.changeBooking(booking)
         return paidBooking
     }
 }
