@@ -44,6 +44,7 @@ class BalanceControllerTest {
         val currentTime = LocalDateTime.of(2024, 5, 2, 6, 30, 0)
 
         val balance = Balance (
+            1L,
             userId,
             50000L,
             createdTime,
@@ -74,6 +75,7 @@ class BalanceControllerTest {
         val currentTime = LocalDateTime.of(2024, 5, 2, 7, 50, 0)
 
         val balance = Balance (
+            1L,
             userId,
             70000L,
             createdTime,

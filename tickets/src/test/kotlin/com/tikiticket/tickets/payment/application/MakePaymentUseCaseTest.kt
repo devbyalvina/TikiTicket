@@ -56,7 +56,7 @@ class MakePaymentUseCaseTest {
 
         // balanceService mocking
         val balanceService = mockk<BalanceService>()
-        val changedBalance = Balance(payerId, 400L, currentDateTime, currentDateTime)
+        val changedBalance = Balance(1L, payerId, 400L, currentDateTime, currentDateTime)
         every { balanceService.changeBalance(payerId, paidBooking.ticketPrice, TransactionType.PAY, any()) } returns changedBalance
 
         // paymentService mocking

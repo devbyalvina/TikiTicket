@@ -3,7 +3,6 @@ package com.tikiticket.tickets.balance.application
 import com.tikiticket.tickets.balance.domain.Balance
 import com.tikiticket.tickets.balance.domain.BalanceService
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 /**
@@ -13,7 +12,6 @@ import java.time.LocalDateTime
 class ChangeBalanceUseCase (
     private val balanceService: BalanceService,
 ) {
-    @Transactional
     operator fun invoke(command: ChangeBalanceCommand): Balance {
         // 잔고 변경
         val currentDateTime = LocalDateTime.now()

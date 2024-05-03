@@ -21,7 +21,7 @@ class ChangeBalanceUseCaseTest {
 
         val balanceService = mockk<BalanceService>()
         val currentDateTime = LocalDateTime.now()
-        val changedBalance = Balance(userId, 500L, currentDateTime, currentDateTime)
+        val changedBalance = Balance(1L, userId, 500L, currentDateTime, currentDateTime)
         every { balanceService.changeBalance(userId, amount, TransactionType.CHARGE, any()) } returns changedBalance
 
         val changeBalanceUseCase = ChangeBalanceUseCase(balanceService)
@@ -45,7 +45,7 @@ class ChangeBalanceUseCaseTest {
 
         val balanceService = mockk<BalanceService>()
         val currentDateTime = LocalDateTime.now()
-        val changedBalance = Balance(userId, 400L, currentDateTime, currentDateTime)
+        val changedBalance = Balance(1L, userId, 400L, currentDateTime, currentDateTime)
         every { balanceService.changeBalance(userId, amount, TransactionType.PAY, any()) } returns changedBalance
 
         val changeBalanceUseCase = ChangeBalanceUseCase(balanceService)

@@ -13,7 +13,7 @@ data class GetBalanceResponse (
             return GetBalanceResponse (
                 userId = balance.userId,
                 balanceAmount = balance.balanceAmount,
-                updatedAt = balance.updatedAt
+                updatedAt = balance.updatedAt!!
             )
         }
     }

@@ -3,10 +3,11 @@ package com.tikiticket.tickets.balance.domain
 import java.time.LocalDateTime
 
 data class Balance(
+    val id: Long,
     val userId: String,
     val balanceAmount: Long,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    val createdAt: LocalDateTime?,
+    val updatedAt: LocalDateTime?,
 ) {
     fun calculateChangedBalance(transactionType: TransactionType, amount: Long) : Long {
         val calculatedAmount = when(transactionType) {

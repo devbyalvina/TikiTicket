@@ -1,9 +1,7 @@
 package com.tikiticket.tickets.balance.domain
 
 import com.tikiticket.tickets.appcore.domain.exception.CustomException
-import io.mockk.Runs
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -24,7 +22,7 @@ class BalanceServiceTest {
     fun `유저ID로 잔고를 조회한다`() {
         // Given
         val userId = "user123"
-        val expectedBalance = Balance(userId, 1000L, LocalDateTime.now(), LocalDateTime.now())
+        val expectedBalance = Balance(1L, userId, 1000L, LocalDateTime.now(), LocalDateTime.now())
 
         // When
         `when`(balanceRepository.findBalance(userId)).thenReturn(expectedBalance)
@@ -38,7 +36,7 @@ class BalanceServiceTest {
     @Test
     fun `잔고를 저장한다`() {
         // Given
-        val balance = Balance("user123", 1000L, LocalDateTime.now(), LocalDateTime.now())
+        val balance = Balance(1L, "user123", 1000L, LocalDateTime.now(), LocalDateTime.now())
 
         // When
         `when`(balanceRepository.storeBalance(balance)).thenReturn(balance)
@@ -60,10 +58,10 @@ class BalanceServiceTest {
         val currentDateTime = LocalDateTime.now()
 
         val balanceRepository = mockk<BalanceRepository>()
-        val balance = Balance(userId, 500L, currentDateTime, currentDateTime)
+        val balance = Balance(1L, userId, 500L, currentDateTime, currentDateTime)
         every { balanceRepository.findBalanceForUpdate(userId) } returns balance
+        every { balanceRepository.storeBalance(any()) } returns balance.copy(balanceAmount = 600L)
         every { balanceRepository.storeBalanceHistory(any()) } returns mockk()
-        every { balanceRepository.changeBalance(any()) } just Runs
 
         val balanceService = BalanceService(balanceRepository)
 
@@ -72,8 +70,8 @@ class BalanceServiceTest {
 
         // Then
         verify(exactly = 1) { balanceRepository.findBalanceForUpdate(userId) }
+        verify(exactly = 1) { balanceRepository.storeBalance(any()) }
         verify(exactly = 1) { balanceRepository.storeBalanceHistory(any()) }
-        verify(exactly = 1) { balanceRepository.changeBalance(any()) }
 
         assertEquals(600L, changedBalance.balanceAmount)
     }

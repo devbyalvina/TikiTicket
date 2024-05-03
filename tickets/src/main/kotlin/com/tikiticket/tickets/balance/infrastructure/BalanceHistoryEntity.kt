@@ -20,6 +20,9 @@ class BalanceHistoryEntity(
     val balanceHistoryId: Long,
 
     @NotNull
+    val balanceId: Long,
+
+    @NotNull
     val userId: String,
 
     @Enumerated(EnumType.STRING)
@@ -32,10 +35,22 @@ class BalanceHistoryEntity(
     fun toDomain(): BalanceHistory {
         return BalanceHistory(
             balanceHistoryId = this.balanceHistoryId,
+            balanceId = this.balanceId,
             userId = this.userId,
             transactionType = this.transactionType,
             balanceAmount = this.balanceAmount,
             createdAt = this.createdAt!!
         )
+    }
+    companion object {
+        fun of(balanceHistory: BalanceHistory): BalanceHistoryEntity {
+            return BalanceHistoryEntity (
+                balanceHistoryId = balanceHistory.balanceHistoryId,
+                balanceId = balanceHistory.balanceId,
+                userId = balanceHistory.userId,
+                transactionType = balanceHistory.transactionType,
+                balanceAmount = balanceHistory.balanceAmount
+            )
+        }
     }
 }
