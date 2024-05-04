@@ -31,8 +31,14 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	// redis
+	implementation("org.redisson:redisson-spring-boot-starter:3.29.0")
+	implementation("com.github.codemonstur:embedded-redis:1.0.0")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
 	runtimeOnly("com.h2database:h2")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
 	testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
