@@ -23,13 +23,13 @@ class MakeBookingUseCase (
     @Transactional
     operator fun invoke(command: MakeBookingCommand): Booking {
         // 콘서트 좌석 상태 변경
-        concertService.changeConcertSeatStatus(command.concertSeatId, command.concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
+        concertService.changeConcertSeatStatusWithPessimisticLock(command.concertSeatId, command.concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
 
         // 콘서트 정보 조회
         val concert = concertService.findConcertWithSeats(command.concertId)
             ?: throw CustomException(LogLevel.INFO, BookingError.CONCERT_NOT_FOUND)
 
-        val concertSeat = concert.seats?.firstOrNull { seat -> seat.id == command.concertSeatId }
+        val concertSeat = concert.seats?.firstOrNull { seat -> seat.id == command.concertSeatId && seat.seatStatus == SeatStatusType.BOOKED}
             ?: throw CustomException(LogLevel.INFO, BookingError.CONCERT_SEAT_NOT_FOUND)
 
         // 예매 내역

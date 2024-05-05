@@ -39,7 +39,7 @@ class MakeBookingUseCaseTest {
                     id = 1L,
                     concertId = 1L,
                     seatNo = 1L,
-                    seatStatus = SeatStatusType.AVAILABLE,
+                    seatStatus = SeatStatusType.BOOKED,
                     ticketPrice = 100L,
                     createdAt = LocalDateTime.now(),
                     updatedAt = LocalDateTime.now()
@@ -63,7 +63,7 @@ class MakeBookingUseCaseTest {
         )
 
         val concertService = mockk<ConcertService>()
-        every { concertService.changeConcertSeatStatus(any(), any(), any(), any()) } just Runs
+        every { concertService.changeConcertSeatStatusWithPessimisticLock(any(), any(), any(), any()) } just Runs
         every { concertService.findConcertWithSeats(any()) } returns concert
 
         val bookingService = mockk<BookingService>()
@@ -77,7 +77,7 @@ class MakeBookingUseCaseTest {
 
         // Then
         verify(exactly = 1) {
-            concertService.changeConcertSeatStatus(command.concertSeatId, command.concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
+            concertService.changeConcertSeatStatusWithPessimisticLock(command.concertSeatId, command.concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
             concertService.findConcertWithSeats(command.concertId)
             bookingService.makeBooking(any())
         }
@@ -92,7 +92,7 @@ class MakeBookingUseCaseTest {
         val seatId = 1L
         val bookingService = mockk<BookingService>()
         val concertService = mockk<ConcertService> {
-            every { changeConcertSeatStatus(any(), any(), any(), any()) } just Runs
+            every { changeConcertSeatStatusWithPessimisticLock(any(), any(), any(), any()) } just Runs
             every { findConcertWithSeats(any()) } returns null
         }
         val makeBookingUseCase = MakeBookingUseCase(bookingService, concertService)
@@ -135,7 +135,7 @@ class MakeBookingUseCaseTest {
 
         val bookingService = mockk<BookingService>()
         val concertService = mockk<ConcertService> {
-            every { changeConcertSeatStatus(any(), any(), any(), any()) } just Runs
+            every { changeConcertSeatStatusWithPessimisticLock(any(), any(), any(), any()) } just Runs
             every { findConcertWithSeats(any()) } returns concert
         }
 

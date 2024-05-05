@@ -121,32 +121,6 @@ class ConcertServiceTest {
         assertEquals(expectedConcert, actualConcert)
     }
 
-    @Test
-    fun `수정할 콘서트 좌석을 조회한다`() {
-        // Given
-        val id = 1L
-        val concertId = 1L
-        val seatNo = 1L
-        val expectedConcertSeat = ConcertSeat(
-            id = id,
-            concertId = concertId,
-            seatNo = seatNo,
-            seatStatus = SeatStatusType.AVAILABLE,
-            ticketPrice = 10000L,
-            createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
-        )
-        val concertRepository = mockk<ConcertRepository> {
-            every { findConcertSeatForUpdate(concertId, seatNo) } returns expectedConcertSeat
-        }
-        val concertService = ConcertService(concertRepository)
-
-        // When
-        val actualConcertSeat = concertService.findConcertSeatForUpdate(concertId, seatNo)
-
-        // Then
-        assertEquals(expectedConcertSeat, actualConcertSeat)
-    }
 
     @Test
     fun `콘서트 좌석을 수정한다`() {
@@ -171,6 +145,80 @@ class ConcertServiceTest {
     }
 
     @Test
+    fun `비관적락을 사용하여 콘서트 좌석 상태를 변경한다`() {
+        // Given
+        val concertSeatId = 1L
+        val concertId = 1L
+        val concertSeat = ConcertSeat(
+            id = concertSeatId,
+            concertId = concertId,
+            seatNo = 1L,
+            seatStatus = SeatStatusType.AVAILABLE,
+            ticketPrice = 100L,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        val concertRepository = mockk<ConcertRepository>()
+        every { concertRepository.findConcertSeatForUpdate(concertSeatId) } returns concertSeat
+        every { concertRepository.storeConcertSeat(any()) } returns concertSeat.copy(seatStatus = SeatStatusType.BOOKED, updatedAt = LocalDateTime.now())
+
+        val concertService = ConcertService(concertRepository)
+
+        // When
+        concertService.changeConcertSeatStatusWithPessimisticLock(concertSeatId, concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
+
+        // Then
+        verify(exactly = 1) { concertRepository.findConcertSeatForUpdate(concertSeatId) }
+        verify(exactly = 1) { concertRepository.storeConcertSeat(any()) }
+    }
+
+    @Test
+    fun `비관적락을 사용하여 콘서트 좌석 상태를 변경 시 콘서트 좌석이 존재하지 않으면 에러를 반환한다`() {
+        // Given
+        val concertSeatId = 1L
+        val concertId = 1L
+
+        val concertRepository = mockk<ConcertRepository>()
+        every { concertRepository.findConcertSeatForUpdate(concertSeatId) } returns null
+
+        val concertService = ConcertService(concertRepository)
+
+        // When, Then
+        val exception = assertThrows<CustomException> {
+            concertService.changeConcertSeatStatusWithPessimisticLock(concertSeatId, concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
+        }
+        assert(exception.customError == ConcertError.CONCERT_SEAT_NOT_FOUND)
+    }
+
+    @Test
+    fun `비관적락을 사용하여 변경하려는 콘서트 좌석 상태가 AVAILABLE이 아니면 예외를 반환한다`() {
+        // Given
+        val concertId = 1L
+        val concertSeatId = 1L
+        val concertSeat = ConcertSeat(
+            id = concertSeatId,
+            concertId = concertId,
+            seatNo = 1L,
+            seatStatus = SeatStatusType.BOOKED,
+            ticketPrice = 100L,
+            createdAt = LocalDateTime.now(),
+            updatedAt = LocalDateTime.now()
+        )
+
+        val concertRepository = mockk<ConcertRepository>()
+        every { concertRepository.findConcertSeatForUpdate(concertSeatId) } returns concertSeat
+
+        val concertService = ConcertService(concertRepository)
+
+        // When, Then
+        val exception = assertThrows<CustomException> {
+            concertService.changeConcertSeatStatusWithPessimisticLock(concertSeatId, concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
+        }
+        assert(exception.customError == ConcertError.SEAT_NOT_AVAILABLE)
+    }
+
+    @Test
     fun `콘서트 좌석 상태를 변경한다`() {
         // Given
         val concertSeatId = 1L
@@ -186,8 +234,8 @@ class ConcertServiceTest {
         )
 
         val concertRepository = mockk<ConcertRepository>()
-        every { concertRepository.findConcertSeatForUpdate(concertSeatId, concertId) } returns concertSeat
-        every { concertRepository.updateConcertSeat(any()) } returns Unit
+        every { concertRepository.findConcertSeat(concertSeatId) } returns concertSeat
+        every { concertRepository.storeConcertSeat(any()) } returns concertSeat.copy(seatStatus = SeatStatusType.BOOKED, updatedAt = LocalDateTime.now())
 
         val concertService = ConcertService(concertRepository)
 
@@ -195,8 +243,8 @@ class ConcertServiceTest {
         concertService.changeConcertSeatStatus(concertSeatId, concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
 
         // Then
-        verify(exactly = 1) { concertRepository.findConcertSeatForUpdate(concertSeatId, concertId) }
-        verify(exactly = 1) { concertRepository.updateConcertSeat(any()) }
+        verify(exactly = 1) { concertRepository.findConcertSeat(concertSeatId) }
+        verify(exactly = 1) { concertRepository.storeConcertSeat(any()) }
     }
 
     @Test
@@ -206,7 +254,7 @@ class ConcertServiceTest {
         val concertId = 1L
 
         val concertRepository = mockk<ConcertRepository>()
-        every { concertRepository.findConcertSeatForUpdate(concertSeatId, concertId) } returns null
+        every { concertRepository.findConcertSeat(concertSeatId) } returns null
 
         val concertService = ConcertService(concertRepository)
 
@@ -233,7 +281,7 @@ class ConcertServiceTest {
         )
 
         val concertRepository = mockk<ConcertRepository>()
-        every { concertRepository.findConcertSeatForUpdate(concertSeatId, concertId) } returns concertSeat
+        every { concertRepository.findConcertSeat(concertSeatId) } returns concertSeat
 
         val concertService = ConcertService(concertRepository)
 

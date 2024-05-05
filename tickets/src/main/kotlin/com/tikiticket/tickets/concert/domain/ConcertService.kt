@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 @Service
 class ConcertService (
-    private val concertRepository: ConcertRepository
+    private val concertRepository: ConcertRepository,
 ){
     /**
      * 콘서트 조회
@@ -35,14 +35,6 @@ class ConcertService (
     }
 
     /**
-     *  콘서트 좌석 조회 For Update
-     */
-    fun findConcertSeatForUpdate(concertId: Long, SeatNo: Long): ConcertSeat? {
-        //return concertRepository.findConcertSeatForUpdate(concertId, SeatNo)
-        return null
-    }
-
-    /**
      *  콘서트 좌석 수정
      */
     fun updateConcertSeat(concertSeat: ConcertSeat) {
@@ -50,12 +42,12 @@ class ConcertService (
     }
 
     /**
-     *  콘서트 좌석 상태 변경
+     *  콘서트 좌석 상태 변경 - 비관적락 사용
      */
     @Transactional
-    fun changeConcertSeatStatus(concertSeatId: Long, concertId: Long, previousStatus: SeatStatusType, targetStatus: SeatStatusType) {
+    fun changeConcertSeatStatusWithPessimisticLock(concertSeatId: Long, concertId: Long, previousStatus: SeatStatusType, targetStatus: SeatStatusType) {
         // 좌석 정보 조회 for update
-        val concertSeat = concertRepository.findConcertSeatForUpdate(concertSeatId, concertId)
+        val concertSeat = concertRepository.findConcertSeatForUpdate(concertSeatId)
             ?: throw CustomException(LogLevel.INFO, ConcertError.CONCERT_SEAT_NOT_FOUND)
 
         // 좌석상태체크
@@ -64,6 +56,23 @@ class ConcertService (
         }
 
         // 좌석 상태 변경
-        concertRepository.updateConcertSeat(concertSeat.copy(seatStatus = targetStatus))
+        concertRepository.storeConcertSeat(concertSeat.copy(seatStatus = targetStatus))
+    }
+
+    /**
+     *  콘서트 좌석 상태 변경
+     */
+    fun changeConcertSeatStatus(concertSeatId: Long, concertId: Long, previousStatus: SeatStatusType, targetStatus: SeatStatusType) {
+        // 좌석 정보 조회
+        val concertSeat = concertRepository.findConcertSeat(concertSeatId)
+            ?: throw CustomException(LogLevel.INFO, ConcertError.CONCERT_SEAT_NOT_FOUND)
+
+        // 좌석상태체크
+        if (concertSeat.seatStatus != previousStatus) {
+            throw CustomException(LogLevel.INFO, ConcertError.SEAT_NOT_AVAILABLE)
+        }
+
+        // 좌석 상태 변경 후 저장
+        concertRepository.storeConcertSeat(concertSeat.copy(seatStatus = targetStatus))
     }
 }

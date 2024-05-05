@@ -52,7 +52,7 @@ class MakePaymentUseCaseTest {
 
         // concertService mocking
         val concertService = mockk<ConcertService>()
-        every { concertService.changeConcertSeatStatus(paidBooking.seatId, paidBooking.concertId, any(), any()) } just runs
+        every { concertService.changeConcertSeatStatusWithPessimisticLock(paidBooking.seatId, paidBooking.concertId, any(), any()) } just runs
 
         // balanceService mocking
         val balanceService = mockk<BalanceService>()
@@ -81,7 +81,7 @@ class MakePaymentUseCaseTest {
 
         // Then
         verify(exactly = 1) { bookingService.changeBookingStatus(bookingId, BookingStatusType.PAID, any()) }
-        verify(exactly = 1) { concertService.changeConcertSeatStatus(paidBooking.seatId, paidBooking.concertId, any(), any()) }
+        verify(exactly = 1) { concertService.changeConcertSeatStatusWithPessimisticLock(paidBooking.seatId, paidBooking.concertId, any(), any()) }
         verify(exactly = 1) { balanceService.changeBalance(payerId, paidBooking.ticketPrice, TransactionType.PAY, any()) }
         verify(exactly = 1) { paymentService.makePayment(bookingId, PaymentMethodType.BALANCE, payerId, paidBooking.ticketPrice, any()) }
 

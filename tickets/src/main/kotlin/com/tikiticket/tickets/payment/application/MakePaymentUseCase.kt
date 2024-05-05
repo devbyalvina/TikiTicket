@@ -29,7 +29,7 @@ class MakePaymentUseCase (
         val paidBooking = bookingService.changeBookingStatus(makePaymentCommand.bookingId, BookingStatusType.PAID ,currentDateTime)
 
         // 콘서트 좌석 상태 변경
-        concertService.changeConcertSeatStatus(paidBooking.seatId, paidBooking.concertId, SeatStatusType.BOOKED, SeatStatusType.PAID)
+        concertService.changeConcertSeatStatusWithPessimisticLock(paidBooking.seatId, paidBooking.concertId, SeatStatusType.BOOKED, SeatStatusType.PAID)
 
         // 잔고 변경
         val changedBalance = balanceService.changeBalance(makePaymentCommand.payerId, paidBooking.ticketPrice, TransactionType.PAY, currentDateTime)
