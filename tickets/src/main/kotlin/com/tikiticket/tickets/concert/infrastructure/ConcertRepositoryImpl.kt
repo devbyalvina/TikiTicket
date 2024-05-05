@@ -37,8 +37,11 @@ class ConcertRepositoryImpl (
         return concertSeatJpaRepository.findByIdOrNull(concertSeatId)?.toDomain()
     }
 
-    override fun findConcertSeatForUpdate(concertSeatId: Long, concertId: Long): ConcertSeat? {
-        TODO("Not yet implemented")
+    /**
+     *  콘서트 좌석 조회 For Update
+     */
+    override fun findConcertSeatForUpdate(concertSeatId: Long): ConcertSeat? {
+        return concertSeatJpaRepository.findForUpdateOrNullById(concertSeatId)?.toDomain()
     }
 
     override fun updateConcertSeat(concertSeat: ConcertSeat) {

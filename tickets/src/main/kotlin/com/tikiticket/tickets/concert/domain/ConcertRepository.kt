@@ -26,7 +26,7 @@ interface ConcertRepository {
     /**
      *  콘서트 좌석 조회 For Update
      */
-    fun findConcertSeatForUpdate(concertSeatId: Long, concertId: Long): ConcertSeat?
+    fun findConcertSeatForUpdate(concertSeatId: Long): ConcertSeat?
 
     /**
      *  콘서트 좌석 저장
