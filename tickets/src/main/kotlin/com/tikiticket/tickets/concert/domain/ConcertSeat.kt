@@ -10,8 +10,8 @@ data class ConcertSeat (
     val seatNo: Long,
     val seatStatus: SeatStatusType,
     val ticketPrice: Long,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime
+    val createdAt: LocalDateTime?,
+    val updatedAt: LocalDateTime?
 )
 
 /**

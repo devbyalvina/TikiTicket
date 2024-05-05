@@ -23,8 +23,18 @@ class ConcertRepositoryImpl (
         TODO("Not yet implemented")
     }
 
+    /**
+     *  콘서트 좌석 목록 조회
+     */
     override fun findConcertSeats(concertId: Long): List<ConcertSeat>? {
-        TODO("Not yet implemented")
+        return concertSeatJpaRepository.findByConcertId(concertId).map { it.toDomain() }
+    }
+
+    /**
+     *  콘서트 좌석 조회
+     */
+    override fun findConcertSeat(concertSeatId: Long): ConcertSeat? {
+        return concertSeatJpaRepository.findByIdOrNull(concertSeatId)?.toDomain()
     }
 
     override fun findConcertSeatForUpdate(concertSeatId: Long, concertId: Long): ConcertSeat? {
@@ -33,6 +43,10 @@ class ConcertRepositoryImpl (
 
     override fun updateConcertSeat(concertSeat: ConcertSeat) {
         TODO("Not yet implemented")
+    }
+
+    override fun storeConcertSeat(concertSeat: ConcertSeat): ConcertSeat {
+        return concertSeatJpaRepository.save(ConcertSeatEntity.of(concertSeat)).toDomain()
     }
 
 }

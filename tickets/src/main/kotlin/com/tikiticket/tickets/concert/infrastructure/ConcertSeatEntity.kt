@@ -39,8 +39,20 @@ class ConcertSeatEntity(
             seatNo = this.seatNo,
             seatStatus = this.seatStatus,
             ticketPrice = this.ticketPrice,
-            createdAt = this.createdAt!!,
-            updatedAt = this.updatedAt!!
+            createdAt = this.createdAt,
+            updatedAt = this.updatedAt
         )
+    }
+
+    companion object {
+        fun of(concertSeat: ConcertSeat): ConcertSeatEntity {
+            return ConcertSeatEntity (
+                concertSeatId = concertSeat.id,
+                concertId = concertSeat.concertId,
+                seatNo = concertSeat.seatNo,
+                seatStatus = concertSeat.seatStatus,
+                ticketPrice = concertSeat.ticketPrice
+            )
+        }
     }
 }
