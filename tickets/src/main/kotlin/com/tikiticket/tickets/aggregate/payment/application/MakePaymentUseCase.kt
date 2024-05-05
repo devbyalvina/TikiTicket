@@ -6,6 +6,8 @@ import com.tikiticket.tickets.aggregate.booking.domain.BookingService
 import com.tikiticket.tickets.aggregate.booking.domain.BookingStatusType
 import com.tikiticket.tickets.aggregate.concert.domain.ConcertService
 import com.tikiticket.tickets.aggregate.concert.domain.SeatStatusType
+import com.tikiticket.tickets.aggregate.payment.domain.Payment
+import com.tikiticket.tickets.aggregate.payment.domain.PaymentService
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -18,10 +20,10 @@ class MakePaymentUseCase (
     private val bookingService: BookingService,
     private val concertService: ConcertService,
     private val balanceService: BalanceService,
-    private val paymentService: com.tikiticket.tickets.aggregate.payment.domain.PaymentService,
+    private val paymentService: PaymentService,
     ) {
     @Transactional
-    operator fun invoke(makePaymentCommand: com.tikiticket.tickets.aggregate.payment.application.MakePaymentCommand): com.tikiticket.tickets.aggregate.payment.domain.Payment {
+    operator fun invoke(makePaymentCommand: MakePaymentCommand): Payment {
         val currentDateTime = LocalDateTime.now()
         // 예매 상태 변경
         val paidBooking = bookingService.changeBookingStatus(makePaymentCommand.bookingId, BookingStatusType.PAID ,currentDateTime)

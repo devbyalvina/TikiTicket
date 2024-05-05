@@ -1,9 +1,9 @@
 package com.tikiticket.tickets.aggregate.payment.infrastructure
 
-import com.tikiticket.tickets.global.infrastructure.jpa.BaseEntity
 import com.tikiticket.tickets.aggregate.payment.domain.PaymentHistory
 import com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType
 import com.tikiticket.tickets.aggregate.payment.domain.PaymentStatusType
+import com.tikiticket.tickets.global.infrastructure.jpa.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -29,7 +29,7 @@ class PaymentHistoryEntity (
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    val paymentMethod: com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType,
+    val paymentMethod: PaymentMethodType,
 
     @NotNull
     val paymentAmount: Long,
@@ -42,10 +42,10 @@ class PaymentHistoryEntity (
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    val paymentStatus: com.tikiticket.tickets.aggregate.payment.domain.PaymentStatusType,
+    val paymentStatus: PaymentStatusType,
 ): BaseEntity() {
-    fun com.tikiticket.tickets.aggregate.payment.infrastructure.PaymentHistoryEntity.toDomain(): com.tikiticket.tickets.aggregate.payment.domain.PaymentHistory {
-        return com.tikiticket.tickets.aggregate.payment.domain.PaymentHistory(
+    fun PaymentHistoryEntity.toDomain(): PaymentHistory {
+        return PaymentHistory(
             paymentHistoryId = this.paymentHistoryId,
             paymentId = this.paymentId,
             bookingId = this.bookingId,

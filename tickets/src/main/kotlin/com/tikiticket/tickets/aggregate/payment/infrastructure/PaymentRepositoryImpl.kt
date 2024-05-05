@@ -6,16 +6,16 @@ import com.tikiticket.tickets.aggregate.payment.domain.PaymentRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-class PaymentRepositoryImpl: com.tikiticket.tickets.aggregate.payment.domain.PaymentRepository {
-    override fun savePayment(payment: com.tikiticket.tickets.aggregate.payment.domain.Payment): com.tikiticket.tickets.aggregate.payment.domain.Payment {
+class PaymentRepositoryImpl: PaymentRepository {
+    override fun savePayment(payment: Payment): Payment {
         TODO("Not yet implemented")
     }
 
-    override fun savePaymentHistory(paymentHistory: com.tikiticket.tickets.aggregate.payment.domain.PaymentHistory): com.tikiticket.tickets.aggregate.payment.domain.PaymentHistory {
+    override fun savePaymentHistory(paymentHistory: PaymentHistory): PaymentHistory {
         TODO("Not yet implemented")
     }
 
-    override fun findPaymentById(id: Long): com.tikiticket.tickets.aggregate.payment.domain.Payment? {
+    override fun findPaymentById(id: Long): Payment? {
         TODO("Not yet implemented")
     }
 }

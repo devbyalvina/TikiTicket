@@ -6,11 +6,11 @@ data class PaymentHistory(
     val paymentId: Long,
     val paymentHistoryId: Long,
     val bookingId: Long,
-    val paymentMethod: com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType,
+    val paymentMethod: PaymentMethodType,
     val paymentAmount: Long,
     val payerId: String,
     val paymentDateTime: LocalDateTime,
-    val paymentStatus: com.tikiticket.tickets.aggregate.payment.domain.PaymentStatusType,
+    val paymentStatus: PaymentStatusType,
     val createdAt: LocalDateTime,
 )
 

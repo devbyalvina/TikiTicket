@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/payments")
 class PaymentController (
-    private val makePaymentUseCase: com.tikiticket.tickets.aggregate.payment.application.MakePaymentUseCase
+    private val makePaymentUseCase: MakePaymentUseCase
 ){
     /**
      *  API.8 예매 내역 결제
@@ -24,15 +24,15 @@ class PaymentController (
     fun makePayment (
         @RequestHeader("User-Id") userId: String,
         @PathVariable("booking_id") bookingId: Long,
-        @RequestBody requestBody: com.tikiticket.tickets.aggregate.payment.api.dto.MakePaymentRequest,
-    ): ResponseEntity<com.tikiticket.tickets.aggregate.payment.api.dto.MakePaymentResponse> {
-        val command = com.tikiticket.tickets.aggregate.payment.application.MakePaymentCommand(
+        @RequestBody requestBody: MakePaymentRequest,
+    ): ResponseEntity<MakePaymentResponse> {
+        val command = MakePaymentCommand(
             bookingId,
             requestBody.paymentMethod,
             userId
         )
         val payment = makePaymentUseCase(command)
-        val response = com.tikiticket.tickets.aggregate.payment.api.dto.MakePaymentResponse.of(payment)
+        val response = MakePaymentResponse.of(payment)
         return ResponseEntity.ok(response)
     }
 }

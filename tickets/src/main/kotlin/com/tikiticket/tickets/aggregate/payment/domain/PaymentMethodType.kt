@@ -20,8 +20,8 @@ enum class PaymentMethodType {
     companion object {
         @JsonCreator
         @JvmStatic
-        fun fromJson(jsonValue: String): com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType {
-            return com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType.valueOf(jsonValue)
+        fun fromJson(jsonValue: String): PaymentMethodType {
+            return PaymentMethodType.valueOf(jsonValue)
         }
     }
 }
