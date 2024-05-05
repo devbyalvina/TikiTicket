@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 data class TicketQueueToken(
     val id: Long,
     val userId: String,
-    val tokenStatus: com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TokenStatusType,
+    val tokenStatus: TokenStatusType,
     val expiryDateTime: LocalDateTime,
     val createdAt: LocalDateTime?,
     val updatedAt: LocalDateTime?
@@ -30,7 +30,7 @@ enum class TokenStatusType {
     companion object {
         @JsonCreator
         @JvmStatic
-        fun fromJson(jsonValue: String): com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TokenStatusType {
+        fun fromJson(jsonValue: String): TokenStatusType {
             return valueOf(jsonValue)
         }
     }

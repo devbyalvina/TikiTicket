@@ -1,8 +1,8 @@
 package com.tikiticket.tickets.aggregate.ticketqueuetoken.infrastructure
 
-import com.tikiticket.tickets.global.infrastructure.jpa.BaseEntity
 import com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueToken
 import com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TokenStatusType
+import com.tikiticket.tickets.global.infrastructure.jpa.BaseEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
@@ -28,13 +28,13 @@ class TicketQueueTokenEntity (
 
     @Enumerated(EnumType.STRING)
     @NotNull
-    var tokenStatus: com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TokenStatusType,
+    var tokenStatus: TokenStatusType,
 
     @NotNull
     val expiryDateTime: LocalDateTime
 ) : BaseEntity() {
 
-    fun toDomain() = com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueToken(
+    fun toDomain() = TicketQueueToken(
         id = this.tokenId,
         userId = this.userId,
         tokenStatus = this.tokenStatus,
@@ -44,8 +44,8 @@ class TicketQueueTokenEntity (
     )
 
     companion object {
-        fun of(ticketQueueToken: com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueToken): com.tikiticket.tickets.aggregate.ticketqueuetoken.infrastructure.TicketQueueTokenEntity {
-            return com.tikiticket.tickets.aggregate.ticketqueuetoken.infrastructure.TicketQueueTokenEntity(
+        fun of(ticketQueueToken: TicketQueueToken): TicketQueueTokenEntity {
+            return TicketQueueTokenEntity(
                 tokenId = ticketQueueToken.id,
                 userId = ticketQueueToken.userId,
                 tokenStatus = ticketQueueToken.tokenStatus,

@@ -1,10 +1,10 @@
 package com.tikiticket.tickets.aggregate.ticketqueuetoken.application
 
-import com.tikiticket.tickets.global.domain.exception.CustomException
-import org.springframework.boot.logging.LogLevel
 import com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueToken
 import com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueTokenError
 import com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueTokenService
+import com.tikiticket.tickets.global.domain.exception.CustomException
+import org.springframework.boot.logging.LogLevel
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional
  */
 @Component
 class ModifyUserTokenStatusUseCase (
-    private val ticketQueueTokenService: com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueTokenService
+    private val ticketQueueTokenService: TicketQueueTokenService
 ){
     @Transactional
-    operator fun invoke(command: com.tikiticket.tickets.aggregate.ticketqueuetoken.application.ModifyUserTokenStatusCommand): com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueToken {
+    operator fun invoke(command: ModifyUserTokenStatusCommand): TicketQueueToken {
         val existingToken =  ticketQueueTokenService.retrieveToken(command.userId)
-            ?: throw CustomException(LogLevel.INFO, com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueTokenError.TOKEN_NOT_FOUND)
+            ?: throw CustomException(LogLevel.INFO, TicketQueueTokenError.TOKEN_NOT_FOUND)
         ticketQueueTokenService.modifyTokenStatus(command.tokenStatus, command.userId)
         return existingToken.copy(tokenStatus = command.tokenStatus)
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
  */
 @Component
 class GetUserTokenPositionUseCase (
-    private val ticketQueueTokenService: com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueTokenService
+    private val ticketQueueTokenService: TicketQueueTokenService
 ){
     operator fun invoke(userId: String): Long {
         return ticketQueueTokenService.retrieveQueuePosition(userId)

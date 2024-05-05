@@ -10,9 +10,9 @@ import java.time.LocalDateTime
  */
 @Component
 class InactivateTokensUseCase(
-    private val ticketQueueTokenService: com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueTokenService
+    private val ticketQueueTokenService: TicketQueueTokenService
 ) {
     operator fun invoke() {
-        ticketQueueTokenService.modifyExpiredTokenStatus(com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TokenStatusType.INACTIVE, LocalDateTime.now())
+        ticketQueueTokenService.modifyExpiredTokenStatus(TokenStatusType.INACTIVE, LocalDateTime.now())
     }
 }

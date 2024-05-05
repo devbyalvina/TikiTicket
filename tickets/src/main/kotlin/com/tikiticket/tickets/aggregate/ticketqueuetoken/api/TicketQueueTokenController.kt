@@ -20,9 +20,9 @@ import java.time.LocalDateTime
 @RestController
 @RequestMapping("/ticket-queue-tokens")
 class TicketQueueTokenController (
-    private val createTokenUseCase: com.tikiticket.tickets.aggregate.ticketqueuetoken.application.CreateTokenUseCase,
-    private val modifyUserTokenStatusUseCase: com.tikiticket.tickets.aggregate.ticketqueuetoken.application.ModifyUserTokenStatusUseCase,
-    private val getUserTokenPositionUseCase: com.tikiticket.tickets.aggregate.ticketqueuetoken.application.GetUserTokenPositionUseCase
+    private val createTokenUseCase: CreateTokenUseCase,
+    private val modifyUserTokenStatusUseCase: ModifyUserTokenStatusUseCase,
+    private val getUserTokenPositionUseCase: GetUserTokenPositionUseCase
 ) {
     /**
      *  API.1 대기열 토큰 발급
@@ -30,9 +30,9 @@ class TicketQueueTokenController (
     @PostMapping
     fun createTicketQueueToken (
         @RequestHeader("User-Id") userId: String
-    ): ResponseEntity<com.tikiticket.tickets.aggregate.ticketqueuetoken.api.dto.CreateTicketQueueTokenResponse> {
+    ): ResponseEntity<CreateTicketQueueTokenResponse> {
         val createdToken = createTokenUseCase(userId, LocalDateTime.now())
-        val response = com.tikiticket.tickets.aggregate.ticketqueuetoken.api.dto.CreateTicketQueueTokenResponse.of(createdToken)
+        val response = CreateTicketQueueTokenResponse.of(createdToken)
         return ResponseEntity.ok(response)
     }
 
@@ -43,14 +43,14 @@ class TicketQueueTokenController (
     @PatchMapping("/status")
     fun modifyUserTokenStatus (
         @RequestHeader("User-Id") userId: String,
-        @RequestBody requestBody: com.tikiticket.tickets.aggregate.ticketqueuetoken.api.dto.ModifyUserTokenStatusRequest
-    ): ResponseEntity<com.tikiticket.tickets.aggregate.ticketqueuetoken.api.dto.ModifyUserTokenStatusResponse> {
-        val command = com.tikiticket.tickets.aggregate.ticketqueuetoken.application.ModifyUserTokenStatusCommand(
+        @RequestBody requestBody: ModifyUserTokenStatusRequest
+    ): ResponseEntity<ModifyUserTokenStatusResponse> {
+        val command = ModifyUserTokenStatusCommand(
             userId,
             requestBody.tokenStatus
         )
         val modifiedToken = modifyUserTokenStatusUseCase(command)
-        val response = com.tikiticket.tickets.aggregate.ticketqueuetoken.api.dto.ModifyUserTokenStatusResponse.of(modifiedToken)
+        val response = ModifyUserTokenStatusResponse.of(modifiedToken)
         return ResponseEntity.ok(response)
     }
 
