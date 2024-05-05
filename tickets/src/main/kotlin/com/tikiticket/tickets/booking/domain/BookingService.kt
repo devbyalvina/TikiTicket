@@ -15,7 +15,7 @@ class BookingService (
      * 예약
      */
     fun makeBooking(booking: Booking): Booking {
-        return bookingRepository.saveBooking(booking)
+        return bookingRepository.storeBooking(booking)
     }
 
     /**

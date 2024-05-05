@@ -15,8 +15,8 @@ data class Booking (
     val seatId: Long,
     val seatNo: Long,
     val ticketPrice: Long,
-    val createdAt: LocalDateTime,
-    val updatedAt: LocalDateTime,
+    val createdAt: LocalDateTime?,
+    val updatedAt: LocalDateTime?,
 )
 
 /**

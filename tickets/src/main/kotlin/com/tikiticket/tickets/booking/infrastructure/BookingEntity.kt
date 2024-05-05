@@ -68,8 +68,27 @@ class BookingEntity (
             seatId = this.seatId,
             seatNo = this.seatNo,
             ticketPrice = this.ticketPrice,
-            createdAt = this.createdAt!!,
-            updatedAt = this.updatedAt!!
+            createdAt = this.createdAt,
+            updatedAt = this.updatedAt
         )
+    }
+
+    companion object {
+        fun of(booking: Booking): BookingEntity {
+            return BookingEntity (
+                bookingId = booking.id,
+                bookerId = booking.bookerId,
+                bookingStatus = booking.bookingStatus,
+                expiryDateTime = booking.expiryDateTime,
+                concertId = booking.concertId,
+                concertName = booking.concertName,
+                artistName = booking.artistName,
+                concertDate = booking.concertDate,
+                venue = booking.venue,
+                seatId = booking.seatId,
+                seatNo = booking.seatNo,
+                ticketPrice = booking.ticketPrice,
+            )
+        }
     }
 }

@@ -41,7 +41,7 @@ class BookingServiceTest {
         )
 
         // When
-        `when`(bookingRepository.saveBooking(booking)).thenReturn(booking)
+        `when`(bookingRepository.storeBooking(booking)).thenReturn(booking)
 
         val savedBooking = bookingService.makeBooking(booking)
 

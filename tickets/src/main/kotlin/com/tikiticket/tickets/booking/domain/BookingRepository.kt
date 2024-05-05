@@ -4,7 +4,7 @@ interface BookingRepository {
     /**
      * 예약
      */
-    fun saveBooking(booking: Booking): Booking
+    fun storeBooking(booking: Booking): Booking
 
     /**
      * 예약 내역 조회

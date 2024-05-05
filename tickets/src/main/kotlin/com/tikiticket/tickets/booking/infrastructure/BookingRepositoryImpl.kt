@@ -5,9 +5,11 @@ import com.tikiticket.tickets.booking.domain.BookingRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-class BookingRepositoryImpl: BookingRepository {
-    override fun saveBooking(booking: Booking): Booking {
-        TODO("Not yet implemented")
+class BookingRepositoryImpl (
+    private val bookingJpaRepository: BookingJpaRepository
+): BookingRepository{
+    override fun storeBooking(booking: Booking): Booking {
+        return bookingJpaRepository.save<BookingEntity?>(BookingEntity.of(booking)).toDomain()
     }
 
     override fun findBookingById(id: Long): Booking? {
