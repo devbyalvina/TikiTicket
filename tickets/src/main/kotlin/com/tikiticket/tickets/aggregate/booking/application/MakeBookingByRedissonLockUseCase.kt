@@ -1,12 +1,12 @@
 package com.tikiticket.tickets.aggregate.booking.application
 
-import com.tikiticket.tickets.global.domain.exception.CustomException
 import com.tikiticket.tickets.aggregate.booking.domain.Booking
 import com.tikiticket.tickets.aggregate.booking.domain.BookingError
 import com.tikiticket.tickets.aggregate.booking.domain.BookingService
 import com.tikiticket.tickets.aggregate.booking.domain.BookingStatusType
 import com.tikiticket.tickets.aggregate.concert.domain.ConcertService
 import com.tikiticket.tickets.aggregate.concert.domain.SeatStatusType
+import com.tikiticket.tickets.global.domain.exception.CustomException
 import jakarta.transaction.Transactional
 import org.redisson.api.RLock
 import org.redisson.api.RedissonClient
@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
+/**
+ *  API.6 예매 - Redisson 분산락 사용
+ */
 @Component
 class MakeBookingByRedissonLockUseCase (
     private val bookingService: BookingService,
@@ -26,7 +29,7 @@ class MakeBookingByRedissonLockUseCase (
         val lock: RLock = redissonClient.getLock("MAKE_BOOKING_LOCK")
 
         try {
-            if(lock.tryLock(1, 3, TimeUnit.SECONDS)) {
+            if (lock.tryLock(1, 3, TimeUnit.SECONDS)) {
                 // 콘서트 좌석 상태 변경
                 concertService.changeConcertSeatStatus(command.concertSeatId, command.concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
 
