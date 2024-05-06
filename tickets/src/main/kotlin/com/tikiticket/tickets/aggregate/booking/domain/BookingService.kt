@@ -21,7 +21,7 @@ class BookingService (
      * 임시 예약
      */
     fun makeTemporaryBooking(booking: Booking): Booking {
-        return bookingRepository.storeTemporaryBooking(booking)
+        return bookingRepository.storeBookingInMemory(booking)
     }
 
     /**

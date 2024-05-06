@@ -1,9 +1,5 @@
 package com.tikiticket.tickets.aggregate.booking.domain
 
-import com.tikiticket.tickets.aggregate.booking.domain.Booking
-import com.tikiticket.tickets.aggregate.booking.domain.BookingRepository
-import com.tikiticket.tickets.aggregate.booking.domain.BookingService
-import com.tikiticket.tickets.aggregate.booking.domain.BookingStatusType
 import com.tikiticket.tickets.global.domain.exception.CustomException
 import io.mockk.Runs
 import io.mockk.every
@@ -48,6 +44,35 @@ class BookingServiceTest {
         `when`(bookingRepository.storeBooking(booking)).thenReturn(booking)
 
         val savedBooking = bookingService.makeBooking(booking)
+
+        // Then
+        assertEquals(booking, savedBooking)
+    }
+
+    @Test
+    fun `임시로 예매한다`() {
+        // Given
+        val booking = Booking(
+            1L,
+            bookerId = "user123",
+            BookingStatusType.BOOKED,
+            LocalDateTime.now().plusMinutes(5),
+            123L,
+            "Concert",
+            "Artist",
+            LocalDateTime.now(),
+            "Venue",
+            1L,
+            1234L,
+            10000L,
+            LocalDateTime.now(),
+            LocalDateTime.now()
+        )
+
+        // When
+        `when`(bookingRepository.storeBookingInMemory(booking)).thenReturn(booking)
+
+        val savedBooking = bookingService.makeTemporaryBooking(booking)
 
         // Then
         assertEquals(booking, savedBooking)

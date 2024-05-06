@@ -9,7 +9,7 @@ interface BookingRepository {
     /**
      * 임시 예약
      */
-    fun storeTemporaryBooking(booking: Booking): Booking
+    fun storeBookingInMemory(booking: Booking): Booking
 
     /**
      * 예약 내역 조회

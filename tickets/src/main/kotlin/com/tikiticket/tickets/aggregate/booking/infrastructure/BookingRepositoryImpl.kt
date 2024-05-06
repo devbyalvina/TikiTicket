@@ -20,9 +20,9 @@ class BookingRepositoryImpl (
     }
 
     /**
-     * 임시 예약
+     * 예약 In Memory
      */
-    override fun storeTemporaryBooking(booking: Booking): Booking {
+    override fun storeBookingInMemory(booking: Booking): Booking {
         val mapName = RedisMapNameType.TemporaryBooking.name
         val bookingMapEntity = BookingMapEntity(Pair(booking.bookerId, booking.seatId), booking, 5, TimeUnit.MINUTES)
 
