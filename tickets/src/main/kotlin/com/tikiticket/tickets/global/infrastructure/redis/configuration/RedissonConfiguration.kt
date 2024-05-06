@@ -1,4 +1,4 @@
-package com.tikiticket.tickets.global.infrastructure.redis
+package com.tikiticket.tickets.global.infrastructure.redis.configuration
 
 import jakarta.annotation.PreDestroy
 import org.redisson.Redisson
