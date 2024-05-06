@@ -9,4 +9,4 @@ data class BookingMapEntity(
     override val value: Booking,
     override val ttl: Long,
     override val ttlUnit: TimeUnit
-): MapEntity
+): MapEntity<Pair<String, Long>, Booking>

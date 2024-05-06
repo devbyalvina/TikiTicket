@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 @Repository
 class BookingRepositoryImpl (
     private val bookingJpaRepository: BookingJpaRepository,
-    private val redisMapRepository: RedisMapRepository
+    private val bookingRedisMapRepository: RedisMapRepository<Pair<String, Long>, Booking>
 ): BookingRepository {
     /**
      * 예약
@@ -26,10 +26,10 @@ class BookingRepositoryImpl (
         val mapName = RedisMapNameType.Booking.name
         val bookingMapEntity = BookingMapEntity(Pair(booking.bookerId, booking.seatId), booking, 5, TimeUnit.MINUTES)
 
-        redisMapRepository.save(mapName, bookingMapEntity)
-        val savedBooking = redisMapRepository.findByKey(mapName, bookingMapEntity.key)!!
+        bookingRedisMapRepository.save(mapName, bookingMapEntity)
+        val savedBooking = bookingRedisMapRepository.findByKey(mapName, bookingMapEntity.key)!!
 
-        return savedBooking as Booking
+        return savedBooking
     }
 
     /**

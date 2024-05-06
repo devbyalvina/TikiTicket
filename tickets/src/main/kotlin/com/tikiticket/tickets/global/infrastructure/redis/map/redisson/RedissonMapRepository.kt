@@ -7,16 +7,16 @@ import org.redisson.api.RedissonClient
 import org.springframework.stereotype.Component
 
 @Component
-class RedissonMapRepository (
+class RedissonMapRepository<K, V> (
     private val redissonClient: RedissonClient
-): RedisMapRepository {
-    override fun findByKey(mapName: String, key: Any): Any? {
-        val mapCache: RMapCache<Any, Any>? = redissonClient.getMapCache(mapName)
+): RedisMapRepository<K, V> {
+    override fun findByKey(mapName: String, key: K): V? {
+        val mapCache: RMapCache<K, V>? = redissonClient.getMapCache(mapName)
         return mapCache?.get(key)
     }
 
-    override fun save(mapName: String, mapEntity: MapEntity) {
-        val mapCache: RMapCache<Any, Any>? = redissonClient.getMapCache(mapName)
+    override fun save(mapName: String, mapEntity: MapEntity<K, V>) {
+        val mapCache: RMapCache<K, V>? = redissonClient.getMapCache(mapName)
 
         when {
             mapEntity.ttl != null && mapEntity.ttlUnit != null && mapEntity.ttl!! > 0 -> {
