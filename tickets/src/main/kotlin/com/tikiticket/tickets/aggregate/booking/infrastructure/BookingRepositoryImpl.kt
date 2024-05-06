@@ -23,7 +23,7 @@ class BookingRepositoryImpl (
      * 예약 In Memory
      */
     override fun storeBookingInMemory(booking: Booking): Booking {
-        val mapName = RedisMapNameType.TemporaryBooking.name
+        val mapName = RedisMapNameType.Booking.name
         val bookingMapEntity = BookingMapEntity(Pair(booking.bookerId, booking.seatId), booking, 5, TimeUnit.MINUTES)
 
         redisMapRepository.save(mapName, bookingMapEntity)
