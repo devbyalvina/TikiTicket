@@ -1,7 +1,6 @@
 package com.tikiticket.tickets.aggregate.booking.domain
 
 import com.tikiticket.tickets.global.domain.exception.CustomException
-import com.tikiticket.tickets.aggregate.payment.domain.PaymentError
 import org.springframework.boot.logging.LogLevel
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -16,6 +15,13 @@ class BookingService (
      */
     fun makeBooking(booking: Booking): Booking {
         return bookingRepository.storeBooking(booking)
+    }
+
+    /**
+     * 임시 예약
+     */
+    fun makeTemporaryBooking(booking: Booking): Booking {
+        return bookingRepository.storeTemporaryBooking(booking)
     }
 
     /**

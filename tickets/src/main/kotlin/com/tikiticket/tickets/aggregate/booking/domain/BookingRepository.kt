@@ -7,6 +7,11 @@ interface BookingRepository {
     fun storeBooking(booking: Booking): Booking
 
     /**
+     * 임시 예약
+     */
+    fun storeTemporaryBooking(booking: Booking): Booking
+
+    /**
      * 예약 내역 조회
      */
     fun findBookingById(id: Long): Booking?
