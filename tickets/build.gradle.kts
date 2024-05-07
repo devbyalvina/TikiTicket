@@ -34,6 +34,7 @@ dependencies {
 	// redis
 	implementation("org.redisson:redisson-spring-boot-starter:3.29.0")
 	implementation("com.github.codemonstur:embedded-redis:1.0.0")
+	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
