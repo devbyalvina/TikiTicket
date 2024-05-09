@@ -4,12 +4,10 @@ import jakarta.annotation.PreDestroy
 import org.redisson.Redisson
 import org.redisson.api.RedissonClient
 import org.redisson.config.Config
-import org.redisson.spring.data.connection.RedissonConnectionFactory
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ClassPathResource
-import org.springframework.data.redis.connection.RedisConnectionFactory
 import redis.embedded.RedisServer
 import java.io.File
 import java.net.InetSocketAddress
@@ -27,10 +25,10 @@ class RedissonConfiguration{
 
     private var port = redisPort
 
-    @Bean
-    fun redisConnectionFactory(redissonClient: RedissonClient): RedisConnectionFactory {
-        return RedissonConnectionFactory(redissonClient)
-    }
+//    @Bean
+//    fun redisConnectionFactory(redissonClient: RedissonClient): RedisConnectionFactory {
+//        return RedissonConnectionFactory(redissonClient)
+//    }
 
     @Bean
     fun redissonClient(): RedissonClient? {
