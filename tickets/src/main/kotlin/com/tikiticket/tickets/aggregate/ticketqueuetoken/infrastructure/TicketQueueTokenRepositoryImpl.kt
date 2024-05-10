@@ -86,4 +86,27 @@ class TicketQueueTokenRepositoryImpl (
     override fun findWaitQueuePositionInMemory(userId: String): Long? {
         return redisTemplate.opsForZSet().rank("WaitQueue", userId)
     }
+
+    /**
+     * 대기 상태 토큰을 활성 상태로 변경 In Memory
+     */
+    override fun activateTokensWithIntervalsInMemory(maxTokenCount: Int) {
+        // ACTIVE 상태인 토큰 갯수 확인
+        val activeTokenCount = redisTemplate.opsForZSet().size("ActiveQueue") ?: 0
+
+        // 변경할 토큰 갯수
+        val tokenFetchSize = maxTokenCount - activeTokenCount.toInt()
+
+        // 변경할 토큰이 있는지 확인
+        val tokensToActivate = tokenFetchSize.takeIf { it > 0 }
+
+        // WAITING -> ACTIVE로 상태 변경
+        tokensToActivate?.run {
+            repeat(tokenFetchSize) {
+                redisTemplate.opsForZSet().popMin("WaitQueue")?.let { waitUserId ->
+                    redisTemplate.opsForZSet().add("ActiveQueue", waitUserId.toString(), System.currentTimeMillis().toDouble())
+                }
+            }
+        }
+    }
 }
