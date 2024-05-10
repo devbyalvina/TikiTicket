@@ -59,6 +59,22 @@ class TicketQueueTokenService (
     }
 
     /**
+     * 토큰 활성화
+     */
+    fun activateTokensByScheduler(previousStatus: TokenStatusType, targetStatus: TokenStatusType, maxTokenCount: Int) {
+        // ACTIVE 상태인 토큰 갯수 확인
+        val activeTokenCount = ticketQueueTokenRepository.countTokensWithStatus(targetStatus, LocalDateTime.now())
+
+        // 변경할 토큰 갯수
+        val tokenFetchSize = maxTokenCount - activeTokenCount.toInt()
+
+        // WAITING -> ACTIVE로 상태 변경
+        when {
+            tokenFetchSize > 0 -> ticketQueueTokenRepository.changeTokenStatuses(previousStatus, targetStatus, tokenFetchSize)
+        }
+    }
+
+    /**
      * 유효기간이 만료된 토큰 상태 변경
      */
     fun modifyExpiredTokenStatus(tokenStatus: TokenStatusType, expiryDateTime: LocalDateTime) {
