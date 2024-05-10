@@ -5,12 +5,14 @@ import com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TicketQueueToken
 import com.tikiticket.tickets.aggregate.ticketqueuetoken.domain.TokenStatusType
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Pageable
+import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
 import java.time.LocalDateTime
 
 @Repository
 class TicketQueueTokenRepositoryImpl (
-    private val ticketQueueTokenJpaRepository: TicketQueueTokenJpaRepository
+    private val ticketQueueTokenJpaRepository: TicketQueueTokenJpaRepository,
+    private val redisTemplate: RedisTemplate<String, Any>
 ): TicketQueueTokenRepository {
     /**
      *  유저 토큰 생성
@@ -68,5 +70,20 @@ class TicketQueueTokenRepositoryImpl (
      */
     override fun modifyExpiredTokenStatus(tokenStatus: TokenStatusType, expiryDateTime: LocalDateTime) {
         return ticketQueueTokenJpaRepository.updateTokenStatusByExpiryDateTimeLessThanEqual(tokenStatus, expiryDateTime)
+    }
+
+
+    /**
+     * 유저 토큰 생성 In Memory
+     */
+    override fun createTokenInMemory(userId: String) {
+        redisTemplate.opsForZSet().add("WaitQueue", userId, System.currentTimeMillis().toDouble())
+    }
+
+    /**
+     *  유저 토큰 순번 조회 In Memory
+     */
+    override fun findWaitQueuePositionInMemory(userId: String): Long? {
+        return redisTemplate.opsForZSet().rank("WaitQueue", userId)
     }
 }
