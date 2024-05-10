@@ -80,4 +80,20 @@ class TicketQueueTokenService (
     fun modifyExpiredTokenStatus(tokenStatus: TokenStatusType, expiryDateTime: LocalDateTime) {
         ticketQueueTokenRepository.modifyExpiredTokenStatus(tokenStatus, expiryDateTime)
     }
+
+    /**
+     * 유저 토큰 생성 In Memory
+     */
+    fun createWaitTokenInMemory(userId: String): Long {
+        ticketQueueTokenRepository.createTokenInMemory(userId)
+        return ticketQueueTokenRepository.findWaitQueuePositionInMemory(userId)!!
+    }
+
+
+    /**
+     * 유저 토큰 순번 조회 In Memory
+     */
+    fun retrieveWaitQueuePositionInMemory(userId: String): Long? {
+        return ticketQueueTokenRepository.findWaitQueuePositionInMemory(userId)
+    }
 }

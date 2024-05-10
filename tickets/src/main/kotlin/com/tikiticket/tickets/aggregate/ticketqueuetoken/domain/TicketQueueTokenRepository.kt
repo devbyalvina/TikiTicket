@@ -37,4 +37,15 @@ interface TicketQueueTokenRepository {
      * 유효기간이 만료된 토큰 상태 변경
      */
     fun modifyExpiredTokenStatus(tokenStatus: TokenStatusType, expiryDateTime: LocalDateTime)
+
+    /**
+     * 유저 토큰 생성 In Memory
+     */
+    fun createTokenInMemory(userId: String)
+
+    /**
+     * 유저 토큰 순번 조회 In Memory
+     */
+    fun findWaitQueuePositionInMemory(userId: String): Long?
+
 }

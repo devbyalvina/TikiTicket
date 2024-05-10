@@ -200,4 +200,33 @@ class TicketQueueTokenServiceTest {
         // Verify that repository method is called with correct parameters
         verify(exactly = 1) { ticketQueueTokenRepository.modifyExpiredTokenStatus(tokenStatus, expiryDateTime) }
     }
+
+    @Test
+    fun `메모리 저장소에 토큰을 발급한다`() {
+        // Given
+        val userId = "user123"
+
+        every { ticketQueueTokenRepository.createTokenInMemory(userId) } just runs
+        every { ticketQueueTokenRepository.findWaitQueuePositionInMemory(userId) } returns 1
+
+        // When
+        val resultRank = ticketQueueTokenService.createWaitTokenInMemory("user123")
+
+        // Then
+        assertEquals(resultRank, 1)
+    }
+
+    @Test
+    fun `메모리 저장소에 저장된 토큰의 대기열 순번을 확인한다`() {
+        // Given
+        val userId = "user123"
+
+        every { ticketQueueTokenRepository.findWaitQueuePositionInMemory(userId) } returns 1
+
+        // When
+        val resultRank = ticketQueueTokenService.retrieveWaitQueuePositionInMemory("user123")
+
+        // Then
+        assertEquals(resultRank, 1)
+    }
 }
