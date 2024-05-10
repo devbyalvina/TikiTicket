@@ -229,4 +229,18 @@ class TicketQueueTokenServiceTest {
         // Then
         assertEquals(resultRank, 1)
     }
+
+    @Test
+    fun `주기적으로 메모리 저장소에 저장된 대기 상태 토큰을 활성 상태로 변경한다`() {
+        // Given
+        val maxTokenCount = 5
+
+        every { ticketQueueTokenRepository.activateTokensWithIntervalsInMemory(maxTokenCount) } just runs
+
+        // When
+        ticketQueueTokenService.activateTokensWithIntervalsInMemory(maxTokenCount)
+
+        // Then
+        verify(exactly = 1) { ticketQueueTokenRepository.activateTokensWithIntervalsInMemory(maxTokenCount) }
+    }
 }

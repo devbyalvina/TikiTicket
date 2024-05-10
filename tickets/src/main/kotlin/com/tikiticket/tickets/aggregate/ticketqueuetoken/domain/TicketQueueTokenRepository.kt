@@ -48,4 +48,8 @@ interface TicketQueueTokenRepository {
      */
     fun findWaitQueuePositionInMemory(userId: String): Long?
 
+    /**
+     * 주기적으로 대기 상태 토큰을 활성 상태로 변경 In Memory
+     */
+    fun activateTokensWithIntervalsInMemory(maxTokenCount: Int)
 }

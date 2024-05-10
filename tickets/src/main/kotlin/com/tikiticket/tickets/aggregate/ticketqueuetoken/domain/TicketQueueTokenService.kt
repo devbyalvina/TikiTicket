@@ -89,11 +89,17 @@ class TicketQueueTokenService (
         return ticketQueueTokenRepository.findWaitQueuePositionInMemory(userId)!!
     }
 
-
     /**
      * 유저 토큰 순번 조회 In Memory
      */
     fun retrieveWaitQueuePositionInMemory(userId: String): Long? {
         return ticketQueueTokenRepository.findWaitQueuePositionInMemory(userId)
+    }
+
+    /**
+     * 주기적으로 대기 상태 토큰을 활성 상태로 변경 In Memory
+     */
+    fun activateTokensWithIntervalsInMemory(maxTokenCount: Int) {
+        ticketQueueTokenRepository.activateTokensWithIntervalsInMemory(maxTokenCount)
     }
 }
