@@ -14,7 +14,7 @@ import java.net.InetSocketAddress
 import java.net.Socket
 
 @Configuration
-class RedissonConfiguration{
+class RedissonConfig{
     @Value("\${spring.data.redis.host}")
     private val redisHost: String? = null
 

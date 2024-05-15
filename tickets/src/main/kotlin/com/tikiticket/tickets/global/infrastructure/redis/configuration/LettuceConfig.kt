@@ -9,7 +9,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 
 
 @Configuration
-class LettuceConfiguration {
+class LettuceConfig {
 //    @Bean
 //    fun redisConnectionFactory(): RedisConnectionFactory {
 //        return LettuceConnectionFactory(redisHost!!, redisPort)
