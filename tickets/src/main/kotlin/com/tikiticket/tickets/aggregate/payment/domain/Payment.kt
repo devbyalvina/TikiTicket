@@ -4,7 +4,6 @@ import java.time.LocalDateTime
 
 data class Payment(
     val id: Long,
-    val bookingId: Long,
     val paymentMethod: PaymentMethodType,
     val paymentAmount: Long,
     val payerId: String,

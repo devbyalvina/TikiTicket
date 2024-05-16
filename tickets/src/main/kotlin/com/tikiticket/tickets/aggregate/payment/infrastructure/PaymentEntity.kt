@@ -21,9 +21,6 @@ class PaymentEntity(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val paymentId: Long,
 
-    @NotNull
-    val bookingId: Long,
-
     @Enumerated(EnumType.STRING)
     @NotNull
     val paymentMethod: PaymentMethodType,
@@ -44,7 +41,6 @@ class PaymentEntity(
     fun toDomain(): Payment {
         return Payment(
             id = this.paymentId,
-            bookingId = this.bookingId,
             paymentMethod = this.paymentMethod,
             paymentAmount = this.paymentAmount,
             payerId = this.payerId,

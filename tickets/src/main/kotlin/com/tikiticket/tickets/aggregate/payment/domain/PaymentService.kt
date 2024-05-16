@@ -26,11 +26,10 @@ class PaymentService (
      * 결제
      */
     @Transactional
-    fun makePayment(bookingId: Long, paymentMethod: PaymentMethodType, payerId: String, paymentAmount: Long, currentDateTime: LocalDateTime): Payment {
+    fun makePayment(paymentMethod: PaymentMethodType, payerId: String, paymentAmount: Long, currentDateTime: LocalDateTime): Payment {
         // 결제 내역 저장
         val payment = Payment(
             id = 0,
-            bookingId = bookingId,
             paymentMethod = paymentMethod,
             paymentAmount = paymentAmount,
             payerId = payerId,
@@ -45,7 +44,6 @@ class PaymentService (
         val paymentHistory = PaymentHistory(
             paymentId = storedPayment.id,
             paymentHistoryId = 0,
-            bookingId = storedPayment.bookingId,
             paymentMethod = storedPayment.paymentMethod,
             paymentAmount = paymentAmount,
             payerId = storedPayment.payerId,

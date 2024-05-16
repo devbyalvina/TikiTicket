@@ -21,12 +21,11 @@ class PaymentServiceTest {
         // Given
         val payment = Payment(
             1L,
-            123L,
-            com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType.BALANCE,
+            PaymentMethodType.BALANCE,
             10000,
             "user123",
             LocalDateTime.now(),
-            com.tikiticket.tickets.aggregate.payment.domain.PaymentStatusType.FAIL,
+            PaymentStatusType.FAIL,
             LocalDateTime.now(),
             LocalDateTime.now()
         )
@@ -46,12 +45,11 @@ class PaymentServiceTest {
         val paymentId = 1L
         val payment = Payment(
             paymentId,
-            123L,
-            com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType.BALANCE,
+            PaymentMethodType.BALANCE,
             10000,
             "user123",
             LocalDateTime.now(),
-            com.tikiticket.tickets.aggregate.payment.domain.PaymentStatusType.SUCCESS,
+            PaymentStatusType.SUCCESS,
             LocalDateTime.now(),
             LocalDateTime.now()
         )
@@ -68,8 +66,7 @@ class PaymentServiceTest {
     @Test
     fun `결제와 결제 이력 저장에 성공한다`() {
         // Given
-        val bookingId = 1L
-        val paymentMethod = com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType.BALANCE
+        val paymentMethod = PaymentMethodType.BALANCE
         val payerId = "user123"
         val paymentAmount = 10000L
         val currentDateTime = LocalDateTime.now()
@@ -77,14 +74,13 @@ class PaymentServiceTest {
         // 모의 객체 생성
         val paymentRepository = mockk<PaymentRepository>()
 
-        val payment = com.tikiticket.tickets.aggregate.payment.domain.Payment(
+        val payment = Payment(
             id = 0,
-            bookingId = bookingId,
             paymentMethod = paymentMethod,
             paymentAmount = paymentAmount,
             payerId = payerId,
             paymentDateTime = currentDateTime,
-            paymentStatus = com.tikiticket.tickets.aggregate.payment.domain.PaymentStatusType.SUCCESS,
+            paymentStatus = PaymentStatusType.SUCCESS,
             createdAt = currentDateTime,
             updatedAt = currentDateTime
         )
@@ -93,12 +89,11 @@ class PaymentServiceTest {
         val paymentHistory = PaymentHistory(
             paymentId = payment.id,
             paymentHistoryId = 0,
-            bookingId = bookingId,
             paymentMethod = paymentMethod,
             paymentAmount = paymentAmount,
             payerId = payerId,
             paymentDateTime = currentDateTime,
-            paymentStatus = com.tikiticket.tickets.aggregate.payment.domain.PaymentStatusType.SUCCESS,
+            paymentStatus = PaymentStatusType.SUCCESS,
             createdAt = currentDateTime
         )
         every { paymentRepository.savePaymentHistory(any()) } returns paymentHistory
@@ -107,7 +102,7 @@ class PaymentServiceTest {
         val paymentService = PaymentService(paymentRepository)
 
         // When
-        val result = paymentService.makePayment(bookingId, paymentMethod, payerId, paymentAmount, currentDateTime)
+        val result = paymentService.makePayment(paymentMethod, payerId, paymentAmount, currentDateTime)
 
         // Then
         assertEquals(payment, result)
