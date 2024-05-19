@@ -9,7 +9,7 @@ class ConcertValidator {
      */
     companion object {
         fun checkSeatsExist(concert: Concert) {
-            require(!concert.seats.isNullOrEmpty()) {
+            require(!concert.seats?.list.isNullOrEmpty()) {
                 throw CustomException(LogLevel.WARN, ConcertError.CONCERT_SEATS_NOT_FOUND)
             }
         }

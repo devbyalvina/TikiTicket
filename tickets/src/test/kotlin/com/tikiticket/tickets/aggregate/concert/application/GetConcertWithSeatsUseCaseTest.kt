@@ -17,7 +17,7 @@ class GetConcertWithSeatsUseCaseTest {
         // Given
         val concertId = 1L
         val concertService = mockk<ConcertService> {
-            every { findConcertWithSeats(concertId) } returns null
+            every { findConcertInMemory(concertId) } returns null
         }
         val useCase = GetConcertWithSeatsUseCase(concertService)
 
@@ -34,7 +34,7 @@ class GetConcertWithSeatsUseCaseTest {
             every { seats } returns null
         }
         val concertService = mockk<ConcertService> {
-            every { findConcertWithSeats(concertId) } returns concert
+            every { findConcertInMemory(concertId) } returns concert
         }
         val useCase = GetConcertWithSeatsUseCase(concertService)
 
@@ -48,10 +48,10 @@ class GetConcertWithSeatsUseCaseTest {
         // Given
         val concertId = 1L
         val concert = mockk<Concert> {
-            every { seats } returns listOf(mockk())
+            every { seats?.list } returns listOf(mockk())
         }
         val concertService = mockk<ConcertService> {
-            every { findConcertWithSeats(concertId) } returns concert
+            every { findConcertInMemory(concertId) } returns concert
         }
         val useCase = GetConcertWithSeatsUseCase(concertService)
 

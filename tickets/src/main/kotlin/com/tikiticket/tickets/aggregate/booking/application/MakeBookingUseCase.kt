@@ -1,12 +1,12 @@
 package com.tikiticket.tickets.aggregate.booking.application
 
-import com.tikiticket.tickets.global.domain.exception.CustomException
 import com.tikiticket.tickets.aggregate.booking.domain.Booking
 import com.tikiticket.tickets.aggregate.booking.domain.BookingError
 import com.tikiticket.tickets.aggregate.booking.domain.BookingService
 import com.tikiticket.tickets.aggregate.booking.domain.BookingStatusType
 import com.tikiticket.tickets.aggregate.concert.domain.ConcertService
 import com.tikiticket.tickets.aggregate.concert.domain.SeatStatusType
+import com.tikiticket.tickets.global.domain.exception.CustomException
 import org.springframework.boot.logging.LogLevel
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -26,10 +26,10 @@ class MakeBookingUseCase (
         concertService.changeConcertSeatStatusWithPessimisticLock(command.concertSeatId, command.concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
 
         // 콘서트 정보 조회
-        val concert = concertService.findConcertWithSeats(command.concertId)
+        val concert = concertService.findConcertInMemory(command.concertId)
             ?: throw CustomException(LogLevel.INFO, BookingError.CONCERT_NOT_FOUND)
 
-        val concertSeat = concert.seats?.firstOrNull { seat -> seat.id == command.concertSeatId && seat.seatStatus == SeatStatusType.BOOKED}
+        val concertSeat = concert.seats?.list?.firstOrNull { seat -> seat.id == command.concertSeatId && seat.seatStatus == SeatStatusType.BOOKED}
             ?: throw CustomException(LogLevel.INFO, BookingError.CONCERT_SEAT_NOT_FOUND)
 
         // 예매 내역

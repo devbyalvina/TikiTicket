@@ -10,5 +10,9 @@ data class Concert(
     val venue: String,
     val createdAt: LocalDateTime?,
     val updatedAt: LocalDateTime?,
-    val seats: List<ConcertSeat>?
+    val seats: ConcertSeats?
+)
+
+data class ConcertSeats (
+    val list: List<ConcertSeat>?
 )

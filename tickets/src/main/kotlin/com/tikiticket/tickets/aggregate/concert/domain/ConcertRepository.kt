@@ -9,6 +9,11 @@ interface ConcertRepository {
     fun findConcert(concertId: Long): Concert?
 
     /**
+     * 콘서트 조회 In Memory
+     */
+    fun findConcertInMemory(concertId: Long): Concert?
+
+    /**
      *  콘서트 스케줄 목록 조회
      */
     fun findConcertsByDateRange(startDate: LocalDate, endDate: LocalDate): List<Concert>?
@@ -19,9 +24,19 @@ interface ConcertRepository {
     fun findConcertSeats(concertId: Long): List<ConcertSeat>?
 
     /**
+     *  콘서트 좌석 목록 조회 In Memory
+     */
+    fun findConcertSeatsInMemory(concertId: Long): List<ConcertSeat>?
+
+    /**
      *  콘서트 좌석 조회
      */
     fun findConcertSeat(concertSeatId: Long): ConcertSeat?
+
+    /**
+     *  콘서트 좌석 조회 In Memory
+     */
+    fun findConcertSeatInMemory(concertSeatId: Long): ConcertSeat?
 
     /**
      *  콘서트 좌석 조회 For Update
@@ -29,11 +44,17 @@ interface ConcertRepository {
     fun findConcertSeatForUpdate(concertSeatId: Long): ConcertSeat?
 
     /**
-     *  콘서트 좌석 저장
-     */
-    fun updateConcertSeat(concertSeat: ConcertSeat)
-    /**
      *  콘서트 좌석 수정
      */
+    fun updateConcertSeat(concertSeat: ConcertSeat)
+
+    /**
+     *  콘서트 좌석 저장
+     */
     fun storeConcertSeat(concertSeat: ConcertSeat): ConcertSeat
+
+    /**
+     *  콘서트 좌석 저장 In Memory
+     */
+    fun storeConcertSeatInMemory(concertSeat: ConcertSeat): ConcertSeat
 }

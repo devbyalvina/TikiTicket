@@ -1,7 +1,8 @@
 package com.tikiticket.tickets.aggregate.concert.infrastructure
 
-import com.tikiticket.tickets.global.infrastructure.jpa.BaseEntity
 import com.tikiticket.tickets.aggregate.concert.domain.Concert
+import com.tikiticket.tickets.aggregate.concert.domain.ConcertSeats
+import com.tikiticket.tickets.global.infrastructure.jpa.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -51,7 +52,7 @@ class ConcertEntity (
             venue = this.venue,
             createdAt = this.createdAt,
             updatedAt = this.updatedAt,
-            seats = seats?.map { it.toDomain() }
+            seats = ConcertSeats(seats?.map { it.toDomain() })
         )
     }
 

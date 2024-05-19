@@ -1,13 +1,12 @@
 package com.tikiticket.tickets.aggregate.booking.application
 
-import com.tikiticket.tickets.aggregate.booking.application.MakeBookingByRedissonLockUseCase
-import com.tikiticket.tickets.aggregate.booking.application.MakeBookingCommand
 import com.tikiticket.tickets.aggregate.booking.domain.Booking
 import com.tikiticket.tickets.aggregate.booking.domain.BookingError
 import com.tikiticket.tickets.aggregate.booking.domain.BookingService
 import com.tikiticket.tickets.aggregate.booking.domain.BookingStatusType
 import com.tikiticket.tickets.aggregate.concert.domain.Concert
 import com.tikiticket.tickets.aggregate.concert.domain.ConcertSeat
+import com.tikiticket.tickets.aggregate.concert.domain.ConcertSeats
 import com.tikiticket.tickets.aggregate.concert.domain.ConcertService
 import com.tikiticket.tickets.aggregate.concert.domain.SeatStatusType
 import com.tikiticket.tickets.global.domain.exception.CustomException
@@ -40,15 +39,16 @@ class MakeBookingByRedissonLockUseCaseTest {
             venue = "Venue",
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now(),
-            seats = listOf(
-                ConcertSeat(
-                    id = 1L,
-                    concertId = 1L,
-                    seatNo = 1L,
-                    seatStatus = SeatStatusType.BOOKED,
-                    ticketPrice = 100L,
-                    createdAt = LocalDateTime.now(),
-                    updatedAt = LocalDateTime.now()
+            seats = ConcertSeats(listOf(
+                    ConcertSeat(
+                        id = 1L,
+                        concertId = 1L,
+                        seatNo = 1L,
+                        seatStatus = SeatStatusType.BOOKED,
+                        ticketPrice = 100L,
+                        createdAt = LocalDateTime.now(),
+                        updatedAt = LocalDateTime.now()
+                    )
                 )
             )
         )
@@ -70,7 +70,7 @@ class MakeBookingByRedissonLockUseCaseTest {
 
         val concertService = mockk<ConcertService>()
         every { concertService.changeConcertSeatStatus(any(), any(), any(), any()) } just Runs
-        every { concertService.findConcertWithSeats(any()) } returns concert
+        every { concertService.findConcertInMemory(any()) } returns concert
 
         val bookingService = mockk<BookingService>()
         every { bookingService.makeBooking(any()) } returns expectedBooking
@@ -90,7 +90,7 @@ class MakeBookingByRedissonLockUseCaseTest {
         // Then
         verify(exactly = 1) {
             concertService.changeConcertSeatStatus(command.concertSeatId, command.concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
-            concertService.findConcertWithSeats(command.concertId)
+            concertService.findConcertInMemory(command.concertId)
             bookingService.makeBooking(any())
         }
         assert(result == expectedBooking)
@@ -105,7 +105,7 @@ class MakeBookingByRedissonLockUseCaseTest {
         val bookingService = mockk<BookingService>()
         val concertService = mockk<ConcertService> {
             every { changeConcertSeatStatus(any(), any(), any(), any()) } just Runs
-            every { findConcertWithSeats(any()) } returns null
+            every { findConcertInMemory(any()) } returns null
         }
 
         val redissonClient = mockk<RedissonClient>()
@@ -139,15 +139,16 @@ class MakeBookingByRedissonLockUseCaseTest {
             venue = "Venue",
             createdAt = LocalDateTime.now(),
             updatedAt = LocalDateTime.now(),
-            seats = listOf(
-                ConcertSeat(
-                    id = 1L,
-                    concertId = 1L,
-                    seatNo = 1L,
-                    seatStatus = SeatStatusType.AVAILABLE,
-                    ticketPrice = 100L,
-                    createdAt = LocalDateTime.now(),
-                    updatedAt = LocalDateTime.now()
+            seats = ConcertSeats(listOf(
+                    ConcertSeat(
+                        id = 1L,
+                        concertId = 1L,
+                        seatNo = 1L,
+                        seatStatus = SeatStatusType.AVAILABLE,
+                        ticketPrice = 100L,
+                        createdAt = LocalDateTime.now(),
+                        updatedAt = LocalDateTime.now()
+                    )
                 )
             )
         )
@@ -155,7 +156,7 @@ class MakeBookingByRedissonLockUseCaseTest {
         val bookingService = mockk<BookingService>()
         val concertService = mockk<ConcertService> {
             every { changeConcertSeatStatus(any(), any(), any(), any()) } just Runs
-            every { findConcertWithSeats(any()) } returns concert
+            every { findConcertInMemory(any()) } returns concert
         }
 
         val redissonClient = mockk<RedissonClient>()

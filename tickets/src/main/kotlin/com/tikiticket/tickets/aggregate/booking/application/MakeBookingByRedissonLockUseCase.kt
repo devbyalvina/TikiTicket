@@ -34,10 +34,10 @@ class MakeBookingByRedissonLockUseCase (
                 concertService.changeConcertSeatStatus(command.concertSeatId, command.concertId, SeatStatusType.AVAILABLE, SeatStatusType.BOOKED)
 
                 // 콘서트 정보 조회
-                val concert = concertService.findConcertWithSeats(command.concertId)
+                val concert = concertService.findConcertInMemory(command.concertId)
                     ?: throw CustomException(LogLevel.INFO, BookingError.CONCERT_NOT_FOUND)
 
-                val concertSeat = concert.seats?.firstOrNull { seat -> seat.id == command.concertSeatId && seat.seatStatus == SeatStatusType.BOOKED }
+                val concertSeat = concert.seats?.list?.firstOrNull { seat -> seat.id == command.concertSeatId && seat.seatStatus == SeatStatusType.BOOKED }
                     ?: throw CustomException(LogLevel.INFO, BookingError.CONCERT_SEAT_NOT_FOUND)
 
                 // 예매 내역

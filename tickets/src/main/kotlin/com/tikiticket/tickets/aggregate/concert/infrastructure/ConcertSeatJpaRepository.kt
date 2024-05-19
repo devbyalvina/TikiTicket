@@ -9,7 +9,7 @@ interface ConcertSeatJpaRepository: JpaRepository<ConcertSeatEntity, Long> {
     /**
      *  콘서트 좌석 목록 조회
      */
-    fun findByConcertId(concertId: Long): List<ConcertSeatEntity>
+    fun findByConcertId(concertId: Long): List<ConcertSeatEntity>?
 
     /**
      *  콘서트 좌석 조회 For Update

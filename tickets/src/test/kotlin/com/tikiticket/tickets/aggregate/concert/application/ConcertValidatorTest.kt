@@ -26,7 +26,7 @@ class ConcertValidatorTest {
     fun `좌석목록이 empty면 예외가 발생한다`() {
         // Given
         val concert = mockk<Concert> {
-            every { seats } returns emptyList()
+            every { seats?.list } returns emptyList()
         }
 
         // When & Then
@@ -39,7 +39,7 @@ class ConcertValidatorTest {
     fun `좌석목록이 Null과 empty가 둘 다 아니면 예외가 발생하지 않는다`() {
         // Given
         val concert = mockk<Concert> {
-            every { seats } returns listOf(mockk())
+            every { seats?.list } returns listOf(mockk())
         }
 
         // When & Then
