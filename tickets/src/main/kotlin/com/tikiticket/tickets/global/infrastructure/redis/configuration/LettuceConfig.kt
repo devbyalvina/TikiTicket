@@ -3,7 +3,8 @@ package com.tikiticket.tickets.global.infrastructure.redis.configuration
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.tikiticket.tickets.aggregate.concert.domain.ConcertTest
+import com.fasterxml.jackson.module.kotlin.kotlinModule
+import com.tikiticket.tickets.aggregate.concert.domain.Concert
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
@@ -36,13 +37,13 @@ class LettuceConfig {
         return redisTemplate
     }
 
-    @Bean(name = arrayOf("redisCacheManager"))
+    @Bean(name = arrayOf("concertCacheManager"))
     fun cacheManager(connectionFactory: RedisConnectionFactory): CacheManager {
         val builder = RedisCacheManager.RedisCacheManagerBuilder
             .fromConnectionFactory(connectionFactory)
         val configuration = RedisCacheConfiguration.defaultCacheConfig()
             .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(StringRedisSerializer()))
-            .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(Jackson2JsonRedisSerializer(objectMapper(), ConcertTest::class.java)))
+            .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(Jackson2JsonRedisSerializer(objectMapper(), Concert::class.java)))
             .entryTtl(Duration.ofMinutes(30))
         builder.cacheDefaults(configuration)
         return builder.build()
@@ -53,6 +54,7 @@ class LettuceConfig {
         val objectMapper = ObjectMapper().apply {
             setSerializationInclusion(JsonInclude.Include.NON_NULL)
             registerModule(JavaTimeModule())
+            registerModule(kotlinModule())    // @JsonProperty 안 써도 되게 하는 코틀린 모듈
         }
         return objectMapper
     }
