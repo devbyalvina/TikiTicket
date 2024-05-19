@@ -7,6 +7,7 @@ import com.tikiticket.tickets.aggregate.booking.domain.Booking
 import com.tikiticket.tickets.aggregate.booking.domain.BookingService
 import com.tikiticket.tickets.aggregate.booking.domain.BookingStatusType
 import com.tikiticket.tickets.aggregate.concert.domain.ConcertService
+import com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -60,7 +61,6 @@ class MakePaymentUseCaseTest {
         val paymentService = mockk<com.tikiticket.tickets.aggregate.payment.domain.PaymentService>()
         val storedPayment = com.tikiticket.tickets.aggregate.payment.domain.Payment(
             id = 1L,
-            bookingId = bookingId,
             paymentMethod = com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType.BALANCE,
             paymentAmount = paidBooking.ticketPrice,
             payerId = payerId,
@@ -69,7 +69,7 @@ class MakePaymentUseCaseTest {
             createdAt = currentDateTime,
             updatedAt = currentDateTime
         )
-        every { paymentService.makePayment(bookingId, com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType.BALANCE, payerId, paidBooking.ticketPrice, any()) } returns storedPayment
+        every { paymentService.makePayment(PaymentMethodType.BALANCE, payerId, paidBooking.ticketPrice, any()) } returns storedPayment
 
         val makePaymentUseCase = MakePaymentUseCase(
             bookingService,
@@ -85,7 +85,7 @@ class MakePaymentUseCaseTest {
         verify(exactly = 1) { bookingService.changeBookingStatus(bookingId, BookingStatusType.PAID, any()) }
         verify(exactly = 1) { concertService.changeConcertSeatStatusWithPessimisticLock(paidBooking.seatId, paidBooking.concertId, any(), any()) }
         verify(exactly = 1) { balanceService.changeBalance(payerId, paidBooking.ticketPrice, TransactionType.PAY, any()) }
-        verify(exactly = 1) { paymentService.makePayment(bookingId, com.tikiticket.tickets.aggregate.payment.domain.PaymentMethodType.BALANCE, payerId, paidBooking.ticketPrice, any()) }
+        verify(exactly = 1) { paymentService.makePayment(PaymentMethodType.BALANCE, payerId, paidBooking.ticketPrice, any()) }
 
         Assertions.assertEquals(storedPayment, result)
     }

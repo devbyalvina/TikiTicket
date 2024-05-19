@@ -42,7 +42,6 @@ class PaymentControllerTest
 
         val payment = Payment(
             1L,
-            bookingId,
             PaymentMethodType.BALANCE,
             50000,
             userId,
@@ -66,7 +65,6 @@ class PaymentControllerTest
             .andDo(MockMvcResultHandlers.print())
             .andExpect(MockMvcResultMatchers.status().isOk)
             .andExpect(MockMvcResultMatchers.jsonPath("$.paymentId").value("1"))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.bookingId").value("1"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.paymentMethod").value("BALANCE"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.paymentAmount").value("50000"))
             .andExpect(MockMvcResultMatchers.jsonPath("$.payerId").value("testUser1"))

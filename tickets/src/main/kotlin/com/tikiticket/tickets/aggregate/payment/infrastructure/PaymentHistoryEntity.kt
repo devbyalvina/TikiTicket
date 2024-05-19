@@ -24,9 +24,6 @@ class PaymentHistoryEntity (
     @NotNull
     val paymentId: Long,
 
-    @NotNull
-    val bookingId: Long,
-
     @Enumerated(EnumType.STRING)
     @NotNull
     val paymentMethod: PaymentMethodType,
@@ -48,7 +45,6 @@ class PaymentHistoryEntity (
         return PaymentHistory(
             paymentHistoryId = this.paymentHistoryId,
             paymentId = this.paymentId,
-            bookingId = this.bookingId,
             paymentMethod = this.paymentMethod,
             paymentAmount = this.paymentAmount,
             payerId = this.payerId,
