@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  backend:
+    build: ../../../build/libs
+    ports:
+      - "9100:8080"
+    container_name: test-container
