@@ -42,11 +42,29 @@ class RedissonConfig{
     }
 
 
+//    private val redisServer: RedisServer =
+//        if (isArmMac()) {
+//            RedisServer(getPort(), redisForArmMac())
+//        } else {
+//            RedisServer(getPort())
+//        }
+
     private val redisServer: RedisServer =
         if (isArmMac()) {
-            RedisServer(getPort(), redisForArmMac())
+            RedisServer.newRedisServer()
+                .executableProvider { redisForArmMac() }
+                .port(getPort())
+                .setting("maxmemory 128M")
+                .setting("appendonly no")
+                .setting("daemonize no")
+                .build()
         } else {
-            RedisServer(getPort())
+            RedisServer.newRedisServer()
+                .port(getPort())
+                .setting("maxmemory 128M")
+                .setting("appendonly no")
+                .setting("daemonize no")
+                .build()
         }
 
     init {
