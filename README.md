@@ -17,8 +17,9 @@
 
 **기술적 고찰**
 
-[동시성 문제 해결하기](https://github.com/devbyalvina/TikiTicket/blob/main/docs/%EB%8F%99%EC%8B%9C%EC%84%B1%EB%AC%B8%EC%A0%9C.md)  
-[브랜치 전략](https://github.com/devbyalvina/TikiTicket/blob/main/docs/%EB%B8%8C%EB%9E%9C%EC%B9%98%EC%A0%84%EB%9E%B5.md)
+[1. 동시성 문제 해결](https://github.com/devbyalvina/TikiTicket/blob/main/docs/%EB%8F%99%EC%8B%9C%EC%84%B1%EB%AC%B8%EC%A0%9C.md)  
+[2. 서비스 규모 별 대기열 구현](https://github.com/devbyalvina/TikiTicket/blob/main/docs/%EB%8C%80%EA%B8%B0%EC%97%B4.md)  
+[3. 브랜치 전략](https://github.com/devbyalvina/TikiTicket/blob/main/docs/%EB%B8%8C%EB%9E%9C%EC%B9%98%EC%A0%84%EB%9E%B5.md)
 
 ---
 
