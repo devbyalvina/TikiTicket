@@ -17,6 +17,7 @@
 
 **기술적 고찰**
 
+[동시성 문제 해결하기](https://github.com/devbyalvina/TikiTicket/blob/main/docs/%EB%8F%99%EC%8B%9C%EC%84%B1%EB%AC%B8%EC%A0%9C.md)  
 [브랜치 전략](https://github.com/devbyalvina/TikiTicket/blob/main/docs/%EB%B8%8C%EB%9E%9C%EC%B9%98%EC%A0%84%EB%9E%B5.md)
 
 ---
